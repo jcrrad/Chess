@@ -1,15 +1,16 @@
 import java.awt.Color;
 
-public class Pawn extends Piece {
-	public Pawn(Color color, Square square) {
+public class Rook extends Piece {
+
+	public Rook(Color color, Square square) {
 		super(square);
-		this.name = "PAWN";
+		this.name = "ROOK";
 		this.color = color;
 	}
 
 	@Override
 	void move() {
 		// TODO Auto-generated method stub
-		
+
 	}
 }

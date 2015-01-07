@@ -1,9 +1,10 @@
 import java.awt.Color;
 
-public class Pawn extends Piece {
-	public Pawn(Color color, Square square) {
+public class Knight extends Piece {
+
+	public Knight(Color color, Square square) {
 		super(square);
-		this.name = "PAWN";
+		this.name = "KNIGHT";
 		this.color = color;
 	}
 
