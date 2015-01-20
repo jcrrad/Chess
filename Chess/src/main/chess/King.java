@@ -1,16 +1,17 @@
+package chess;
 import java.awt.Color;
 
-public class Rook extends Piece {
+public class King extends Piece {
 
-	public Rook(Color color, Square square) {
+	public King(Color color, Square square) {
 		super(square);
-		this.name = "ROOK";
+		this.name = "KING";
 		this.color = color;
 	}
 
 	@Override
 	void move() {
 		// TODO Auto-generated method stub
-
+		
 	}
 }

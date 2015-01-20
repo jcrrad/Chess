@@ -1,10 +1,11 @@
+package chess;
 import java.awt.Color;
 
-public class Bishop extends Piece {
+public class Queen extends Piece {
 
-	public Bishop(Color color, Square square) {
+	public Queen(Color color, Square square) {
 		super(square);
-		this.name = "BISHOP";
+		this.name = "QUEEN";
 		this.color = color;
 	}
 
