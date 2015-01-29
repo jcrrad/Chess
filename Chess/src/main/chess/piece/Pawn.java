@@ -1,5 +1,7 @@
-package chess;
+package chess.piece;
 import java.awt.Color;
+
+import chess.userinterface.Square;
 
 public class Pawn extends Piece {
 	public Pawn(Color color, Square square) {

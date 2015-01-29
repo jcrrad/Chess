@@ -1,8 +1,15 @@
-package chess;
+package chess.userinterface;
 import java.awt.Color;
 import java.awt.GridLayout;
 
 import javax.swing.JPanel;
+
+import chess.piece.Bishop;
+import chess.piece.King;
+import chess.piece.Knight;
+import chess.piece.Pawn;
+import chess.piece.Queen;
+import chess.piece.Rook;
 
 public class Board extends JPanel {
 	Square[][] squares = new Square[8][8];

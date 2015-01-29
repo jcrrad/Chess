@@ -1,4 +1,6 @@
-package chess;
+package chess.piece;
+
+import chess.piece.Pawn;
 
 /**
  * Base test class for {@link Pawn}

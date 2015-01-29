@@ -1,5 +1,7 @@
-package chess;
+package chess.piece;
 import java.awt.Color;
+
+import chess.userinterface.Square;
 
 public abstract class Piece {
 

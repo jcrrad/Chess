@@ -1,4 +1,4 @@
-package chess;
+package chess.userinterface;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -6,6 +6,8 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
+import chess.piece.Piece;
 
 public class Square extends JButton implements ActionListener {
 	Piece piece;
