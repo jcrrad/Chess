@@ -1,4 +1,4 @@
-package chess;
+package chess.userinterface;
 import java.awt.GridLayout;
 
 import javax.swing.JFrame;

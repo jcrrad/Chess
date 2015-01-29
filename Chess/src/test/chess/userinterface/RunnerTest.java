@@ -1,4 +1,6 @@
-package chess;
+package chess.userinterface;
+
+import chess.userinterface.Runner;
 
 /**
  * Base test class for {@link Runner}
