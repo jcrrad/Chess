@@ -22,7 +22,6 @@ Chess:
 
 
 Due date:
-1/27/2015   Requirement Document  (Draft)
 2/08/2015   Requirement Document  (Baseline)
             Design Documnet       
 2/26/2015   Test Case Document
