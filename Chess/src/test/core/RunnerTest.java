@@ -1,6 +1,6 @@
-package gui;
+package core;
 
-import gui.Runner;
+import core.Runner;
 
 /**
  * Base test class for {@link Runner}
