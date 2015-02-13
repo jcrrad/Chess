@@ -1,4 +1,5 @@
 package gui;
+
 import gui.piece.Piece;
 
 import java.awt.Color;

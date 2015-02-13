@@ -11,10 +11,10 @@ import java.awt.GridLayout;
 
 import javax.swing.JPanel;
 
-public class Board extends JPanel {
+public class BoardPanel extends JPanel {
 	Square[][] squares = new Square[8][8];
 
-	public Board() {
+	public BoardPanel() {
 		this.setLayout(new GridLayout(8, 8));
 		for (int y = 0; y < 8; y++)
 			for (int x = 0; x < 8; x++) {
