@@ -1,9 +1,9 @@
 package gui;
 
-import gui.Board;
+import gui.BoardPanel;
 
 /**
- * Base test class for {@link Board}
+ * Base test class for {@link BoardPanel}
  * @author Brisbin
  *
  */
