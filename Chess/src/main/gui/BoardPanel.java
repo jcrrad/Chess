@@ -1,4 +1,5 @@
 package gui;
+
 import gui.piece.Bishop;
 import gui.piece.King;
 import gui.piece.Knight;
@@ -12,6 +13,11 @@ import java.awt.GridLayout;
 import javax.swing.JPanel;
 
 public class BoardPanel extends JPanel {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1700922085295001317L;
 	Square[][] squares = new Square[8][8];
 
 	public BoardPanel() {

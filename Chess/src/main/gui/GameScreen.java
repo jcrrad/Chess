@@ -2,6 +2,8 @@ package gui;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JPanel;
 
@@ -9,9 +11,13 @@ public class GameScreen extends JPanel {
 
 	BoardPanel board = new BoardPanel();
 	TabbedPanel chat = new TabbedPanel();
-	ButtonPanel buttonPanel = new ButtonPanel();
+	ButtonPanel buttonPanel;
+	View parentView;
 
-	public GameScreen() {
+	public GameScreen(View parent) {
+		super();
+		parentView = parent;
+		buttonPanel = new ButtonPanel(parent);
 		setLayout(new GridBagLayout());
 		GridBagConstraints gbc_board = new GridBagConstraints();
 		gbc_board.fill = GridBagConstraints.BOTH;
@@ -31,6 +37,7 @@ public class GameScreen extends JPanel {
 		gbc_buttonPanel.weighty = 1.0;
 		this.add(buttonPanel, gbc_buttonPanel);
 
+	
 	}
 
 	/**

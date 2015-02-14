@@ -1,9 +1,9 @@
 package gui;
 
-import javax.swing.JButton;
+import java.awt.GridLayout;
+
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
-import java.awt.GridLayout;
 
 public class TabbedPanel extends JPanel {
 	private final JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);

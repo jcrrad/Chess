@@ -8,9 +8,12 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 
 public class Square extends JButton implements ActionListener {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2617862454207390583L;
 	Piece piece;
 	Color color;
 	int row, column;

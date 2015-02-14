@@ -1,11 +1,15 @@
 package gui;
 
-import javax.swing.*;
-import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
-import java.awt.Insets;
+import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+
+import javax.swing.JButton;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 public class ChatPanel extends JPanel {
 
@@ -13,8 +17,10 @@ public class ChatPanel extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	View parentView;
 
-	public ChatPanel() {
+	public ChatPanel(View parent) {
+		parentView = parent;
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[] { 450, 0 };
 		gridBagLayout.rowHeights = new int[] { 150, 150, 0 };
@@ -52,6 +58,15 @@ public class ChatPanel extends JPanel {
 		button_gbc.weighty = 1;
 		button_gbc.gridwidth = GridBagConstraints.REMAINDER;
 		this.add(button, button_gbc);
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				send();
+			}
+		});
 
+	}
+
+	public void send() {
+		parentView.sendMessage();
 	}
 }
