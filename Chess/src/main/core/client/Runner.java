@@ -1,4 +1,4 @@
-package core;
+package core.client;
 
 import gui.View;
 
