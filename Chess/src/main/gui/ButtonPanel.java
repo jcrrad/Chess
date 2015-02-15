@@ -7,6 +7,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class ButtonPanel extends JPanel {
@@ -51,7 +52,9 @@ public class ButtonPanel extends JPanel {
 	}
 
 	public void quitGame() {
-		parentView.kill();
+		if (JOptionPane.showConfirmDialog(null, "Are you sure you want to quit the game?", "WARNING",
+				JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
+			parentView.goToLogin();
 	}
 
 	public void offerStalemate() {

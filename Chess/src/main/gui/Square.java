@@ -17,7 +17,7 @@ public class Square extends JButton implements ActionListener {
 	Piece piece;
 	Color color;
 	int row, column;
-	JLabel label;
+	private static Piece movingPiece = null;
 
 	public Square(int x, int y, Color color) {
 		this.row = x;
@@ -53,12 +53,33 @@ public class Square extends JButton implements ActionListener {
 		this.column = column;
 	}
 
-	public void onClick(ActionEvent arg0) {
+	public Piece removePiece() {
+		Piece temp = piece;
+		piece = null;
+		System.out.println(temp);
+		return temp;
+	}
+
+	public void placePiece(Piece newPiece) {
+		piece = newPiece;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		System.out.println(piece.toString());
+		// clicked on, player is trying to move a piece.
 
+		if (movingPiece != null) {
+			movingPiece = removePiece();
+			System.out.println(movingPiece.toString());
+		} else {
+			if (piece == null)
+				placePiece(movingPiece);
+		}
+		if (piece == null)
+			this.setText("");
+		else
+			this.setText(piece.getName());
+		invalidate();
+		System.out.println(piece.toString());
 	}
 }

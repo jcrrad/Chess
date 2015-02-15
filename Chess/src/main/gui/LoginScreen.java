@@ -20,11 +20,16 @@ public class LoginScreen extends JPanel {
 	private static final long serialVersionUID = 1L;
 	View parentView;
 
+	JTextField input = new JTextField();
+	JLabel username = new JLabel("What is your username?");
+	JLabel welcome = new JLabel("Welcome to Chess");
+	JButton connectButton = new JButton("Connect");
+	JButton about = new JButton("About");
+
 	public LoginScreen(View parent) {
 		parentView = parent;
 		setLayout(new GridBagLayout());
 
-		JLabel welcome = new JLabel("Welcome to Chess");
 		welcome.setHorizontalAlignment(SwingConstants.CENTER);
 		welcome.setLabelFor(this);
 		GridBagConstraints gbc_welcome = new GridBagConstraints();
@@ -34,7 +39,6 @@ public class LoginScreen extends JPanel {
 		gbc_welcome.gridy = 0;
 		this.add(welcome, gbc_welcome);
 
-		JLabel username = new JLabel("What is your username?");
 		username.setHorizontalAlignment(SwingConstants.CENTER);
 		GridBagConstraints gbc_username = new GridBagConstraints();
 		gbc_username.insets = new Insets(0, 0, 5, 5);
@@ -44,7 +48,6 @@ public class LoginScreen extends JPanel {
 		gbc_username.gridy = 1;
 		this.add(username, gbc_username);
 
-		JTextField input = new JTextField();
 		GridBagConstraints gbc_input = new GridBagConstraints();
 		gbc_input.insets = new Insets(0, 0, 5, 5);
 		gbc_input.fill = GridBagConstraints.HORIZONTAL;
@@ -52,7 +55,6 @@ public class LoginScreen extends JPanel {
 		gbc_input.gridy = 2;
 		this.add(input, gbc_input);
 
-		JButton connectButton = new JButton("Connect");
 		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
 		gbc_btnNewButton.insets = new Insets(0, 0, 5, 5);
 		gbc_btnNewButton.anchor = GridBagConstraints.NORTH;
@@ -61,7 +63,6 @@ public class LoginScreen extends JPanel {
 		gbc_btnNewButton.gridy = 3;
 		add(connectButton, gbc_btnNewButton);
 
-		JButton about = new JButton("About");
 		GridBagConstraints gbc_about = new GridBagConstraints();
 		gbc_about.insets = new Insets(0, 0, 0, 5);
 		gbc_about.gridx = 0;
@@ -93,18 +94,15 @@ public class LoginScreen extends JPanel {
 	}
 
 	public void quit() {
-		// TODO kill everything
 		parentView.kill();
 	}
 
 	public void aboutScreen() {
-		// TODO go to About Screen
 		parentView.goToAbout();
 	}
 
 	public void connect() {
-		parentView.goToLoading();
-
 		// TODO Connect for now will just go to loading screen
+		parentView.goToLoading();
 	}
 }

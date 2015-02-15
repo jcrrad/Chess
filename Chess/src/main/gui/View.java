@@ -45,7 +45,8 @@ public class View extends JFrame {
 		cards.add(loading, "loading");
 		cards.add(login, "login");
 		cards.add(gameScreen, "game");
-		goToLogin();
+		// goToLogin();
+		goToGame();
 	}
 
 	public void goToGame() {
@@ -73,6 +74,7 @@ public class View extends JFrame {
 
 	public void kill() {
 		// TODO KILL EVERYTHING
+		this.dispose();
 
 	}
 

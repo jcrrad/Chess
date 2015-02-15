@@ -19,8 +19,10 @@ public class BoardPanel extends JPanel {
 	 */
 	private static final long serialVersionUID = -1700922085295001317L;
 	Square[][] squares = new Square[8][8];
+	View parentView;
 
-	public BoardPanel() {
+	public BoardPanel(View parent) {
+		parentView = parent;
 		this.setLayout(new GridLayout(8, 8));
 		for (int y = 0; y < 8; y++)
 			for (int x = 0; x < 8; x++) {

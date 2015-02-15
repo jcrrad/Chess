@@ -9,15 +9,18 @@ import javax.swing.JPanel;
 
 public class GameScreen extends JPanel {
 
-	BoardPanel board = new BoardPanel();
-	TabbedPanel chat = new TabbedPanel();
+	BoardPanel board;
+	TabbedPanel chat;
 	ButtonPanel buttonPanel;
 	View parentView;
 
+	// TODO add clock Section
 	public GameScreen(View parent) {
 		super();
 		parentView = parent;
 		buttonPanel = new ButtonPanel(parent);
+		chat = new TabbedPanel(parent);
+		board = new BoardPanel(parent);
 		setLayout(new GridBagLayout());
 		GridBagConstraints gbc_board = new GridBagConstraints();
 		gbc_board.fill = GridBagConstraints.BOTH;
@@ -37,7 +40,6 @@ public class GameScreen extends JPanel {
 		gbc_buttonPanel.weighty = 1.0;
 		this.add(buttonPanel, gbc_buttonPanel);
 
-	
 	}
 
 	/**
