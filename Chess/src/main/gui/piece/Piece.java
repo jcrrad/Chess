@@ -1,4 +1,5 @@
 package gui.piece;
+
 import gui.Square;
 
 import java.awt.Color;
@@ -8,7 +9,7 @@ public abstract class Piece {
 	String name;
 	Color color;
 	Square square;
-	
+
 	abstract boolean rule(int x, int y);
 
 	public Piece(Square square) {

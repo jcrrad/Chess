@@ -1,4 +1,5 @@
 package gui;
+
 import gui.piece.Bishop;
 import gui.piece.King;
 import gui.piece.Knight;
@@ -12,14 +13,21 @@ import java.awt.GridLayout;
 import javax.swing.JPanel;
 
 public class BoardPanel extends JPanel {
-	Square[][] squares = new Square[8][8];
 
-	public BoardPanel() {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1700922085295001317L;
+	Square[][] squares = new Square[8][8];
+	View parentView;
+
+	public BoardPanel(View parent) {
+		parentView = parent;
 		this.setLayout(new GridLayout(8, 8));
 		for (int y = 0; y < 8; y++)
 			for (int x = 0; x < 8; x++) {
 				Color color;
-				if (((x + y) & 1) == 1)
+				if ((x + y) % 2 == 1)
 					color = new Color(139, 69, 19);
 				else
 					color = new Color(245, 222, 189);

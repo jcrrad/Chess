@@ -2,16 +2,25 @@ package gui;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JPanel;
 
 public class GameScreen extends JPanel {
 
-	BoardPanel board = new BoardPanel();
-	TabbedPanel chat = new TabbedPanel();
-	ButtonPanel buttonPanel = new ButtonPanel();
+	BoardPanel board;
+	TabbedPanel chat;
+	ButtonPanel buttonPanel;
+	View parentView;
 
-	public GameScreen() {
+	// TODO add clock Section
+	public GameScreen(View parent) {
+		super();
+		parentView = parent;
+		buttonPanel = new ButtonPanel(parent);
+		chat = new TabbedPanel(parent);
+		board = new BoardPanel(parent);
 		setLayout(new GridBagLayout());
 		GridBagConstraints gbc_board = new GridBagConstraints();
 		gbc_board.fill = GridBagConstraints.BOTH;
