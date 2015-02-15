@@ -19,7 +19,7 @@ public class BoardPanel extends JPanel {
 		for (int y = 0; y < 8; y++)
 			for (int x = 0; x < 8; x++) {
 				Color color;
-				if ((x + y) % 2 == 1)
+				if (((x + y) & 1) == 1)
 					color = new Color(139, 69, 19);
 				else
 					color = new Color(245, 222, 189);
