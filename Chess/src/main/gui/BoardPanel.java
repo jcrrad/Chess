@@ -1,16 +1,16 @@
 package gui;
 
-import gui.piece.Bishop;
-import gui.piece.King;
-import gui.piece.Knight;
-import gui.piece.Pawn;
-import gui.piece.Queen;
-import gui.piece.Rook;
-
 import java.awt.Color;
 import java.awt.GridLayout;
 
 import javax.swing.JPanel;
+
+import controller.piece.Bishop;
+import controller.piece.King;
+import controller.piece.Knight;
+import controller.piece.Pawn;
+import controller.piece.Queen;
+import controller.piece.Rook;
 
 public class BoardPanel extends JPanel {
 

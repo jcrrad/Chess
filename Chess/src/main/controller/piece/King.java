@@ -1,20 +1,20 @@
-package gui.piece;
+package controller.piece;
 import gui.Square;
 
 import java.awt.Color;
 
-public class Bishop extends Piece {
+public class King extends Piece {
 
-	public Bishop(Color color, Square square) {
+	public King(Color color, Square square) {
 		super(square);
-		this.name = "BISHOP";
+		this.name = "KING";
 		this.color = color;
 	}
 
 	@Override
 	void move() {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override

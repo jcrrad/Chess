@@ -1,4 +1,4 @@
-package gui.piece;
+package controller.piece;
 
 import gui.Square;
 
@@ -40,6 +40,11 @@ public abstract class Piece {
 
 	public String toString() {
 		return name + "\t" + color + "\t" + square.getColumn() + "," + square.getRow();
+	}
+
+	public boolean canMove(Square square2) {
+		// TODO check if peice can move to new square
+		return true;
 	}
 
 }

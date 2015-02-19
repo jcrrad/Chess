@@ -1,6 +1,6 @@
-package gui.piece;
+package controller.piece;
 
-import gui.piece.Bishop;
+import controller.piece.Bishop;
 
 /**
  * Base test class for {@link Bishop}

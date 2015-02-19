@@ -1,6 +1,6 @@
-package gui.piece;
+package controller.piece;
 
-import gui.piece.Pawn;
+import controller.piece.Pawn;
 
 /**
  * Base test class for {@link Pawn}

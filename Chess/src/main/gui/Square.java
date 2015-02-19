@@ -1,12 +1,12 @@
 package gui;
 
-import gui.piece.Piece;
-
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+
+import controller.piece.Piece;
 
 public class Square extends JButton implements ActionListener {
 	/**
@@ -55,36 +55,35 @@ public class Square extends JButton implements ActionListener {
 	public Piece removePiece() {
 		Piece temp = piece;
 		piece = null;
-		System.out.println(temp);
 		return temp;
 	}
 
 	public void placePiece(Piece newPiece) {
 		piece = newPiece;
+		piece.setSquare(this);
+		newPiece = null;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// clicked on, player is trying to move a piece.
-		try{
-			if (movingPiece != null) {
-				movingPiece = removePiece();
-				System.out.println(movingPiece.toString());
-			} else {
-				if (piece == null)
-					placePiece(movingPiece);
-			}
+		if (movingPiece == null) {// state 0 need to pick up piece
+			movingPiece = removePiece();
+			System.out.println("Piece picked up" + movingPiece.toString());
+		} else {// state 1 piece has been selected
+
 			if (piece == null)
-				this.setText("");
-			else
-				this.setText(piece.getName());
-			invalidate();
-			System.out.println(piece.toString());
+				if (movingPiece.canMove(this)) {
+					placePiece(movingPiece);
+					movingPiece = null;
+				}
 		}
-		catch(NullPointerException npe)
-		{
-			//TODO: Catching the NPE if a square without a piece is clicked
-			// We don't necessarily need to do anything with it but this is so it doesn't print the stacktrace
+		if (piece == null) {
+			this.setText("");
+		} else {
+			this.setText(piece.getName());
+			this.setForeground(piece.getColor());
 		}
+		this.invalidate();
 	}
 }

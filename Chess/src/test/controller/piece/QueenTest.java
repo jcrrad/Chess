@@ -1,6 +1,6 @@
-package gui.piece;
+package controller.piece;
 
-import gui.piece.Queen;
+import controller.piece.Queen;
 
 /**
  * Base test class for {@link Queen}
