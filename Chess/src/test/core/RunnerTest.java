@@ -1,6 +1,6 @@
 package core;
 
-import core.Runner;
+import core.client.Runner;
 
 /**
  * Base test class for {@link Runner}

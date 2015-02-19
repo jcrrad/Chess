@@ -45,8 +45,8 @@ public class View extends JFrame {
 		cards.add(loading, "loading");
 		cards.add(login, "login");
 		cards.add(gameScreen, "game");
-		// goToLogin();
-		goToGame();
+		goToLogin();
+		//goToGame();
 	}
 
 	public void goToGame() {

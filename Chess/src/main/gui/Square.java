@@ -66,19 +66,25 @@ public class Square extends JButton implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// clicked on, player is trying to move a piece.
-
-		if (movingPiece != null) {
-			movingPiece = removePiece();
-			System.out.println(movingPiece.toString());
-		} else {
+		try{
+			if (movingPiece != null) {
+				movingPiece = removePiece();
+				System.out.println(movingPiece.toString());
+			} else {
+				if (piece == null)
+					placePiece(movingPiece);
+			}
 			if (piece == null)
-				placePiece(movingPiece);
+				this.setText("");
+			else
+				this.setText(piece.getName());
+			invalidate();
+			System.out.println(piece.toString());
 		}
-		if (piece == null)
-			this.setText("");
-		else
-			this.setText(piece.getName());
-		invalidate();
-		System.out.println(piece.toString());
+		catch(NullPointerException npe)
+		{
+			//TODO: Catching the NPE if a square without a piece is clicked
+			// We don't necessarily need to do anything with it but this is so it doesn't print the stacktrace
+		}
 	}
 }
