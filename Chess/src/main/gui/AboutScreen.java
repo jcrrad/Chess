@@ -25,6 +25,5 @@ public class AboutScreen extends JPanel {
 
 	private void goBack() {
 		parentView.goToLogin();
-
 	}
 }

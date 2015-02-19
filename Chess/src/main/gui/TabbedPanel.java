@@ -5,6 +5,8 @@ import java.awt.GridLayout;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
+import controller.GameWindowController;
+
 public class TabbedPanel extends JPanel {
 	private final JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 	ChatPanel chatSection;
@@ -13,14 +15,12 @@ public class TabbedPanel extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	View parentView;
 
-	public TabbedPanel(View parent) {
-		parentView = parent;
+	public TabbedPanel(GameWindowController gameWindowController) {
 		setLayout(new GridLayout(0, 1, 0, 0));
 
 		this.add(tabbedPane);
-		tabbedPane.add("Chat", chatSection = new ChatPanel(parentView));
+		tabbedPane.add("Chat", chatSection = new ChatPanel(gameWindowController));
 		tabbedPane.add("Record", recordSection);
 	}
 }
