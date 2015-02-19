@@ -6,84 +6,85 @@ import java.util.concurrent.locks.ReentrantLock;
 import java.util.Date;
 
 public class Sommelier implements Runnable {
-
-	private ReentrantLock lock;
-	private ArrayList<ServerClient> readyList;
-	private LinkedList<ServerClient> pool;
+	
+	private Pool pool;
 	private java.util.Date date;
+	private ArrayList<ServerClient> waitList;
+	private ArrayList<GameServer> games;
 
-	public Sommelier()
+	public Sommelier(Pool pool)
 	{
-		this.readyList = new ArrayList<ServerClient>();
-		this.lock = new ReentrantLock();
-		this.pool = new LinkedList<ServerClient>();
-
+		this.pool = pool;
 		date= new java.util.Date();
+		waitList = new ArrayList<ServerClient>();
+		games = new ArrayList<GameServer>();
 	}
 	
 	@Override
 	public void run() {
-		//Pairing needs to be done here.
+		Pair pair = null;
+		GameServer game = null;
 		while(true)
 		{
-			//System.out.println(readyList.size());
-			if (this.readyList.size() > 1 )
+			if (this.pool.getPoolSize() > 1)
 			{
-				System.out.println("Start analysis of readylist");
-				this.lock.lock();
-				try
-				{
-					for (int i = this.readyList.size(); i > 0; --i)
-					{
-						System.out.println("Removing from readylist");
-						pool.add(this.readyList.remove(0));
-					}
-				}
-				finally
-				{
-					this.lock.unlock();
-				}
+				pair = this.pool.getPair();
+				game = new GameServer(pair);
+				games.add(game);
+				new Thread(game).start();
 			}
-			//Take two off the queue and pair them.
-			if ( this.pool.size() > 1 )
+			else
 			{
-				System.out.println("Start pairing");
-				pair();
+				waitForWork();
 			}
 		}
 	}
 	
-	private void pair() 
+	private synchronized void flushWaitList() 
 	{
-		ServerClient c1 = this.pool.remove(0);
-		ServerClient c2 = this.pool.remove(0);
-		System.out.println("Creating game server.");
-		System.out.println(date.getTime() + " : Client 1 IP: " + c1.getIPAddress());
-		System.out.println(date.getTime() + " : Client 2 IP: " + c2.getIPAddress());
-		c1.send("Bye.");
-		c2.send("Bye.");
-		c1.disconnect();
-		c2.disconnect();
+		System.out.println("Consoladating waitList");
+		System.out.println(waitList.size());
+		for(ServerClient c : this.waitList)
+		{
+			System.out.println("Adding to pool");
+			// Inspect if this client was already in a previous game.
+			this.pool.add(c);
+		}
+		this.waitList.clear();
 	}
+
+	private synchronized void waitForWork()
+	{
+		// Putting this check here makes sure that a client can't register
+		// while we are checking the size, this eliminates the possibility of a 
+		// client registering after we check size but not got to this method
+		if(this.waitList.size() > 1 )
+		{
+			flushWaitList();
+		}
+		else
+		{
+			System.out.println("waiting for work.");
+			try {
+				wait();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
 	/**
 	 * @param client
-	 * Adds clients that recently connected to a list for pairing.
+	 * Adds clients to a waitlist, and initializes pairing if waitlist is greater than 1
 	 */
-	public void register(ServerClient client) 
+	public synchronized void register(ServerClient client) 
 	{
-		lock.lock();
-		try
+		//adds a client to the ready list
+		System.out.println("Adding client to the readylist. (IP: " + client.getIPAddress() + ")");
+		this.waitList.add(client);
+		if( this.waitList.size() > 2)
 		{
-			System.out.println("Adding client to the readylist. (IP: " + client.getIPAddress() + ")");
-			this.readyList.add(client);
-			System.out.println(readyList.size());
-		} 
-		finally
-		{
-			lock.unlock();
+			notifyAll();
 		}
 	}
-	
-	
-
 }

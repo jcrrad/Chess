@@ -29,12 +29,8 @@ public class ServerClient {
 		this.out.println(msg);
 	}
 
-	public void disconnect() 
+	public void disconnect() throws IOException 
 	{
-		try {
-			this.socket.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		this.socket.close();
 	}
 }
