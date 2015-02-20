@@ -8,6 +8,11 @@ public class ConnectionController
 	private View view;
 	private Model model;
 	
+	public ConnectionController(Model model)
+	{
+		this.model = model;
+	}
+	
 	public void connect() 
 	{
 		//TODO: This is where we will make a call to the model to connect to the server
@@ -21,10 +26,11 @@ public class ConnectionController
 		view.dispose();
 	}
 	
-	public ConnectionController(Model model)
-	{
-		this.model = model;
-	}
+	////////////////////////////////////
+	//
+	// Getters & Setters
+	//
+	////////////////////////////////////
 	
 	public View getView() 
 	{

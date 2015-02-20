@@ -10,11 +10,27 @@ public abstract class Piece {
 	Color color;
 	Square square;
 
+	////////////////////////////////////
+	
 	abstract boolean rule(int x, int y);
 
+	abstract void move();
+	
+	////////////////////////////////////
+	
 	public Piece(Square square) {
 		this.square = square;
 	}
+
+	public String toString() {
+		return name + "\t" + color + "\t" + square.getColumn() + "," + square.getRow();
+	}
+	
+	////////////////////////////////////
+	//
+	// Getters & Setters
+	//
+	////////////////////////////////////
 
 	public String getName() {
 		return name;
@@ -34,12 +50,6 @@ public abstract class Piece {
 
 	public Color getColor() {
 		return color;
-	}
-
-	abstract void move();
-
-	public String toString() {
-		return name + "\t" + color + "\t" + square.getColumn() + "," + square.getRow();
 	}
 
 }

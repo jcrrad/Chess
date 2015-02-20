@@ -8,6 +8,11 @@ public class GameWindowController
 	private View view;
 	private Model model;
 
+	public GameWindowController(Model model)
+	{
+		this.model = model;
+	}
+	
 	public void sendMessage(String text) 
 	{
 		/*TODO: This will be the method to send messages out to the server, this controller will
@@ -36,10 +41,11 @@ public class GameWindowController
 		view.dispose();
 	}
 	
-	public GameWindowController(Model model)
-	{
-		this.model = model;
-	}
+	////////////////////////////////////
+	//
+	// Getters & Setters
+	//
+	////////////////////////////////////
 	
 	public View getView() 
 	{
