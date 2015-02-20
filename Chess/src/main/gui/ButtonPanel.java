@@ -10,6 +10,8 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import controller.GameWindowController;
+
 public class ButtonPanel extends JPanel {
 
 	/**
@@ -18,10 +20,10 @@ public class ButtonPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	JButton quit = new JButton("Quit");
 	JButton stalemate = new JButton("Offer Stalemate");
-	View parentView;
+	GameWindowController controller;
 
-	public ButtonPanel(View parent) {
-		parentView = parent;
+	public ButtonPanel(GameWindowController controller) {
+		this.controller = controller;
 		this.setLayout(new GridLayout(0, 4, 0, 0));
 		this.add(quit);
 		this.add(stalemate);
@@ -48,16 +50,16 @@ public class ButtonPanel extends JPanel {
 	}
 
 	public void kill() {
-		parentView.kill();
+		controller.killWindow();
 	}
 
 	public void quitGame() {
 		if (JOptionPane.showConfirmDialog(null, "Are you sure you want to quit the game?", "WARNING",
 				JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
-			parentView.goToLogin();
+			controller.handleQuit();
 	}
 
 	public void offerStalemate() {
-		parentView.offerStalemate();
+		controller.offerStalemate();
 	}
 }

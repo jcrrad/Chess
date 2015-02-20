@@ -12,6 +12,7 @@ public class RecordPanel extends JPanel {
 	 */
 	private static final long serialVersionUID = -8787229184202768459L;
 
+	//TODO: JEFF - make scrollable
 	public RecordPanel() {
 
 		setLayout(new GridLayout(1, 1, 0, 0));

@@ -1,13 +1,16 @@
 package gui;
 
 import java.awt.CardLayout;
-import java.awt.Component;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 
-public class View extends JFrame {
+import controller.ConnectionController;
+import controller.GameWindowController;
+
+public class View extends JFrame 
+{
 	/**
 	 * 
 	 */
@@ -18,11 +21,17 @@ public class View extends JFrame {
 	LoadingScreen loading;
 	AboutScreen about;
 	CardLayout cardLayout;
+	GameWindowController gameWindowController;
+	ConnectionController connectionController;
 
-	public View() {
+	public View(GameWindowController gameWindowController, ConnectionController connectionController) 
+	{
 		super("Chess");
-		gameScreen = new GameScreen(this);
-		login = new LoginScreen(this);
+		this.gameWindowController = gameWindowController;
+		this.connectionController = connectionController;
+		
+		gameScreen = new GameScreen(gameWindowController);
+		login = new LoginScreen(this, connectionController);
 		loading = new LoadingScreen(this);
 		about = new AboutScreen(this);
 		try {
@@ -49,42 +58,36 @@ public class View extends JFrame {
 		//goToGame();
 	}
 
-	public void goToGame() {
+	public void goToGame() 
+	{
 		System.out.println("Game");
 		cardLayout.show(cards, "game");
 	}
 
-	public void goToLogin() {
+	public void goToLogin() 
+	{
 		System.out.println("Login");
 		cardLayout.show(cards, "login");
 	}
 
-	public void goToLoading() {
+	public void goToLoading() 
+	{
 		System.out.println("Loading");
 		cardLayout.show(cards, "loading");
 		goToGame();
 
 	}
 
-	public void goToAbout() {
+	public void goToAbout() 
+	{
 		System.out.println("About");
 		cardLayout.show(cards, "about");
-
 	}
 
-	public void kill() {
+	public void kill() 
+	{
 		// TODO KILL EVERYTHING
 		this.dispose();
-
-	}
-
-	public void offerStalemate() {
-		// TODO Offer opponent stalemate
-
-	}
-
-	public void sendMessage() {
-		// TODO send Message
 
 	}
 }

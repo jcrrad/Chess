@@ -12,6 +12,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import controller.ConnectionController;
+
 public class LoginScreen extends JPanel {
 
 	/**
@@ -25,8 +27,9 @@ public class LoginScreen extends JPanel {
 	JLabel welcome = new JLabel("Welcome to Chess");
 	JButton connectButton = new JButton("Connect");
 	JButton about = new JButton("About");
+	
 
-	public LoginScreen(View parent) {
+	public LoginScreen(View parent, final ConnectionController connectionController) {
 		parentView = parent;
 		setLayout(new GridBagLayout());
 
@@ -88,7 +91,7 @@ public class LoginScreen extends JPanel {
 		});
 		connectButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				connect();
+				connectionController.connect();
 			}
 		});
 	}
@@ -99,10 +102,5 @@ public class LoginScreen extends JPanel {
 
 	public void aboutScreen() {
 		parentView.goToAbout();
-	}
-
-	public void connect() {
-		// TODO Connect for now will just go to loading screen
-		parentView.goToLoading();
 	}
 }

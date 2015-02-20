@@ -7,20 +7,20 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JPanel;
 
+import controller.GameWindowController;
+
 public class GameScreen extends JPanel {
 
 	BoardPanel board;
 	TabbedPanel chat;
 	ButtonPanel buttonPanel;
-	View parentView;
 
 	// TODO add clock Section
-	public GameScreen(View parent) {
+	public GameScreen(GameWindowController gameWindowController) {
 		super();
-		parentView = parent;
-		buttonPanel = new ButtonPanel(parent);
-		chat = new TabbedPanel(parent);
-		board = new BoardPanel(parent);
+		buttonPanel = new ButtonPanel(gameWindowController);
+		chat = new TabbedPanel(gameWindowController);
+		board = new BoardPanel(gameWindowController);
 		setLayout(new GridBagLayout());
 		GridBagConstraints gbc_board = new GridBagConstraints();
 		gbc_board.fill = GridBagConstraints.BOTH;
