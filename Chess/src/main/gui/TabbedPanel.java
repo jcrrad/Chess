@@ -1,24 +1,26 @@
 package gui;
 
-import javax.swing.JButton;
+import java.awt.GridLayout;
+
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
-import java.awt.GridLayout;
+
+import controller.GameWindowController;
 
 public class TabbedPanel extends JPanel {
 	private final JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-	ChatPanel chatSection = new ChatPanel();
+	ChatPanel chatSection;
 	RecordPanel recordSection = new RecordPanel();
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public TabbedPanel() {
+	public TabbedPanel(GameWindowController gameWindowController) {
 		setLayout(new GridLayout(0, 1, 0, 0));
 
 		this.add(tabbedPane);
-		tabbedPane.add("Chat", chatSection);
+		tabbedPane.add("Chat", chatSection = new ChatPanel(gameWindowController));
 		tabbedPane.add("Record", recordSection);
 	}
 }
