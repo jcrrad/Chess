@@ -10,8 +10,6 @@ public abstract class Piece {
 	Color color;
 	Square square;
 
-	abstract boolean rule(int x, int y);
-
 	public Piece(Square square) {
 		this.square = square;
 	}
@@ -36,15 +34,9 @@ public abstract class Piece {
 		return color;
 	}
 
-	abstract void move();
-
 	public String toString() {
 		return name + "\t" + color + "\t" + square.getColumn() + "," + square.getRow();
 	}
 
-	public boolean canMove(Square square2) {
-		// TODO check if peice can move to new square
-		return true;
-	}
-
+	public abstract boolean canMove(Square square2);
 }

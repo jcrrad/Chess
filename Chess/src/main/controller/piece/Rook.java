@@ -1,4 +1,5 @@
 package controller.piece;
+
 import gui.Square;
 
 import java.awt.Color;
@@ -11,15 +12,12 @@ public class Rook extends Piece {
 		this.color = color;
 	}
 
-	@Override
-	void move() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	boolean rule(int x, int y) {
-		// TODO Auto-generated method stub
+	public boolean canMove(Square square2) { // same row (rook movement)
+		if (this.getSquare().getX() == square2.getX())
+			return true;
+		// same column (rook movement)
+		if (this.getSquare().getY() == square2.getY())
+			return true;
 		return false;
 	}
 }
