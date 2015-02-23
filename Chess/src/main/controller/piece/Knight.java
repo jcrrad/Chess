@@ -14,7 +14,12 @@ public class Knight extends Piece {
 
 	@Override
 	public boolean canMove(Square square2) {
-		// TODO Auto-generated method stub
+		int xDiff = Math.abs(square.getColumn() - square2.getColumn());
+		int yDiff = Math.abs(square.getRow() - square2.getRow());
+		if (xDiff == 2 && yDiff == 1)
+			return true;
+		if (xDiff == 1 && yDiff == 2)
+			return true;
 		return false;
 	}
 }

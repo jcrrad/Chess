@@ -14,7 +14,10 @@ public class King extends Piece {
 
 	@Override
 	public boolean canMove(Square square2) {
-		// TODO Auto-generated method stub
+		int xDiff = Math.abs(square.getColumn() - square2.getColumn());
+		int yDiff = Math.abs(square.getRow() - square2.getRow());
+		if (xDiff <= 1 && yDiff <= 1)
+			return true;
 		return false;
 	}
 }
