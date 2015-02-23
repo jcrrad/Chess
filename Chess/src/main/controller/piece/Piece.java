@@ -42,9 +42,5 @@ public abstract class Piece {
 		return name + "\t" + color + "\t" + square.getColumn() + "," + square.getRow();
 	}
 
-	public boolean canMove(Square square2) {
-		// TODO check if peice can move to new square
-		return true;
-	}
-
+	abstract public boolean canMove(Square square2);
 }
