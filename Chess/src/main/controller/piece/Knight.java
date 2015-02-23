@@ -1,4 +1,5 @@
 package controller.piece;
+
 import gui.Square;
 
 import java.awt.Color;
@@ -12,13 +13,7 @@ public class Knight extends Piece {
 	}
 
 	@Override
-	void move() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	boolean rule(int x, int y) {
+	public boolean canMove(Square square2) {
 		// TODO Auto-generated method stub
 		return false;
 	}
