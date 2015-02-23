@@ -35,8 +35,8 @@ public class BoardPanel extends JPanel {
 				this.add(squares[x][y]);
 			}
 		for (int x = 0; x < 8; x++) {
-			squares[x][6].setPiece(new Pawn(Color.BLACK, squares[x][0]));
-			squares[x][1].setPiece(new Pawn(Color.WHITE, squares[x][7]));
+			squares[x][6].setPiece(new Pawn(Color.BLACK, squares[x][6]));
+			squares[x][1].setPiece(new Pawn(Color.WHITE, squares[x][1]));
 		}
 		// white Pieces
 		squares[0][0].setPiece(new Rook(Color.WHITE, squares[0][0]));
