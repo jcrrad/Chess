@@ -21,7 +21,7 @@ public class Sommelier implements Runnable {
 	}
 	
 	@Override
-	public void run() {
+	public void run() { 
 		Pair pair = null;
 		GameServer game = null;
 		while(true)
@@ -39,20 +39,6 @@ public class Sommelier implements Runnable {
 			}
 		}
 	}
-	
-	private synchronized void flushWaitList() 
-	{
-		System.out.println("Consoladating waitList");
-		System.out.println(waitList.size());
-		for(ServerClient c : this.waitList)
-		{
-			System.out.println("Adding to pool");
-			// Inspect if this client was already in a previous game.
-			this.pool.add(c);
-		}
-		this.waitList.clear();
-	}
-
 	private synchronized void waitForWork()
 	{
 		// Putting this check here makes sure that a client can't register
@@ -60,17 +46,30 @@ public class Sommelier implements Runnable {
 		// client registering after we check size but not got to this method
 		if(this.waitList.size() > 1 )
 		{
+			System.out.println("Consoladating waitList");
 			flushWaitList();
 		}
 		else
 		{
 			System.out.println("waiting for work.");
 			try {
+				System.out.println("Server: waiting for work");
 				wait();
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	private synchronized void flushWaitList() 
+	{
+		for(ServerClient c : this.waitList)
+		{
+			System.out.println("Adding to pool");
+			// Inspect if this client was already in a previous game.
+			this.pool.add(c);
+		}
+		this.waitList.clear();
 	}
 
 	/**
@@ -82,8 +81,9 @@ public class Sommelier implements Runnable {
 		//adds a client to the ready list
 		System.out.println("Adding client to the readylist. (IP: " + client.getIPAddress() + ")");
 		this.waitList.add(client);
-		if( this.waitList.size() > 2)
+		if( this.waitList.size() > 1)
 		{
+			System.out.println("Notifying");
 			notifyAll();
 		}
 	}

@@ -1,9 +1,15 @@
 package core.server;
 
+import java.io.OutputStream;
+
 public class GameServer implements Runnable {
 
+	private Pair pair;
+	
 	public GameServer(Pair pair) 
 	{
+		this.pair = pair;
+		connectUsers();
 		//private void pair() 
 		//{
 			//ServerClient c1 = this.pool.remove(0);
@@ -18,9 +24,53 @@ public class GameServer implements Runnable {
 		//}
 	}
 
-	@Override
-	public void run() {
-		// TODO Auto-generated method stub
+	private void connectUsers() 
+	{
+		ServerClient c1 = (ServerClient)pair.client1;
+		ServerClient c2 = (ServerClient)pair.client2;
+
+		//c1.setOutputStream(c2.getInputStream());
+	//	c2.setOutputStream(c1.getInputStream());
 		
+	}
+
+	@Override
+	public void run() 
+	{
+		startGame();
+	}
+	
+	private void startGame()
+	{
+		while(true)
+		{
+			try
+			{
+				ServerClient c = (ServerClient)this.pair.client1;
+				//c.socket.
+				c.send("hello little one");
+				//
+				//while ((inputLine = in.readLine()) != null) {
+			    //    outputLine = kkp.processInput(inputLine);
+			    //    out.println(outputLine);
+			    //    if (outputLine.equals("Bye."))
+			    //        break;
+			    //}
+				
+			}
+			catch(Exception e)
+			{
+				pause();
+			}
+		}
+	}
+	
+	private synchronized void pause()
+	{
+		try {
+			wait();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 }
