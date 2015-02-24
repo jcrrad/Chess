@@ -1,13 +1,12 @@
 package gui;
 
-import gui.piece.Piece;
-
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
-import javax.swing.JLabel;
+
+import controller.piece.Piece;
 
 public class Square extends JButton implements ActionListener {
 	/**
@@ -20,8 +19,8 @@ public class Square extends JButton implements ActionListener {
 	private static Piece movingPiece = null;
 
 	public Square(int x, int y, Color color) {
-		this.row = x;
-		this.column = y;
+		this.column = x;
+		this.row = y;
 		this.color = color;
 		this.setBackground(color);
 		this.addActionListener(this);
@@ -56,36 +55,45 @@ public class Square extends JButton implements ActionListener {
 	public Piece removePiece() {
 		Piece temp = piece;
 		piece = null;
-		System.out.println(temp);
 		return temp;
 	}
 
 	public void placePiece(Piece newPiece) {
 		piece = newPiece;
+		piece.setSquare(this);
+		newPiece = null;
+		this.updateSquare();
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// clicked on, player is trying to move a piece.
-		try{
-			if (movingPiece != null) {
-				movingPiece = removePiece();
-				System.out.println(movingPiece.toString());
-			} else {
-				if (piece == null)
-					placePiece(movingPiece);
+		if (movingPiece == null && piece != null) {// player is selecting which
+													// piece to move
+			movingPiece = removePiece();
+			System.out.println("Piece picked up" + movingPiece.toString());
+		} else {// player has a piece in their hand
+			if ((piece == null || !(piece.getColor().equals(movingPiece.getColor()))) && (movingPiece.canMove(this))) {
+				// if moving piece can move to new square
+				placePiece(movingPiece);
+				movingPiece = null;
+			} else {// move failed put it back
+				movingPiece.getSquare().placePiece(movingPiece);
+				movingPiece = null;
+
 			}
-			if (piece == null)
-				this.setText("");
-			else
-				this.setText(piece.getName());
-			invalidate();
-			System.out.println(piece.toString());
 		}
-		catch(NullPointerException npe)
-		{
-			//TODO: Catching the NPE if a square without a piece is clicked
-			// We don't necessarily need to do anything with it but this is so it doesn't print the stacktrace
-		}
+		this.updateSquare();
 	}
+
+	public void updateSquare() {
+		if (piece == null) {
+			this.setText("");
+		} else {
+			this.setText(piece.getName());
+			this.setForeground(piece.getColor());
+			invalidate();
+		}
+
+	};
 }

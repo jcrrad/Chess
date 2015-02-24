@@ -1,6 +1,6 @@
-package gui.piece;
+package controller.piece;
 
-import gui.piece.Rook;
+import controller.piece.Rook;
 
 /**
  * Base test class for {@link Rook}

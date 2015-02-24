@@ -1,4 +1,4 @@
-package gui.piece;
+package controller.piece;
 
 import gui.Square;
 
@@ -10,27 +10,9 @@ public abstract class Piece {
 	Color color;
 	Square square;
 
-	////////////////////////////////////
-	
-	abstract boolean rule(int x, int y);
-
-	abstract void move();
-	
-	////////////////////////////////////
-	
 	public Piece(Square square) {
 		this.square = square;
 	}
-
-	public String toString() {
-		return name + "\t" + color + "\t" + square.getColumn() + "," + square.getRow();
-	}
-	
-	////////////////////////////////////
-	//
-	// Getters & Setters
-	//
-	////////////////////////////////////
 
 	public String getName() {
 		return name;
@@ -52,4 +34,9 @@ public abstract class Piece {
 		return color;
 	}
 
+	public String toString() {
+		return name + "\t" + color + "\t" + square.getColumn() + "," + square.getRow();
+	}
+
+	public abstract boolean canMove(Square square2);
 }
