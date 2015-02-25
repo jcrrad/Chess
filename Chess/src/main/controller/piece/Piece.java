@@ -1,5 +1,6 @@
 package controller.piece;
 
+import gui.BoardPanel;
 import gui.Square;
 
 import java.awt.Color;
@@ -36,6 +37,14 @@ public abstract class Piece {
 
 	public String toString() {
 		return name + "\t" + color + "\t" + square.getColumn() + "," + square.getRow();
+	}
+
+	public boolean movable(Square square2) {
+		if (this.canMove(square2)) {
+			BoardPanel board = (BoardPanel) square.getParent();
+			return board.walk(this.getSquare(), square2);
+		}
+		return false;
 	}
 
 	public abstract boolean canMove(Square square2);

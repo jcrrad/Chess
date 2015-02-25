@@ -59,4 +59,42 @@ public class BoardPanel extends JPanel {
 		squares[7][7].setPiece(new Rook(Color.BLACK, squares[7][7]));
 
 	}
+
+	public boolean walk(Square square, Square square2) {
+		int xDirection, yDirection;
+		if (square.getRow() == square2.getRow()) {
+			yDirection = 0;
+		} else {
+			if (square.getRow() > square2.getRow())
+				yDirection = -1;
+			else
+				yDirection = 1;
+		}
+		if (square.getColumn() == square2.getColumn()) {
+			xDirection = 0;
+		} else {
+			if (square.getColumn() > square2.getColumn())
+				xDirection = -1;
+			else
+				xDirection = 1;
+		}
+
+		int xDiff = Math.abs(square.getColumn() - square2.getColumn());
+		int yDiff = Math.abs(square.getRow() - square2.getRow());
+
+		int diff = Integer.max(xDiff, yDiff);
+
+		int x = square.getColumn();
+		int y = square.getRow();
+		for (int z = 0; z < diff; z++) {
+			int X = x + (z * xDirection);
+			int Y = y + (z * yDirection);
+			System.out.println(X + "," + Y);
+			if (squares[X][Y].getPiece() != null) {
+				System.out.println(X + "," + Y + "\tFailed");
+				return false;
+			}
+		}
+		return true;
+	}
 }
