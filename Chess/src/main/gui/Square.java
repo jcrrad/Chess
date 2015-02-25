@@ -1,10 +1,18 @@
 package gui;
 
 import java.awt.Color;
+import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 import controller.piece.Piece;
 
@@ -81,9 +89,9 @@ public class Square extends JButton implements ActionListener {
 				} else {// move failed put it back
 					movingPiece.getSquare().placePiece(movingPiece);
 					movingPiece = null;
-
 				}
 		}
+		System.out.println(pawnPromotion());
 		this.updateSquare();
 	}
 
@@ -97,4 +105,11 @@ public class Square extends JButton implements ActionListener {
 		}
 
 	};
+
+	static String pawnPromotion() {
+		String[] choices = { "Knight", "Bishop", "Rook", "Queen" };
+		String s = (String) JOptionPane.showInputDialog(null, "make your choice", "Try GUI", JOptionPane.PLAIN_MESSAGE,
+				null, choices, choices[0]);
+		return s;
+	}
 }

@@ -4,8 +4,10 @@ import java.awt.CardLayout;
 import java.awt.Component;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
+import javax.swing.plaf.OptionPaneUI;
 
 public class View extends JFrame {
 	/**
@@ -46,7 +48,6 @@ public class View extends JFrame {
 		cards.add(login, "login");
 		cards.add(gameScreen, "game");
 		goToLogin();
-		//goToGame();
 	}
 
 	public void goToGame() {
@@ -80,7 +81,10 @@ public class View extends JFrame {
 
 	public void offerStalemate() {
 		// TODO Offer opponent stalemate
+	}
 
+	public void warning(String text) {
+		JOptionPane.showMessageDialog(this, text, "Opps Something Went Wrong", JOptionPane.ERROR_MESSAGE);
 	}
 
 	public void sendMessage() {
