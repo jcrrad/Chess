@@ -102,4 +102,10 @@ public class View extends JFrame
 		this.dispose();
 
 	}
+	
+	public void updateChat(String chatMessage)
+	{
+		gameScreen.chat.chatSection.conversationField.setText
+		(gameScreen.chat.chatSection.conversationField.getText()+"\n "+chatMessage);
+	}
 }

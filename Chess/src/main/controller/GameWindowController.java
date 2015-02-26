@@ -1,12 +1,14 @@
 package controller;
 
 import gui.View;
+import core.client.Client;
 import core.client.Model;
 
 public class GameWindowController 
 {
 	private View view;
 	private Model model;
+	private Client client;
 
 	public GameWindowController(Model model)
 	{
@@ -15,17 +17,13 @@ public class GameWindowController
 	
 	public void sendMessage(String text) 
 	{
-		/*TODO: This will be the method to send messages out to the server, this controller will
-		also receive messages, we should keep the null check as this will keep us from sending blank
-		messages back and forth and wasting resources*/
-		if(text.length() != 0)
-			System.out.println(text);
-			//model.sendMessage();
+		
 	}
 	
-	public void connect() {
-		// TODO Auto-generated method stub
+	public void connect() 
+	{
 		
+		view.goToGame();
 	}
 	
 	public void handleQuit() 
@@ -44,6 +42,16 @@ public class GameWindowController
 	public void killWindow()
 	{
 		view.dispose();
+	}
+	
+	public void updateChat(String text)
+	{
+		view.updateChat(text);
+	}
+	
+	public void updateBoard(String board)
+	{
+		//TODO
 	}
 	
 	////////////////////////////////////

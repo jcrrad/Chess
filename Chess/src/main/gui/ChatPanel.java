@@ -19,6 +19,7 @@ public class ChatPanel extends JPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 	JTextField inputField;
+	JTextField conversationField;
 
 	//TODO: JEFF - make scrollable
 	public ChatPanel(final GameWindowController gameWindowController) {
@@ -29,7 +30,7 @@ public class ChatPanel extends JPanel {
 		gridBagLayout.rowWeights = new double[] { 0.0, 1.0, Double.MIN_VALUE };
 		setLayout(gridBagLayout);
 
-		JTextField conversationField = new JTextField();
+		conversationField = new JTextField();
 		GridBagConstraints conv_gbc = new GridBagConstraints();
 		conv_gbc.fill = GridBagConstraints.BOTH;
 		conv_gbc.gridwidth = GridBagConstraints.REMAINDER;
@@ -65,4 +66,22 @@ public class ChatPanel extends JPanel {
 		});
 
 	}
+	
+	////////////////////////////////////
+	//
+	// Getters & Setters
+	//
+	////////////////////////////////////
+	
+	public JTextField getConversationField() 
+	{
+		return conversationField;
+	}
+
+	public void setConversationField(JTextField conversationField) 
+	{
+		this.conversationField = conversationField;
+	}
+	
+	
 }
