@@ -61,6 +61,14 @@ public class BoardPanel extends JPanel {
 		squares[7][7].setPiece(new Rook(Color.BLACK, squares[7][7]));
 
 	}
+	
+	public BoardPanel(BoardPanel boardpanel){
+		try {
+			this.squares = (Square[][]) boardpanel.clone();
+		} catch (CloneNotSupportedException e) {
+			e.printStackTrace();
+		}
+	}
 
 	public boolean check(Color playerColor) {
 		ArrayList<Piece> opponentPieces = new ArrayList<Piece>();
@@ -83,6 +91,94 @@ public class BoardPanel extends JPanel {
 				return true;
 		}
 		return false;
+	}
+	
+	public boolean checkmate(Square king, Square assassin){
+		BoardPanel board = (BoardPanel) king.getParent();
+		BoardPanel tmpBoard;
+		ArrayList<Piece> friendlyPieces = new ArrayList<Piece>();
+		ArrayList<Piece> opponentPieces = new ArrayList<Piece>();
+		Piece tmpPiece;
+		
+		// Can the King move out of the way?
+		int kingx = king.getColumn();
+		int kingy = king.getRow();
+		int tarx, tary;
+		int[] moves = {0,1, 1,0, 0,-1, -1,0, 1,1, 1,-1, -1,1, -1,-1};
+		for (int x = 0; x < 8; x++){
+			tarx = kingx + moves[2*x];
+			tary = kingy + moves[2*x+1];
+			if (!((0 <= tarx) && (tarx <= 7) && (0 <= tary) && (tary <= 7))){
+				// Move out of bounds
+				continue;
+			}
+			if (king.getPiece().canMove(squares[tarx][tary]) && king.getPiece().moveable(squares[tarx][tary])){
+				tmpBoard = new BoardPanel(board);
+				tmpPiece = tmpBoard.squares[kingx][kingy].getPiece(); // get tmp king
+				tmpBoard.squares[kingx][kingy].removePiece();
+				tmpBoard.squares[tarx][tary].setPiece(tmpPiece);
+				if (!tmpBoard.check(king.getPiece().getColor())){
+					return false;
+				}
+			}
+		}
+		
+		
+		// Get Pieces in play
+		friendlyPieces = getColorPieces(king.getPiece().getColor());
+		if (king.getPiece().equals(Color.WHITE))
+			opponentPieces = getColorPieces(Color.BLACK);
+		else
+			opponentPieces = getColorPieces(Color.WHITE);
+		
+		
+		
+		// Can anyone kill the Assassin
+		Piece friend, opponent;
+		int friendx, friendy, opponentx, opponenty;
+		for (int x = 0; x < friendlyPieces.size(); x++){
+			friend = friendlyPieces.get(x);
+			for (int y = 0; y < opponentPieces.size(); y++){
+				opponent = opponentPieces.get(y);
+				if (friend.canMove(opponent.getSquare()) && friend.moveable(opponent.getSquare())){
+					tmpBoard = new BoardPanel(board);
+					friendx = friend.getSquare().getColumn();
+					friendy = friend.getSquare().getRow();
+					opponentx = opponent.getSquare().getColumn();
+					opponenty = opponent.getSquare().getRow();
+					tmpPiece = tmpBoard.squares[friendx][friendy].getPiece(); // Get tmp fiendly peice
+					tmpBoard.squares[friendx][friendy].removePiece();
+					tmpBoard.squares[opponentx][opponenty].setPiece(tmpPiece);
+					if (!tmpBoard.check(friend.getColor())){
+						return false;
+					}
+					
+				}
+			}
+		}
+		
+		// Can anyone intercept the Assassin
+		for (int z = 0; z < friendlyPieces.size(); z++){
+			friend = friendlyPieces.get(z);
+			for (int y = 0; y < 8; y++){
+				for (int x = 0; x < 8; x++){
+					if (squares[x][y].getPiece() == null){
+						tmpBoard = new BoardPanel(board);
+						friendx = friend.getSquare().getColumn();
+						friendy = friend.getSquare().getRow();
+						tmpPiece = tmpBoard.squares[friendx][friendy].getPiece();
+						tmpBoard.squares[friendx][friendy].removePiece();
+						tmpBoard.squares[x][y].setPiece(tmpPiece);
+						if (!tmpBoard.check(friend.getColor())){
+							return false;
+						}
+					}
+				}
+			}
+		}
+		
+		// Else, Must be Check Mate
+		return true;
 	}
 
 	public boolean walk(Square square, Square square2) {
@@ -121,5 +217,23 @@ public class BoardPanel extends JPanel {
 			}
 		}
 		return true;
+	}
+	
+	public ArrayList<Piece> getColorPieces(Color color){
+		ArrayList<Piece> pieces = new ArrayList<Piece>();
+		Piece tmpPiece;
+		
+		for (int y = 0; y < 8; y++){
+			for (int x = 0; x < 8; x++){
+				tmpPiece = squares[x][y].getPiece();
+				if (tmpPiece != null){
+					if (tmpPiece.equals(color)){
+						pieces.add(squares[x][y].getPiece());
+					}
+				}
+			}
+		}
+		
+		return pieces;
 	}
 }

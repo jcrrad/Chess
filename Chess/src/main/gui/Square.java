@@ -31,10 +31,11 @@ public class Square extends JButton implements ActionListener {
 		return piece;
 	}
 
-	public void setPiece(Piece piece) {
-		this.piece = piece;
-		this.setForeground(piece.getColor());
-		this.setText(piece.getName());
+	public void setPiece(Piece newPiece) {
+		piece = newPiece;
+		piece.setSquare(this);
+		newPiece = null;
+		this.updateSquare();
 	}
 
 	public int getRow() {
@@ -58,14 +59,6 @@ public class Square extends JButton implements ActionListener {
 		piece = null;
 		return temp;
 	}
-
-	public void placePiece(Piece newPiece) {
-		piece = newPiece;
-		piece.setSquare(this);
-		newPiece = null;
-		this.updateSquare();
-	}
-
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// clicked on, player is trying to move a piece.
@@ -77,10 +70,10 @@ public class Square extends JButton implements ActionListener {
 			if ((piece == null || !(piece.getColor().equals(movingPiece.getColor()))))
 				if (movingPiece.moveable(this)) {
 					// if moving piece can move to new square
-					placePiece(movingPiece);
+					setPiece(movingPiece);
 					movingPiece = null;
 				} else {// move failed put it back
-					movingPiece.getSquare().placePiece(movingPiece);
+					movingPiece.getSquare().setPiece(movingPiece);
 					movingPiece = null;
 				}
 		}
