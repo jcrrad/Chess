@@ -24,6 +24,18 @@ public class View extends JFrame
 	GameWindowController gameWindowController;
 	ConnectionController connectionController;
 
+	private static void macSetup(String appName) {
+		   String os = System.getProperty("os.name").toLowerCase();
+	      boolean isMac = os.startsWith("mac os x");     
+
+	      if(!isMac)
+	         return;
+	      
+			System.setProperty("apple.laf.useScreenMenuBar", "true");
+			System.setProperty("com.apple.mrj.application.apple.menu.about.name", 
+			   appName);		
+		}
+	
 	public View(GameWindowController gameWindowController, ConnectionController connectionController) 
 	{
 		super("Chess");
@@ -34,8 +46,11 @@ public class View extends JFrame
 		login = new LoginScreen(this, connectionController);
 		loading = new LoadingScreen(this);
 		about = new AboutScreen(this);
+		
+		macSetup("swing-mac");
+		
 		try {
-			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+			UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

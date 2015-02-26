@@ -23,6 +23,7 @@ public class Square extends JButton implements ActionListener {
 		this.row = y;
 		this.color = color;
 		this.setBackground(color);
+		this.setOpaque(true);
 		this.addActionListener(this);
 	}
 
