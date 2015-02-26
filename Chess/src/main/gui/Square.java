@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 
+import controller.GameWindowController;
 import controller.piece.Piece;
 
 public class Square extends JButton implements ActionListener {
@@ -16,15 +17,17 @@ public class Square extends JButton implements ActionListener {
 	Piece piece;
 	Color color;
 	int row, column;
+	GameWindowController controller;
 	private static Piece movingPiece = null;
 
-	public Square(int x, int y, Color color) {
+	public Square(int x, int y, Color color, GameWindowController controller) {
 		this.column = x;
 		this.row = y;
 		this.color = color;
 		this.setBackground(color);
 		this.setOpaque(true);
 		this.addActionListener(this);
+		this.controller = controller;
 	}
 
 	public Piece getPiece() {
@@ -78,10 +81,11 @@ public class Square extends JButton implements ActionListener {
 				// if moving piece can move to new square
 				placePiece(movingPiece);
 				movingPiece = null;
+				controller.sendMove();
+				
 			} else {// move failed put it back
 				movingPiece.getSquare().placePiece(movingPiece);
 				movingPiece = null;
-
 			}
 		}
 		this.updateSquare();

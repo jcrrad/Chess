@@ -30,7 +30,7 @@ public class BoardPanel extends JPanel {
 					color = new Color(139, 69, 19);
 				else
 					color = new Color(245, 222, 189);
-				squares[x][y] = new Square(x, y, color);
+				squares[x][y] = new Square(x, y, color, gameWindowController);
 				this.add(squares[x][y]);
 			}
 		for (int x = 0; x < 8; x++) {

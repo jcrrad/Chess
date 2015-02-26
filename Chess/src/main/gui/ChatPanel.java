@@ -60,7 +60,7 @@ public class ChatPanel extends JPanel {
 		this.add(button, button_gbc);
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				gameWindowController.sendMessage(inputField.getText());
+				gameWindowController.sendChat(inputField.getText());
 				inputField.setText("");
 			}
 		});
