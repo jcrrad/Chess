@@ -12,7 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-import controller.ConnectionController;
+import controller.GameWindowController;
 
 public class LoginScreen extends JPanel {
 
@@ -29,7 +29,7 @@ public class LoginScreen extends JPanel {
 	JButton about = new JButton("About");
 	
 
-	public LoginScreen(View parent, final ConnectionController connectionController) {
+	public LoginScreen(View parent, final GameWindowController gameWindowController) {
 		parentView = parent;
 		setLayout(new GridBagLayout());
 
@@ -91,7 +91,7 @@ public class LoginScreen extends JPanel {
 		});
 		connectButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				connectionController.connect();
+				gameWindowController.connect();
 			}
 		});
 	}

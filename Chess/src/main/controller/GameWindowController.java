@@ -23,6 +23,11 @@ public class GameWindowController
 			//model.sendMessage();
 	}
 	
+	public void connect() {
+		// TODO Auto-generated method stub
+		
+	}
+	
 	public void handleQuit() 
 	{
 		/*TODO: This will be the method called when a player quits, the player who does will

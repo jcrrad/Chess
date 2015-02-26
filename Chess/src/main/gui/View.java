@@ -6,7 +6,6 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 
-import controller.ConnectionController;
 import controller.GameWindowController;
 
 public class View extends JFrame 
@@ -22,7 +21,6 @@ public class View extends JFrame
 	AboutScreen about;
 	CardLayout cardLayout;
 	GameWindowController gameWindowController;
-	ConnectionController connectionController;
 
 	private static void macSetup(String appName) {
 		   String os = System.getProperty("os.name").toLowerCase();
@@ -36,14 +34,13 @@ public class View extends JFrame
 			   appName);		
 		}
 	
-	public View(GameWindowController gameWindowController, ConnectionController connectionController) 
+	public View(GameWindowController gameWindowController) 
 	{
 		super("Chess");
 		this.gameWindowController = gameWindowController;
-		this.connectionController = connectionController;
 		
 		gameScreen = new GameScreen(gameWindowController);
-		login = new LoginScreen(this, connectionController);
+		login = new LoginScreen(this, gameWindowController);
 		loading = new LoadingScreen(this);
 		about = new AboutScreen(this);
 		
