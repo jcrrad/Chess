@@ -2,6 +2,7 @@ package gui;
 
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
@@ -9,6 +10,7 @@ import controller.piece.Bishop;
 import controller.piece.King;
 import controller.piece.Knight;
 import controller.piece.Pawn;
+import controller.piece.Piece;
 import controller.piece.Queen;
 import controller.piece.Rook;
 
@@ -58,6 +60,29 @@ public class BoardPanel extends JPanel {
 		squares[6][7].setPiece(new Knight(Color.BLACK, squares[6][7]));
 		squares[7][7].setPiece(new Rook(Color.BLACK, squares[7][7]));
 
+	}
+
+	public boolean check(Color playerColor) {
+		ArrayList<Piece> opponentPieces = new ArrayList<Piece>();
+		King king = null;
+		Piece temp;
+		for (int y = 0; y < 8; y++)
+			for (int x = 0; x < 8; x++) {
+				temp = squares[x][y].getPiece();
+				if (temp != null) {
+					if (!(temp.equals(playerColor))) {
+						opponentPieces.add(squares[x][y].getPiece());
+					}
+					if (temp.equals(playerColor))
+						if (temp.getColor().equals(playerColor) && temp.getName().equals("KING"))
+							king = (King) temp;
+				}
+			}
+		for (int z = 0; z < opponentPieces.size(); z++) {
+			if (opponentPieces.get(z).canAttack(king.getSquare()))
+				return true;
+		}
+		return false;
 	}
 
 	public boolean walk(Square square, Square square2) {

@@ -11,6 +11,16 @@ public class Pawn extends Piece {
 		this.color = color;
 	}
 
+	public boolean canAttack(Square square2) { // Diagonal Attack
+		if ((Math.abs(square.getRow() - square2.getRow()) == 1)
+				&& (Math.abs(square.getColumn() - square2.getColumn()) == 1) && (square2.getPiece() != null)) {
+			if (((this.color.equals(Color.BLACK)) && (square.getRow() > square2.getRow()))
+					|| ((this.color.equals(Color.WHITE)) && (square.getRow() < square2.getRow())))
+				return true;
+		}
+		return false;
+	}
+
 	public boolean canMove(Square square2) {
 		// Diagonal Attack
 		if ((Math.abs(square.getRow() - square2.getRow()) == 1)

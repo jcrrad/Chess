@@ -39,7 +39,7 @@ public abstract class Piece {
 		return name + "\t" + color + "\t" + square.getColumn() + "," + square.getRow();
 	}
 
-	public boolean movable(Square square2) {
+	public boolean moveable(Square square2) {
 		if (this.canMove(square2)) {
 			BoardPanel board = (BoardPanel) square.getParent();
 			return board.walk(this.getSquare(), square2);
@@ -48,4 +48,8 @@ public abstract class Piece {
 	}
 
 	public abstract boolean canMove(Square square2);
+
+	public boolean canAttack(Square square2) {
+		return moveable(square2);
+	}
 }

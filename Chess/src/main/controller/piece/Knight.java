@@ -23,7 +23,7 @@ public class Knight extends Piece {
 		return false;
 	}
 
-	public boolean movable(Square square2) {
+	public boolean moveable(Square square2) {
 		return canMove(square2);
 	}
 }

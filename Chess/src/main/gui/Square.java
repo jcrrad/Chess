@@ -1,18 +1,11 @@
 package gui;
 
 import java.awt.Color;
-import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 
 import controller.piece.Piece;
 
@@ -82,7 +75,7 @@ public class Square extends JButton implements ActionListener {
 			System.out.println("Piece picked up" + movingPiece.toString());
 		} else {// player has a piece in their hand
 			if ((piece == null || !(piece.getColor().equals(movingPiece.getColor()))))
-				if (movingPiece.movable(this)) {
+				if (movingPiece.moveable(this)) {
 					// if moving piece can move to new square
 					placePiece(movingPiece);
 					movingPiece = null;
@@ -91,7 +84,6 @@ public class Square extends JButton implements ActionListener {
 					movingPiece = null;
 				}
 		}
-		System.out.println(pawnPromotion());
 		this.updateSquare();
 	}
 
@@ -104,7 +96,7 @@ public class Square extends JButton implements ActionListener {
 			invalidate();
 		}
 
-	};
+	}
 
 	static String pawnPromotion() {
 		String[] choices = { "Knight", "Bishop", "Rook", "Queen" };
