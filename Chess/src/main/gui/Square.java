@@ -3,13 +3,14 @@ package gui;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.Serializable;
 
 import javax.swing.JButton;
 
 import controller.GameWindowController;
 import controller.piece.Piece;
 
-public class Square extends JButton implements ActionListener {
+public class Square extends JButton implements ActionListener, Serializable {
 	/**
 	 * 
 	 */

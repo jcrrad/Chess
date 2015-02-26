@@ -3,9 +3,11 @@ package controller.piece;
 import gui.Square;
 
 import java.awt.Color;
+import java.io.Serializable;
 
-public abstract class Piece {
+public abstract class Piece implements Serializable{
 
+	private static final long serialVersionUID = 1L;
 	String name;
 	Color color;
 	Square square;

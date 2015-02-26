@@ -2,6 +2,7 @@ package gui;
 
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.io.Serializable;
 
 import javax.swing.JPanel;
 
@@ -13,7 +14,8 @@ import controller.piece.Pawn;
 import controller.piece.Queen;
 import controller.piece.Rook;
 
-public class BoardPanel extends JPanel {
+public class BoardPanel extends JPanel
+	implements Serializable{
 
 	/**
 	 * 
@@ -58,9 +60,5 @@ public class BoardPanel extends JPanel {
 		squares[7][7].setPiece(new Rook(Color.BLACK, squares[7][7]));
 
 	}
-	
-	public BoardPanel()
-	{
-		
-	}
+
 }

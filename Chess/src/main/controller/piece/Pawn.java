@@ -5,6 +5,11 @@ import gui.Square;
 import java.awt.Color;
 
 public class Pawn extends Piece {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public Pawn(Color color, Square square) {
 		super(square);
 		this.name = "PAWN";
