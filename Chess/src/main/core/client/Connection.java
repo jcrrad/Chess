@@ -20,14 +20,20 @@ public class Connection {
 		this.in = new BufferedReader( new InputStreamReader(socket.getInputStream()));
 	}
 
-	void send(String message)
+	public void send(String message)
 	{
 		out.println(message);
 		out.flush();
 	}
 
-	public String receive() throws IOException {
-		return in.readLine();
+	public String receive() {
+		try {
+			return in.readLine();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 }

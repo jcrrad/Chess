@@ -10,7 +10,7 @@ public class Model {
 	{
 		// Everything here can be factored out, I am just keeping it for testing purposes.
 		// Feel free to correct me.
-		Client client = null;
+	/*	Client client = null;
 		try {
 			client = new Client("localhost", 8000);
 		} catch (Exception e) {
@@ -40,6 +40,6 @@ public class Model {
 				client.out.println(fromServer);
 				client.out.flush();
 			}
-		}
+		}*/
 	}
 }
