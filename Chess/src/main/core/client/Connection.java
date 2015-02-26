@@ -35,13 +35,8 @@ public class Connection {
 	}
 
 	public Message receive() {
-		try {
-			Message message = gson.fromJson(in.readLine(), Message.class);
-			return message;
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return null;
+		Message message = gson.fromJson(in, Message.class);
+		return message;
 	}
 
 }
