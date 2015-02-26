@@ -20,12 +20,11 @@ public class GameWindowController
 	public GameWindowController(Model model) throws UnknownHostException, IOException
 	{
 		this.model = model;
-		this.connection = new Connection("174.48.174.81", 8000);
-		new Thread(new InputHandler(connection, this));
 	}
 	
 	public void sendMessage(String text) 
 	{
+		updateChat(text);
 		connection.send(text);
 	}
 	
@@ -34,9 +33,15 @@ public class GameWindowController
 		this.updateChat(text);
 	}
 	
-	public void connect() 
+	public void connect()
 	{
-		
+		try {
+			this.connection = new Connection("172.17.121.82", 8000);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		new Thread(new InputHandler(connection, this)).start();
 		view.goToGame();
 	}
 	

@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import controller.GameWindowController;
@@ -19,9 +20,8 @@ public class ChatPanel extends JPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 	JTextField inputField;
-	JTextField conversationField;
+	JTextArea conversationField;
 
-	//TODO: JEFF - make scrollable
 	public ChatPanel(final GameWindowController gameWindowController) {
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[] { 450, 0 };
@@ -30,14 +30,14 @@ public class ChatPanel extends JPanel {
 		gridBagLayout.rowWeights = new double[] { 0.0, 1.0, Double.MIN_VALUE };
 		setLayout(gridBagLayout);
 
-		conversationField = new JTextField();
+		conversationField = new JTextArea();
 		GridBagConstraints conv_gbc = new GridBagConstraints();
 		conv_gbc.fill = GridBagConstraints.BOTH;
 		conv_gbc.gridwidth = GridBagConstraints.REMAINDER;
 		conv_gbc.weighty = 25.0;
 		this.add(conversationField, conv_gbc);
 		conversationField.setEnabled(false);
-		conversationField.setScrollOffset(HEIGHT);
+		//conversationField.setScrollOffset(HEIGHT);
 
 		inputField = new JTextField();
 		GridBagConstraints input_gbc = new GridBagConstraints();
@@ -72,16 +72,6 @@ public class ChatPanel extends JPanel {
 	// Getters & Setters
 	//
 	////////////////////////////////////
-	
-	public JTextField getConversationField() 
-	{
-		return conversationField;
-	}
 
-	public void setConversationField(JTextField conversationField) 
-	{
-		this.conversationField = conversationField;
-	}
-	
 	
 }
