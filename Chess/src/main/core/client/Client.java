@@ -9,7 +9,7 @@ import java.net.UnknownHostException;
 
 public class Client {
 	
-	private PrintWriter out;
+	PrintWriter out;
 	BufferedReader in;
 	public Socket serverSocket;
 
