@@ -1,5 +1,6 @@
 package controller;
 
+import gui.BoardPanel;
 import gui.View;
 
 import java.io.IOException;
@@ -8,6 +9,7 @@ import java.net.UnknownHostException;
 import core.client.Client;
 import core.client.Connection;
 import core.client.InputHandler;
+import core.client.Message;
 import core.client.Model;
 
 public class GameWindowController 
@@ -16,21 +18,37 @@ public class GameWindowController
 	private Model model;
 	private Client client;
 	private Connection connection;
+	Message message;
 
 	public GameWindowController(Model model) throws UnknownHostException, IOException
 	{
 		this.model = model;
 	}
 	
-	public void sendMessage(String text) 
+	public void sendChat(String text) 
 	{
 		updateChat(text);
-		connection.send(text);
+		message = new Message();
+		message.setChatMessage(true);
+		message.setText(text);
+		connection.send(message);
 	}
 	
-	public void processInput(String text)
+	public void sendMove()
 	{
-		this.updateChat(text);
+		message = new Message();
+		message.setBoardMessage(true);
+		message.setBoard(view.getGameScreen().getBoard());
+		connection.send(message);
+	}
+	
+	public void processInput(Message message)
+	{
+		if(message.chatMessage)
+			this.updateChat(message.getText());
+		else
+			view.getGameScreen().setBoard(
+					message.getBoard());
 	}
 	
 	public void connect()

@@ -108,4 +108,11 @@ public class View extends JFrame
 		gameScreen.chat.chatSection.conversationField.setText
 		(gameScreen.chat.chatSection.conversationField.getText()+"\n"+chatMessage);
 	}
+
+	public GameScreen getGameScreen() 
+	{
+		return gameScreen;
+	}
+	
+	
 }

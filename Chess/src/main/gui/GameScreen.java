@@ -46,5 +46,15 @@ public class GameScreen extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	public BoardPanel getBoard()
+	{
+		return board;
+	}
+	
+	public void setBoard(BoardPanel board)
+	{
+		this.board = board;
+	}
 
 }
