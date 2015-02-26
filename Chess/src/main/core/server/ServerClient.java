@@ -9,16 +9,21 @@ import java.io.OutputStream;
 import java.net.Socket;
 import com.google.gson.GsonBuilder;
 
-public class ServerClient {
+public class ServerClient implements Runnable {
 
-	public Socket socket;
-	private PrintWriter out;
+	private Socket socket;
+	private PrintWriter out = null;
 	private BufferedReader in;
 	
 	public ServerClient(Socket clientSocket) throws IOException {
 		this.socket = clientSocket;
-		setOutputStream(socket.getOutputStream());
 		setInputStream(socket.getInputStream());
+		this.out = new PrintWriter(socket.getOutputStream());
+	}
+	
+	private void setInputStream(InputStream in)
+	{
+		this.in = new BufferedReader( new InputStreamReader(in));		
 	}
 	
 	public String getIPAddress()
@@ -26,32 +31,43 @@ public class ServerClient {
 		return this.socket.getInetAddress().getHostAddress();
 	}
 	
+	public OutputStream getOutputStream() throws IOException
+	{
+		return this.socket.getOutputStream();
+	}
+	
 	public void send(String msg)
 	{
 		this.out.println(msg);
+		this.out.flush();
+	}
+	
+	public void connect(ServerClient opponent) throws IOException
+	{
+		this.out = new PrintWriter(opponent.getOutputStream());
 	}
 
 	public void disconnect() throws IOException 
 	{
 		this.socket.close();
 	}
-	
-	public void setOutputStream(OutputStream out)
+
+	@Override
+	public void run() 
 	{
-		this.out = new PrintWriter(out, true);
+		try {
+			communicate();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
-	
-	public void setInputStream(InputStream in)
+
+	private void communicate() throws IOException 
 	{
-		this.in = new BufferedReader( new InputStreamReader(in));		
-	}
-	
-	public InputStream getInputStream() throws IOException {
-		return socket.getInputStream();
-	}
-	
-	public OutputStream getOutputStream() throws IOException
-	{
-		return socket.getOutputStream();
+		String inputLine;
+		while ((inputLine = in.readLine()) != null) {
+	        out.println(inputLine);
+	        out.flush();
+	    }
 	}
 }

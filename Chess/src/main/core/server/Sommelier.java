@@ -31,7 +31,7 @@ public class Sommelier implements Runnable {
 				pair = this.pool.getPair();
 				game = new GameServer(pair);
 				games.add(game);
-				new Thread(game).start();
+				//new Thread(game).start();
 			}
 			else
 			{
@@ -46,7 +46,7 @@ public class Sommelier implements Runnable {
 		// client registering after we check size but not got to this method
 		if(this.waitList.size() > 1 )
 		{
-			System.out.println("Consoladating waitList");
+			//System.out.println("Consoladating waitList");
 			flushWaitList();
 		}
 		else
@@ -65,7 +65,7 @@ public class Sommelier implements Runnable {
 	{
 		for(ServerClient c : this.waitList)
 		{
-			System.out.println("Adding to pool");
+			//System.out.println("Adding to pool");
 			// Inspect if this client was already in a previous game.
 			this.pool.add(c);
 		}
@@ -83,7 +83,7 @@ public class Sommelier implements Runnable {
 		this.waitList.add(client);
 		if( this.waitList.size() > 1)
 		{
-			System.out.println("Notifying");
+			//System.out.println("Notifying");
 			notifyAll();
 		}
 	}

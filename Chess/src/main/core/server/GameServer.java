@@ -1,69 +1,78 @@
 package core.server;
 
+import java.io.IOException;
 import java.io.OutputStream;
 
-public class GameServer implements Runnable {
+public class GameServer{
 
 	private Pair pair;
+	private String state;
 	
 	public GameServer(Pair pair) 
 	{
 		this.pair = pair;
 		connectUsers();
-		//private void pair() 
-		//{
-			//ServerClient c1 = this.pool.remove(0);
-			//ServerClient c2 = this.pool.remove(0);
-			//System.out.println("Creating game server.");
-			//System.out.println(date.getTime() + " : Client 1 IP: " + c1.getIPAddress());
-			//System.out.println(date.getTime() + " : Client 2 IP: " + c2.getIPAddress());
-			//c1.send("Bye.");
-			//c2.send("Bye.");
-			//c1.disconnect();
-			//c2.disconnect();
-		//}
+		handShake();
 	}
+
+
+	private void handShake() 
+	{
+		System.out.println("Handshakes");
+		((ServerClient) this.pair.client1).send("HandShake: Welcome to a game server. You decide who goes first.");
+		((ServerClient) this.pair.client2).send("HandShake: Welcome to a game Server.");
+	}
+
 
 	private void connectUsers() 
 	{
+		
 		ServerClient c1 = (ServerClient)pair.client1;
 		ServerClient c2 = (ServerClient)pair.client2;
-
-		//c1.setOutputStream(c2.getInputStream());
-	//	c2.setOutputStream(c1.getInputStream());
-		
-	}
-
-	@Override
-	public void run() 
-	{
-		startGame();
-	}
-	
-	private void startGame()
-	{
-		while(true)
-		{
-			try
-			{
-				ServerClient c = (ServerClient)this.pair.client1;
-				//c.socket.
-				c.send("hello little one");
-				//
-				//while ((inputLine = in.readLine()) != null) {
-			    //    outputLine = kkp.processInput(inputLine);
-			    //    out.println(outputLine);
-			    //    if (outputLine.equals("Bye."))
-			    //        break;
-			    //}
-				
-			}
-			catch(Exception e)
-			{
-				pause();
-			}
+		System.out.println("Connecting users");
+		try {
+			c1.connect(c2);
+			c2.connect(c1);
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
+		System.out.println("Creating threads");
+		new Thread(c1).start();
+		new Thread(c2).start();
 	}
+
+	//@Override
+	//public void run() 
+	//{
+	//	try {
+	//		startGame();
+	//	} catch (IOException e) {
+	//		// TODO Auto-generated catch block
+	//		e.printStackTrace();
+	//	}
+	//}
+	//
+	//private void startGame() throws IOException
+	//{
+	//	int cnt = 0;
+	//	String output;
+	//	ServerClient c = (ServerClient)this.pair.client1;
+	//	while(true)
+	//	{
+	//			//while ((inputLine = in.readLine()) != null) {
+	//		    //    outputLine = kkp.processInput(inputLine);
+	//		    //    out.println(outputLine);
+	//		    //    if (outputLine.equals("Bye."))
+	//		    //        break;
+	//		    //}
+	//			
+	//		//}
+	//		//catch(Exception e)
+	//		//{
+	//		//	pause();
+	//		//}
+	//	}
+	//}
 	
 	private synchronized void pause()
 	{
