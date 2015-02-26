@@ -16,9 +16,9 @@ public class InputHandler implements Runnable{
 	@Override
 	public void run() 
 	{
-		String inputLine;
-		while ((inputLine = connection.receive()) != null) {
-			this.controller.processInput(inputLine);
+		Message message;
+		while ((message = connection.receive()) != null) {
+			this.controller.processInput(message);
 	    }
 	}
 
