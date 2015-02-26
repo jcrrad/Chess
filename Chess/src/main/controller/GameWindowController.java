@@ -62,4 +62,9 @@ public class GameWindowController
 		this.view = view;
 	}
 
+	public void processInput(String inputLine) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

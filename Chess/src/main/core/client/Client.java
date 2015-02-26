@@ -9,23 +9,14 @@ import java.net.UnknownHostException;
 
 public class Client {
 	
-	PrintWriter out;
-	BufferedReader in;
-	public Socket serverSocket;
+	private String username;
 
-	public Client(String hostName, int port) throws UnknownHostException, IOException
+	public Client()
 	{
-		this.serverSocket = new Socket(hostName, port);
-		this.out = new PrintWriter(serverSocket.getOutputStream(), true);
-		this.in = new BufferedReader( new InputStreamReader(serverSocket.getInputStream()));
+		this.username = "guest_user";
 	}
-	
-	void send(String message)
+	public Client(String username)
 	{
-		out.println(message);
-	}
-
-	public String receive() throws IOException {
-		return in.readLine();
+		this.username = username;
 	}
 }
