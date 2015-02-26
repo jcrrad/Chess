@@ -2,8 +2,11 @@ package core.client;
 
 import gui.BoardPanel;
 
-public class Message
+import java.io.Serializable;
+
+public class Message implements Serializable
 {
+	private static final long serialVersionUID = 1L;
 	public boolean chatMessage;
 	public boolean boardMessage;
 	public BoardPanel board;

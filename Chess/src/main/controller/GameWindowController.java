@@ -4,6 +4,7 @@ import gui.BoardPanel;
 import gui.View;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.net.UnknownHostException;
 
 import core.client.Client;
@@ -12,8 +13,9 @@ import core.client.InputHandler;
 import core.client.Message;
 import core.client.Model;
 
-public class GameWindowController 
+public class GameWindowController implements Serializable
 {
+	private static final long serialVersionUID = 1L;
 	private View view;
 	private Model model;
 	private Client client;

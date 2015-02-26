@@ -6,6 +6,11 @@ import java.awt.Color;
 
 public class Bishop extends Piece {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public Bishop(Color color, Square square) {
 		super(square);
 		this.name = "BISHOP";
