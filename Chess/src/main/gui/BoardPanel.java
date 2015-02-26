@@ -58,9 +58,5 @@ public class BoardPanel extends JPanel {
 		squares[7][7].setPiece(new Rook(Color.BLACK, squares[7][7]));
 
 	}
-	
-	public BoardPanel()
-	{
-		
-	}
+
 }
