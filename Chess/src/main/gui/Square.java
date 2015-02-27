@@ -76,13 +76,15 @@ public class Square extends JButton implements ActionListener {
 		if (movingPiece == null && piece != null) {// player is selecting which
 													// piece to move
 			movingPiece = removePiece();
+			controller.setStartX(this.column);
+			controller.setStartY(this.row);
 			System.out.println("Piece picked up" + movingPiece.toString());
 		} else {// player has a piece in their hand
 			if ((piece == null || !(piece.getColor().equals(movingPiece.getColor()))) && (movingPiece.canMove(this))) {
 				// if moving piece can move to new square
 				placePiece(movingPiece);
 				movingPiece = null;
-				controller.sendMove();
+				controller.sendMove(this.column, this.row);
 				
 			} else {// move failed put it back
 				movingPiece.getSquare().placePiece(movingPiece);

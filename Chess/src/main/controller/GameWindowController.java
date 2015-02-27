@@ -19,6 +19,8 @@ public class GameWindowController
 	private Model model;
 	private Client client;
 	private Connection connection;
+	private int startX;
+	private int startY;
 	Message message;
 
 	public GameWindowController(Model model) throws UnknownHostException, IOException
@@ -30,15 +32,13 @@ public class GameWindowController
 	{
 		updateChat(text);
 		message = new Message();
-		message.setChatMessage(true);
 		message.setText(text);
 		connection.send(message);
 	}
 	
-	public void sendMove()
+	public void sendMove(int endX, int endY)
 	{
 		message = new Message();
-		message.setBoardMessage(true);
 		//Set data up
 		connection.send(message);
 	}
@@ -47,8 +47,8 @@ public class GameWindowController
 	{
 		if(message.chatMessage)
 			this.updateChat(message.getText());
-		else{}
-			//Call to refresh board
+		else
+			view.getGameScreen().getBoard().updateMove();
 	}
 	
 	public void connect()
@@ -106,5 +106,26 @@ public class GameWindowController
 	{
 		this.view = view;
 	}
+
+	public int getStartX() 
+	{
+		return startX;
+	}
+
+	public void setStartX(int startX) 
+	{
+		this.startX = startX;
+	}
+
+	public int getStartY() 
+	{
+		return startY;
+	}
+
+	public void setStartY(int startY) 
+	{
+		this.startY = startY;
+	}
+	
 
 }
