@@ -39,7 +39,7 @@ public class GameWindowController
 	public void sendMove(int endX, int endY)
 	{
 		message = new Message();
-		//Set data up
+		message.setCoords(startX, startY, endX, endY);
 		connection.send(message);
 	}
 	
