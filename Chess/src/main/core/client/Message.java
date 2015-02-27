@@ -5,6 +5,7 @@ public class Message
 {
 	private boolean chatMessage;
 	private boolean boardMessage;
+	public int handshake = 0;
 	private String text;
 	private int[] start = new int[2];
 	private int[] end = new int[2];

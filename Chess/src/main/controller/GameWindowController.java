@@ -6,6 +6,7 @@ import gui.View;
 import java.io.IOException;
 import java.io.Serializable;
 import java.net.UnknownHostException;
+import java.util.Random;
 
 import core.client.Client;
 import core.client.Connection;
@@ -22,6 +23,7 @@ public class GameWindowController
 	private int startX;
 	private int startY;
 	Message message;
+	private int handshake;
 
 	public GameWindowController(Model model) throws UnknownHostException, IOException
 	{
@@ -49,6 +51,23 @@ public class GameWindowController
 	
 	public void processInput(Message message)
 	{
+		if(isHandshake(message))
+		{
+			checkHandshake(message);
+			return;
+		}
+		
+		if(message.handshake > 0)
+		{
+			if(this.handshake > 0)
+			{
+				System.out.println(this.handshake);
+			}
+			else
+			{
+				handshake();
+			}
+		}
 		if(message.isChatMessage())
 			this.updateChat(message.getText());
 		else
@@ -56,6 +75,24 @@ public class GameWindowController
 					message.getStartCords(), message.getEndCords());
 	}
 	
+	private boolean isHandshake(Message message) 
+	{
+		return message.handshake > 0;
+	}
+	
+	private void checkHandshake(Message message)
+	{
+		if(this.handshake > 0)
+		{
+			System.out.println("Winner");
+			System.out.println(this.handshake);
+		}
+		else
+		{
+			handshake();
+		}
+	}
+
 	public void connect()
 	{
 		try {
@@ -64,8 +101,18 @@ public class GameWindowController
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		handshake();
 		new Thread(new InputHandler(connection, this)).start();
 		view.goToGame();
+	}
+	
+	private void handshake()
+	{
+		Message message = new Message();
+		Random rand = new Random();
+		message.handshake = rand.nextInt(Integer.MAX_VALUE);
+		this.handshake = message.handshake;
+		this.connection.send(message);
 	}
 	
 	public void handleQuit() 

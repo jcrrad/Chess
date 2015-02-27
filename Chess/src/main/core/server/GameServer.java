@@ -19,6 +19,7 @@ public class GameServer{
 	private void handShake() 
 	{
 		System.out.println("Handshakes");
+		//((ServerClient) this.pair.client1).send("{}");
 		//((ServerClient) this.pair.client1).send("HandShake: Welcome to a game server. You decide who goes first.");
 		//((ServerClient) this.pair.client2).send("HandShake: Welcome to a game Server.");
 	}
