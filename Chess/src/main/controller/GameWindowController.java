@@ -57,17 +57,6 @@ public class GameWindowController
 			return;
 		}
 		
-		if(message.handshake > 0)
-		{
-			if(this.handshake > 0)
-			{
-				System.out.println(this.handshake);
-			}
-			else
-			{
-				handshake();
-			}
-		}
 		if(message.isChatMessage())
 			this.updateChat(message.getText());
 		else
@@ -82,7 +71,7 @@ public class GameWindowController
 	
 	private void checkHandshake(Message message)
 	{
-		if(this.handshake > 0)
+		if(this.handshake > message.handshake)
 		{
 			System.out.println("Winner");
 			System.out.println(this.handshake);
