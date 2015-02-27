@@ -3,38 +3,52 @@ package core.client;
 
 public class Message
 {
-	public boolean chatMessage;
-	public boolean boardMessage;
-	public String text;
+	private boolean chatMessage;
+	private boolean boardMessage;
+	private String text;
+	private int[] start = new int[2];
+	private int[] end = new int[2];
 	
 	public boolean isChatMessage() 
 	{
 		return chatMessage;
 	}
 	
-	public void setChatMessage(boolean chatMessage) 
-	{
-		this.chatMessage = chatMessage;
-	}
-	
 	public boolean isBoardMessage() 
 	{
 		return boardMessage;
 	}
-	
-	public void setBoardMessage(boolean boardMessage) 
-	{
-		this.boardMessage = boardMessage;
-	}
+
 	
 	public String getText() 
 	{
+		this.chatMessage = true;
 		return text;
 	}
-	
+
 	public void setText(String text) 
 	{
 		this.text = text;
+	}
+	
+	public void setCoords(int startx, int starty, int endx, int endy)
+	{
+		this.boardMessage = true;
+		
+		this.start[0] = startx;
+		this.start[1] = starty;
+		this.end[0] = endx;
+		this.end[1] = endy;
+	}
+	
+	public int[] getStartCords()
+	{
+		return start;
+	}
+	
+	public int[] getEndCords()
+	{
+		return end;
 	}
 	
 }
