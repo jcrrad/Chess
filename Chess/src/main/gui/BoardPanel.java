@@ -14,8 +14,7 @@ import controller.piece.Pawn;
 import controller.piece.Queen;
 import controller.piece.Rook;
 
-public class BoardPanel extends JPanel
-	implements Serializable{
+public class BoardPanel extends JPanel{
 
 	/**
 	 * 

@@ -6,11 +6,6 @@ import java.awt.Color;
 
 public class Queen extends Piece {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-
 	public Queen(Color color, Square square) {
 		super(square);
 		this.name = "QUEEN";

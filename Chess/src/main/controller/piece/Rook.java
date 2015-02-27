@@ -6,11 +6,6 @@ import java.awt.Color;
 
 public class Rook extends Piece {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-
 	public Rook(Color color, Square square) {
 		super(square);
 		this.name = "ROOK";

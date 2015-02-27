@@ -13,9 +13,8 @@ import core.client.InputHandler;
 import core.client.Message;
 import core.client.Model;
 
-public class GameWindowController implements Serializable
+public class GameWindowController
 {
-	private static final long serialVersionUID = 1L;
 	private View view;
 	private Model model;
 	private Client client;
@@ -40,7 +39,7 @@ public class GameWindowController implements Serializable
 	{
 		message = new Message();
 		message.setBoardMessage(true);
-		message.setBoard(view.getGameScreen().getBoard());
+		//Set data up
 		connection.send(message);
 	}
 	
@@ -48,9 +47,8 @@ public class GameWindowController implements Serializable
 	{
 		if(message.chatMessage)
 			this.updateChat(message.getText());
-		else
-			view.getGameScreen().setBoard(
-					message.getBoard());
+		else{}
+			//Call to refresh board
 	}
 	
 	public void connect()

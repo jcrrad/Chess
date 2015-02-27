@@ -6,11 +6,6 @@ import java.awt.Color;
 
 public class Knight extends Piece {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-
 	public Knight(Color color, Square square) {
 		super(square);
 		this.name = "KNIGHT";

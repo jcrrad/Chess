@@ -10,7 +10,7 @@ import javax.swing.JButton;
 import controller.GameWindowController;
 import controller.piece.Piece;
 
-public class Square extends JButton implements ActionListener, Serializable {
+public class Square extends JButton implements ActionListener {
 	/**
 	 * 
 	 */
