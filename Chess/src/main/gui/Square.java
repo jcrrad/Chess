@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 
 import controller.piece.Piece;
 
@@ -31,10 +32,11 @@ public class Square extends JButton implements ActionListener {
 		return piece;
 	}
 
-	public void setPiece(Piece piece) {
-		this.piece = piece;
-		this.setForeground(piece.getColor());
-		this.setText(piece.getName());
+	public void setPiece(Piece newPiece) {
+		piece = newPiece;
+		piece.setSquare(this);
+		newPiece = null;
+		this.updateSquare();
 	}
 
 	public int getRow() {
@@ -59,30 +61,26 @@ public class Square extends JButton implements ActionListener {
 		return temp;
 	}
 
-	public void placePiece(Piece newPiece) {
-		piece = newPiece;
-		piece.setSquare(this);
-		newPiece = null;
-		this.updateSquare();
-	}
-
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// clicked on, player is trying to move a piece.
-		if (movingPiece == null && piece != null) {// player is selecting which
-													// piece to move
-			movingPiece = removePiece();
-			System.out.println("Piece picked up" + movingPiece.toString());
-		} else {// player has a piece in their hand
-			if ((piece == null || !(piece.getColor().equals(movingPiece.getColor()))) && (movingPiece.canMove(this))) {
-				// if moving piece can move to new square
-				placePiece(movingPiece);
-				movingPiece = null;
-			} else {// move failed put it back
-				movingPiece.getSquare().placePiece(movingPiece);
-				movingPiece = null;
 
-			}
+		// clicked on, player is trying to move a piece.
+		if (movingPiece == null) {
+			if (piece != null)
+				// player is selecting which piece to move
+				movingPiece = removePiece();
+		} else {// player has a piece in their hand
+			if (!(movingPiece.getSquare().equals(this)))
+				if ((piece == null || !(piece.getColor().equals(movingPiece
+						.getColor()))))
+					if (movingPiece.moveable(this)) {
+						// if moving piece can move to new square
+						setPiece(movingPiece);
+						movingPiece = null;
+					} else {// move failed put it back
+						movingPiece.getSquare().setPiece(movingPiece);
+						movingPiece = null;
+					}
 		}
 		this.updateSquare();
 	}
@@ -96,5 +94,13 @@ public class Square extends JButton implements ActionListener {
 			invalidate();
 		}
 
-	};
+	}
+
+	static String pawnPromotion() {
+		String[] choices = { "Knight", "Bishop", "Rook", "Queen" };
+		String s = (String) JOptionPane.showInputDialog(null,
+				"make your choice", "Try GUI", JOptionPane.PLAIN_MESSAGE, null,
+				choices, choices[0]);
+		return s;
+	}
 }
