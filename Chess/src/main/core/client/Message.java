@@ -22,12 +22,12 @@ public class Message
 	
 	public String getText() 
 	{
-		this.chatMessage = true;
 		return text;
 	}
 
 	public void setText(String text) 
 	{
+		this.chatMessage = true;
 		this.text = text;
 	}
 	
@@ -50,5 +50,4 @@ public class Message
 	{
 		return end;
 	}
-	
 }

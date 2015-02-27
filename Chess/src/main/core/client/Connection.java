@@ -27,13 +27,16 @@ public class Connection {
 	public void send(Message obj)
 	{
 		//serialize obj
-		out.println(gson.toJson(obj));
+		System.out.println("sending message");
+		String msg = gson.toJson(obj); 
+		out.println(msg);
 		out.flush();
 	}
 
 	public Message receive() {
 		try {
 			Message message = gson.fromJson(in.readLine(), Message.class);
+			System.out.println("received message");
 			return message;
 		} catch (IOException e) {
 			e.printStackTrace();

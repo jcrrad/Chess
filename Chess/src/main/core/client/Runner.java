@@ -17,6 +17,7 @@ public class Runner {
 		View view = new View(gameWindowController);
 		
 		gameWindowController.setView(view);
+
 	}
 
 }
