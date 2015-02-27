@@ -69,6 +69,7 @@ public class BoardPanel extends JPanel{
 		
 		squares[endX][endY].setPiece(squares[startX][startY].getPiece());
 		squares[startX][startY].removePiece();
+		squares[startX][startY].updateSquare();
 	}
 
 }

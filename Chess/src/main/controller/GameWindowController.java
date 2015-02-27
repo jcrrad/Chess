@@ -40,6 +40,7 @@ public class GameWindowController
 	{
 		message = new Message();
 		message.setCoords(startX, startY, endX, endY);
+		System.out.println(startX+" "+startY+" "+endX+" "+endY);
 		connection.send(message);
 	}
 	
