@@ -45,10 +45,11 @@ public class GameWindowController
 	
 	public void processInput(Message message)
 	{
-		if(message.chatMessage)
+		if(message.isChatMessage())
 			this.updateChat(message.getText());
 		else
-			view.getGameScreen().getBoard().updateMove();
+			view.getGameScreen().getBoard().updateMove(
+					message.getStartCords(), message.getEndCords());
 	}
 	
 	public void connect()

@@ -60,9 +60,15 @@ public class BoardPanel extends JPanel{
 
 	}
 	
-	public void updateMove()
+	public void updateMove(int[] startCords, int[] endCords)
 	{
+		int startX = startCords[0];
+		int startY = startCords[1];
+		int endX = endCords[0];
+		int endY = endCords[1];
 		
+		squares[endX][endY].setPiece(squares[startX][startY].getPiece());
+		squares[startX][startY].removePiece();
 	}
 
 }
