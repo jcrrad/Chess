@@ -30,10 +30,13 @@ public class GameWindowController
 	
 	public void sendChat(String text) 
 	{
-		updateChat(text);
-		message = new Message();
-		message.setText(text);
-		connection.send(message);
+		if(text.length() != 0)
+		{
+			updateChat(text);
+			message = new Message();
+			message.setText(text);
+			connection.send(message);
+		}
 	}
 	
 	public void sendMove(int endX, int endY)
