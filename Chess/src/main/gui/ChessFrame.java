@@ -15,6 +15,7 @@ public class ChessFrame extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 	JPanel cards = new JPanel();
+	JPanel current;
 	CardLayout cardLayout;
 
 	private static void macSetup(String appName) {
@@ -42,7 +43,7 @@ public class ChessFrame extends JFrame {
 		}
 		cardLayout = new CardLayout();
 
-		setVisible(true);
+		//setVisible(true);
 		this.setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
@@ -61,7 +62,16 @@ public class ChessFrame extends JFrame {
 	
 	public void update(JPanel panel)
 	{
-		cardLayout.show(cards, panel.getName());
+		if(current != null)
+		{
+			this.remove(current);
+		}
+		
+		this.current = panel;
+		this.add(current);
+		this.setVisible(true);
+	
+		//cardLayout.show(cards, panel.getName());
 	}
 	
 	public void kill() {

@@ -16,7 +16,7 @@ public class ConnectionController {
 		// the server
 		// model.createConnection(); etc.
 		System.out.println("ControllerConnect");
-		view.goToGame();
+		//view.goToGame();
 	}
 
 	public void killWindow() {

@@ -13,6 +13,7 @@ public class LoginController extends Controller {
 
 	public LoginController(Model model, View view) {
 		super(model, view);
+		System.out.println("about to update");
 		view.update();
 	}
 

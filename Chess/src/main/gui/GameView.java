@@ -18,7 +18,7 @@ public class GameView extends JPanel {
 	// TODO add clock Section
 	public GameView(ChessFrame chessFrame) {
 		super();
-		chessFrame.register();
+		chessFrame.register(this);
 		buttonPanel = new ButtonPanel();
 		chat = new TabbedPanel();
 		board = new BoardPanel();
