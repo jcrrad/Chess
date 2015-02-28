@@ -10,9 +10,11 @@ import javax.swing.JPanel;
 public class AboutView extends JPanel implements View{
 	private static final long serialVersionUID = 1L;
 	
+	ChessFrame frame;
 	JButton goBack = new JButton("Go Back");
 
 	public AboutView(ChessFrame frame) {
+		this.frame = frame;
 		frame.register(this);
 		this.add(new JLabel("About Screen"));
 		this.add(goBack);
@@ -24,8 +26,8 @@ public class AboutView extends JPanel implements View{
 	}
 
 	@Override
-	public void update() {
-		// TODO Auto-generated method stub
-		
+	public void update() 
+	{	
+		frame.update(this);
 	}
 }

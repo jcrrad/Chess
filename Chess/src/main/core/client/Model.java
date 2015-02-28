@@ -13,6 +13,7 @@ import controller.Observer;
 public class Model implements Observable {
 
 	private ArrayList<Observer> observers = new ArrayList<Observer>();
+	String state = "login";
 	
 	public static void main(String[] args) throws IOException
 	{
@@ -67,8 +68,19 @@ public class Model implements Observable {
 	public void notifyObservers() {
 		for(Observer obs : observers)
 		{
-			obs.notify();
+			obs.update();
 		}
+	}
+
+	public void setState(String state) 
+	{
+		this.state = state;
+		notifyObservers();
+	}
+
+	public String getState() 
+	{
+		return this.state;
 	}
 
 }

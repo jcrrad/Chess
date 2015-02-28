@@ -64,11 +64,13 @@ public class ChessFrame extends JFrame {
 	{
 		if(current != null)
 		{
+			this.current.setVisible(false);
 			this.remove(current);
 		}
 		
 		this.current = panel;
 		this.add(current);
+		panel.setVisible(true);
 		this.setVisible(true);
 	
 		//cardLayout.show(cards, panel.getName());
