@@ -1,14 +1,19 @@
 package controller;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import gui.ChessFrame;
+import gui.GameView;
 import core.client.Model;
 
-public class GameWindowController {
-	private ChessFrame view;
-	private Model model;
+public class GameWindowController extends Controller{
 
-	public GameWindowController(Model model) {
-		this.model = model;
+	public GameWindowController(Model model, GameView view) {
+		super(model,view);
+		view.setButtonPanelQuitListener(new ButtonPanelQuitListener());
+		view.setChatPanelSubmitListener(new ChatPanelSubmitListener());
+		view.setButtonPanelStalemateListener(new ButtonPanelStalemateListener());
 	}
 
 	public void sendMessage(String text) {
@@ -38,21 +43,50 @@ public class GameWindowController {
 	}
 
 	public void killWindow() {
-		view.dispose();
+		//view.dispose();
 	}
 
-	// //////////////////////////////////
-	//
-	// Getters & Setters
-	//
-	// //////////////////////////////////
-
-	public ChessFrame getView() {
-		return view;
+	@Override
+	public void update() 
+	{
+		System.out.println("Checking ingame");
+		if(model.getState() == "ingame")
+		{
+			System.out.println("INGAME");
+			view.update();
+		}
 	}
 
-	public void setView(ChessFrame view) {
-		this.view = view;
-	}
+	class ButtonPanelQuitListener implements ActionListener
+	{
 
+		@Override
+		public void actionPerformed(ActionEvent e) 
+		{
+			model.setState("quit");
+		}
+		
+	}
+	
+	class ChatPanelSubmitListener implements ActionListener
+	{
+
+		@Override
+		public void actionPerformed(ActionEvent e) 
+		{
+			System.out.println("Sending Text");
+		}
+		
+	}
+	
+	class ButtonPanelStalemateListener implements ActionListener
+	{
+
+		@Override
+		public void actionPerformed(ActionEvent e) 
+		{
+			System.out.println("Offering Stalemate");
+		}
+		
+	}
 }

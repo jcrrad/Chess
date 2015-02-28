@@ -45,8 +45,7 @@ public class LoginController extends Controller {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
-			
+			model.setState("quit");
 		}
 		
 	}
@@ -56,7 +55,7 @@ public class LoginController extends Controller {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
+			model.setState("ingame");
 			
 		}
 		

@@ -9,31 +9,36 @@ import javax.swing.JPanel;
 
 import controller.GameWindowController;
 
-public class GameView extends JPanel {
+public class GameView extends JPanel implements View{
 	private static final long serialVersionUID = 1L;
 	BoardPanel board;
 	TabbedPanel chat;
 	ButtonPanel buttonPanel;
+	ChessFrame frame;
 	
 	// TODO add clock Section
-	public GameView(ChessFrame chessFrame) {
-		super();
-		chessFrame.register(this);
+	public GameView(ChessFrame frame) {
+		this.frame = frame;
+		this.frame.register(this);
+
 		buttonPanel = new ButtonPanel();
 		chat = new TabbedPanel();
 		board = new BoardPanel();
 		setLayout(new GridBagLayout());
+		
 		GridBagConstraints gbc_board = new GridBagConstraints();
 		gbc_board.fill = GridBagConstraints.BOTH;
 		gbc_board.weighty = 4.0;
 		gbc_board.weightx = 1;
 		this.add(board, gbc_board);
+		
 		GridBagConstraints gbc_chat = new GridBagConstraints();
 		gbc_chat.fill = GridBagConstraints.BOTH;
 		gbc_chat.weighty = 4.0;
 		gbc_chat.weightx = 10;
 		gbc_chat.gridwidth = GridBagConstraints.REMAINDER;
 		this.add(chat, gbc_chat);
+		
 		GridBagConstraints gbc_buttonPanel = new GridBagConstraints();
 		gbc_buttonPanel.fill = GridBagConstraints.BOTH;
 		gbc_buttonPanel.gridwidth = GridBagConstraints.REMAINDER;
@@ -59,6 +64,12 @@ public class GameView extends JPanel {
 	public String getChatPanelInputField()
 	{
 		return this.chat.chatSection.inputField.getText();
+	}
+
+	@Override
+	public void update() 
+	{
+		this.frame.update(this);
 	}
 	
 }
