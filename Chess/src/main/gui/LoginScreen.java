@@ -20,7 +20,7 @@ public class LoginScreen extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	View parentView;
+	ChessFrame parentView;
 
 	JTextField input = new JTextField();
 	JLabel username = new JLabel("What is your username?");
@@ -29,7 +29,7 @@ public class LoginScreen extends JPanel {
 	JButton about = new JButton("About");
 	
 
-	public LoginScreen(View parent, final ConnectionController connectionController) {
+	public LoginScreen(ChessFrame parent, final ConnectionController connectionController) {
 		parentView = parent;
 		setLayout(new GridBagLayout());
 

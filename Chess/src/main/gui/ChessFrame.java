@@ -9,14 +9,13 @@ import javax.swing.UIManager;
 import controller.ConnectionController;
 import controller.GameWindowController;
 
-public class View extends JFrame 
-{
+public class ChessFrame extends JFrame {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	JPanel cards = new JPanel();
-	GameScreen gameScreen;
+	GameView gameScreen;
 	LoginScreen login;
 	LoadingScreen loading;
 	AboutScreen about;
@@ -25,32 +24,33 @@ public class View extends JFrame
 	ConnectionController connectionController;
 
 	private static void macSetup(String appName) {
-		   String os = System.getProperty("os.name").toLowerCase();
-	      boolean isMac = os.startsWith("mac os x");     
+		String os = System.getProperty("os.name").toLowerCase();
+		boolean isMac = os.startsWith("mac os x");
 
-	      if(!isMac)
-	         return;
-	      
-			System.setProperty("apple.laf.useScreenMenuBar", "true");
-			System.setProperty("com.apple.mrj.application.apple.menu.about.name", 
-			   appName);		
-		}
-	
-	public View(GameWindowController gameWindowController, ConnectionController connectionController) 
-	{
+		if (!isMac)
+			return;
+
+		System.setProperty("apple.laf.useScreenMenuBar", "true");
+		System.setProperty("com.apple.mrj.application.apple.menu.about.name",
+				appName);
+	}
+
+	public ChessFrame(GameWindowController gameWindowController,
+			ConnectionController connectionController) {
 		super("Chess");
 		this.gameWindowController = gameWindowController;
 		this.connectionController = connectionController;
-		
-		gameScreen = new GameScreen(gameWindowController);
+
+		gameScreen = new GameView(this);
 		login = new LoginScreen(this, connectionController);
 		loading = new LoadingScreen(this);
 		about = new AboutScreen(this);
-		
+
 		macSetup("swing-mac");
-		
+
 		try {
-			UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
+			UIManager.setLookAndFeel(UIManager
+					.getCrossPlatformLookAndFeelClassName());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -70,39 +70,38 @@ public class View extends JFrame
 		cards.add(login, "login");
 		cards.add(gameScreen, "game");
 		goToLogin();
-		//goToGame();
+		// goToGame();
 	}
 
-	public void goToGame() 
-	{
+	public void goToGame() {
 		System.out.println("Game");
 		cardLayout.show(cards, "game");
 	}
 
-	public void goToLogin() 
-	{
+	public void goToLogin() {
 		System.out.println("Login");
 		cardLayout.show(cards, "login");
 	}
 
-	public void goToLoading() 
-	{
+	public void goToLoading() {
 		System.out.println("Loading");
 		cardLayout.show(cards, "loading");
 		goToGame();
-
 	}
 
-	public void goToAbout() 
-	{
+	public void goToAbout() {
 		System.out.println("About");
 		cardLayout.show(cards, "about");
 	}
 
-	public void kill() 
-	{
+	public void kill() {
 		// TODO KILL EVERYTHING
 		this.dispose();
+
+	}
+
+	public void register() {
+		// TODO Auto-generated method stub
 
 	}
 }

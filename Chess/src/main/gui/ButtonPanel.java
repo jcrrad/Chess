@@ -22,13 +22,11 @@ public class ButtonPanel extends JPanel {
 	JButton stalemate = new JButton("Offer Stalemate");
 	GameWindowController controller;
 
-	public ButtonPanel(GameWindowController controller) {
-		this.controller = controller;
+	public ButtonPanel() {
 		this.setLayout(new GridLayout(0, 4, 0, 0));
 		this.add(quit);
 		this.add(stalemate);
 		this.add(new JButton("Place holder for NOW"));
-		this.add(new JButton("You Suck"));
 
 		quit.addMouseListener(new MouseAdapter() {
 			@Override
@@ -54,7 +52,8 @@ public class ButtonPanel extends JPanel {
 	}
 
 	public void quitGame() {
-		if (JOptionPane.showConfirmDialog(null, "Are you sure you want to quit the game?", "WARNING",
+		if (JOptionPane.showConfirmDialog(null,
+				"Are you sure you want to quit the game?", "WARNING",
 				JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
 			controller.handleQuit();
 	}

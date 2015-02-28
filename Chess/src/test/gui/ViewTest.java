@@ -1,9 +1,9 @@
 package gui;
 
-import gui.View;
+import gui.ChessFrame;
 
 /**
- * Base test class for {@link View}
+ * Base test class for {@link ChessFrame}
  * @author Brisbin
  *
  */

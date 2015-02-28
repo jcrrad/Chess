@@ -9,10 +9,10 @@ import javax.swing.JPanel;
 
 public class AboutScreen extends JPanel {
 	private static final long serialVersionUID = 1L;
-	View parentView;
+	ChessFrame parentView;
 	JButton goBack = new JButton("Go Back");
 
-	public AboutScreen(View parent) {
+	public AboutScreen(ChessFrame parent) {
 		parentView = parent;
 		this.add(new JLabel("About Screen"));
 		this.add(goBack);

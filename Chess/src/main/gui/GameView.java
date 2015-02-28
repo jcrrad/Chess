@@ -9,18 +9,19 @@ import javax.swing.JPanel;
 
 import controller.GameWindowController;
 
-public class GameScreen extends JPanel {
+public class GameView extends JPanel {
 
 	BoardPanel board;
 	TabbedPanel chat;
 	ButtonPanel buttonPanel;
 
 	// TODO add clock Section
-	public GameScreen(GameWindowController gameWindowController) {
+	public GameView(ChessFrame chessFrame) {
 		super();
-		buttonPanel = new ButtonPanel(gameWindowController);
-		chat = new TabbedPanel(gameWindowController);
-		board = new BoardPanel(gameWindowController);
+		chessFrame.register();
+		buttonPanel = new ButtonPanel();
+		chat = new TabbedPanel();
+		board = new BoardPanel();
 		setLayout(new GridBagLayout());
 		GridBagConstraints gbc_board = new GridBagConstraints();
 		gbc_board.fill = GridBagConstraints.BOTH;
@@ -36,10 +37,8 @@ public class GameScreen extends JPanel {
 		GridBagConstraints gbc_buttonPanel = new GridBagConstraints();
 		gbc_buttonPanel.fill = GridBagConstraints.BOTH;
 		gbc_buttonPanel.gridwidth = GridBagConstraints.REMAINDER;
-
 		gbc_buttonPanel.weighty = 1.0;
 		this.add(buttonPanel, gbc_buttonPanel);
-
 	}
 
 	/**

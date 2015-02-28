@@ -6,9 +6,9 @@ import javax.swing.JPanel;
 public class LoadingScreen extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	View parentView;
+	ChessFrame parentView;
 
-	public LoadingScreen(View parent) {
+	public LoadingScreen(ChessFrame parent) {
 		parentView = parent;
 		this.add(new JLabel("Trying to Connect to Server"));
 	}
