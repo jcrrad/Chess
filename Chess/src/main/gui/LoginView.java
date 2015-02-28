@@ -20,8 +20,7 @@ public class LoginView extends JPanel implements View{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	ChessFrame parentView;
-
+	ChessFrame frame;
 	JTextField usernameText = new JTextField();
 	JLabel usernameLabel = new JLabel("What is your username?");
 	JLabel welcomeLabel = new JLabel("Welcome to Chess");
@@ -31,7 +30,8 @@ public class LoginView extends JPanel implements View{
 	
 
 	public LoginView(ChessFrame frame) {
-		frame.register(this);
+		this.frame = frame;
+		this.frame.register(this);
 		setLayout(new GridBagLayout());
 
 		setupWelcome();
@@ -124,5 +124,11 @@ public class LoginView extends JPanel implements View{
 	public String getUsername()
 	{
 		return this.usernameText.getText();
+	}
+
+	@Override
+	public void update() 
+	{
+		this.frame.update(this);
 	}
 }

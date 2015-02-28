@@ -14,11 +14,11 @@ public class Runner {
 		ChessFrame chessFrame = new ChessFrame();
 		
 		LoginView loginView = new LoginView(chessFrame);
-		ConnectionView connectView = new ConnectionView(chessFrame);
-		GameView gameView = new GameView(chessFrame);
+		//ConnectionView connectView = new ConnectionView(chessFrame);
+		//GameView gameView = new GameView(chessFrame);
 		
 		LoginController loginController = new LoginController(model, loginView);
-		ConnectionController connectionController = new ConnectionController(model, connectView);
-		GameWindowController gameWindowController = new GameWindowController(model, gameView);
+		//ConnectionController connectionController = new ConnectionController(model, connectView);
+		//GameWindowController gameWindowController = new GameWindowController(model, gameView);
 	}
 }

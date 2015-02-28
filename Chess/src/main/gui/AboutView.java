@@ -22,4 +22,10 @@ public class AboutView extends JPanel implements View{
 	{
 		goBack.addActionListener(listener);
 	}
+
+	@Override
+	public void update() {
+		// TODO Auto-generated method stub
+		
+	}
 }
