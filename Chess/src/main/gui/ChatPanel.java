@@ -19,6 +19,7 @@ public class ChatPanel extends JPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 	JTextField inputField;
+	JButton submitButton;
 
 	// TODO: JEFF - make scrollable
 	public ChatPanel() {
@@ -47,8 +48,8 @@ public class ChatPanel extends JPanel {
 		input_gbc.fill = GridBagConstraints.BOTH;
 		this.add(inputField, input_gbc);
 
-		JButton button = new JButton();
-		button.setText("Submit");
+		submitButton = new JButton();
+		submitButton.setText("Submit");
 		GridBagConstraints button_gbc = new GridBagConstraints();
 		button_gbc.insets = new Insets(10, 5, 0, 0);
 		button_gbc.gridy = 1;
@@ -56,14 +57,7 @@ public class ChatPanel extends JPanel {
 		button_gbc.weighty = 0.1;
 		button_gbc.weighty = 1;
 		button_gbc.gridwidth = GridBagConstraints.REMAINDER;
-		this.add(button, button_gbc);
-		button.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent evt) {
-				// gameWindowController.sendMessage(inputField.getText());
-				// inputField.setText("");
-			}
-		});
-
+		this.add(submitButton, button_gbc);
 	}
 
 }

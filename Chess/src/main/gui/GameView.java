@@ -10,11 +10,11 @@ import javax.swing.JPanel;
 import controller.GameWindowController;
 
 public class GameView extends JPanel {
-
+	private static final long serialVersionUID = 1L;
 	BoardPanel board;
 	TabbedPanel chat;
 	ButtonPanel buttonPanel;
-
+	
 	// TODO add clock Section
 	public GameView(ChessFrame chessFrame) {
 		super();
@@ -40,10 +40,25 @@ public class GameView extends JPanel {
 		gbc_buttonPanel.weighty = 1.0;
 		this.add(buttonPanel, gbc_buttonPanel);
 	}
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-
+	
+	public void setButtonPanelQuitListener(ActionListener listener)
+	{
+		this.buttonPanel.quit.addActionListener(listener);
+	}
+	
+	public void setButtonPanelStalemateListener(ActionListener listener)
+	{
+		this.buttonPanel.stalemate.addActionListener(listener);
+	}
+	
+	public void setChatPanelSubmitListener(ActionListener listener)
+	{
+		this.chat.chatSection.submitButton.addActionListener(listener);
+	}
+	
+	public String getChatPanelInputField()
+	{
+		return this.chat.chatSection.inputField.getText();
+	}
+	
 }
