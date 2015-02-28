@@ -23,7 +23,7 @@ public class GameWindowController
 	private int startX;
 	private int startY;
 	Message message;
-	private int handshake;
+	private long handshake;
 
 	public GameWindowController(Model model) throws UnknownHostException, IOException
 	{
@@ -71,7 +71,7 @@ public class GameWindowController
 	
 	private void checkHandshake(Message message)
 	{
-		if(this.handshake > message.handshake)
+		if(this.handshake < message.handshake)
 		{
 			System.out.println("Winner");
 			System.out.println(this.handshake);
@@ -85,9 +85,8 @@ public class GameWindowController
 	public void connect()
 	{
 		try {
-			this.connection = new Connection("172.17.121.82", 8000);
+			this.connection = new Connection("localhost", 8000);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		handshake();
@@ -98,9 +97,8 @@ public class GameWindowController
 	private void handshake()
 	{
 		Message message = new Message();
-		Random rand = new Random();
-		message.handshake = rand.nextInt(Integer.MAX_VALUE);
-		this.handshake = message.handshake;
+		this.handshake = System.currentTimeMillis();
+		message.handshake = this.handshake;
 		this.connection.send(message);
 	}
 	
