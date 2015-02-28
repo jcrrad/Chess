@@ -3,9 +3,17 @@ package core.client;
 import java.io.Console;
 import java.io.IOException;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Model {
+import controller.Observable;
+import controller.Controller;
+import controller.Observer;
+
+public class Model implements Observable {
+
+	private ArrayList<Observer> observers = new ArrayList<Observer>();
+	
 	public static void main(String[] args) throws IOException
 	{
 		// Everything here can be factored out, I am just keeping it for testing purposes.
@@ -42,4 +50,25 @@ public class Model {
 			}
 		}
 	}
+
+	@Override
+	public void registerObserver(Observer observer) 
+	{
+		this.observers.add(observer);	
+	}
+
+	@Override
+	public void unregisterObserver(Observer observer) 
+	{
+		this.observers.remove(observer);	
+	}
+
+	@Override
+	public void notifyObservers() {
+		for(Observer obs : observers)
+		{
+			obs.notify();
+		}
+	}
+
 }
