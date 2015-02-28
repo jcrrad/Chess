@@ -7,23 +7,19 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class AboutScreen extends JPanel {
+public class AboutView extends JPanel implements View{
 	private static final long serialVersionUID = 1L;
-	ChessFrame parentView;
+	
 	JButton goBack = new JButton("Go Back");
 
-	public AboutScreen(ChessFrame parent) {
-		parentView = parent;
+	public AboutView(ChessFrame frame) {
+		frame.register(this);
 		this.add(new JLabel("About Screen"));
 		this.add(goBack);
-		goBack.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent evt) {
-				goBack();
-			}
-		});
 	}
-
-	private void goBack() {
-		parentView.goToLogin();
+	
+	public void setGoBackListener(ActionListener listener)
+	{
+		goBack.addActionListener(listener);
 	}
 }

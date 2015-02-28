@@ -5,11 +5,13 @@ import gui.ChessFrame;
 import java.util.Observable;
 import java.util.Observer;
 
+import gui.View;
+
 import core.client.Model;
 
 public class LoginController extends Controller {
 
-	public LoginController(Model model, ChessFrame view) {
+	public LoginController(Model model, View view) {
 		super(model, view);
 	}
 
