@@ -16,7 +16,7 @@ public class GameWindowController extends Controller{
 		view.setButtonPanelStalemateListener(new ButtonPanelStalemateListener());
 	}
 
-	public void sendMessage(String text) {
+	public void sendMessage(String text) {  
 		/*
 		 * TODO: This will be the method to send messages out to the server,
 		 * this controller will also receive messages, we should keep the null
@@ -59,34 +59,28 @@ public class GameWindowController extends Controller{
 
 	class ButtonPanelQuitListener implements ActionListener
 	{
-
 		@Override
 		public void actionPerformed(ActionEvent e) 
 		{
 			model.setState("quit");
-		}
-		
+		}	
 	}
 	
 	class ChatPanelSubmitListener implements ActionListener
 	{
-
 		@Override
 		public void actionPerformed(ActionEvent e) 
 		{
 			System.out.println("Sending Text");
 		}
-		
 	}
 	
 	class ButtonPanelStalemateListener implements ActionListener
 	{
-
 		@Override
 		public void actionPerformed(ActionEvent e) 
 		{
 			System.out.println("Offering Stalemate");
 		}
-		
 	}
 }
