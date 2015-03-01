@@ -6,6 +6,7 @@ import gui.GameView;
 import gui.LoginView;
 import controller.AboutController;
 import controller.ConnectionController;
+import controller.ConnectionView;
 import controller.GameWindowController;
 import controller.LoginController;
 
@@ -16,15 +17,14 @@ public class Runner {
 		ChessFrame chessFrame = new ChessFrame();
 		
 		LoginView loginView = new LoginView(chessFrame);
-		//ConnectionView connectView = new ConnectionView(chessFrame);
+		ConnectionView connectView = new ConnectionView(chessFrame);
 		GameView gameView = new GameView(chessFrame);
 		AboutView aboutView = new AboutView(chessFrame);
 		
-		LoginController loginController = new LoginController(model, loginView);
-		AboutController aboutController = new AboutController(model, aboutView);
-		GameWindowController gameWindowController = new GameWindowController(model, gameView);
-		
-		//ConnectionController connectionController = new ConnectionController(model, connectView);
+		new LoginController(model, loginView);
+		new AboutController(model, aboutView);
+		new GameWindowController(model, gameView);
+		new ConnectionController(model, connectView);
 		
 	}
 }

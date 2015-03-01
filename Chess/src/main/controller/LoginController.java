@@ -55,7 +55,7 @@ public class LoginController extends Controller {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			model.setState("ingame");
+			model.setState("connecting");
 			
 		}
 		
