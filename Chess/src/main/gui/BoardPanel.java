@@ -98,26 +98,30 @@ public class BoardPanel extends JPanel {
 		BoardPanel tmpBoard;
 		ArrayList<Piece> friendlyPieces = new ArrayList<Piece>();
 		ArrayList<Piece> opponentPieces = new ArrayList<Piece>();
-		Piece tmpPiece;
+		Piece tmpPiece, friend, opponent;
+		int friendx, friendy, opponentx, opponenty, x, y, z;
 		
 		// Can the King move out of the way?
-		int kingx = king.getColumn();
-		int kingy = king.getRow();
-		int tarx, tary;
+		friendx = king.getColumn();
+		friendy = king.getRow();
 		int[] moves = {0,1, 1,0, 0,-1, -1,0, 1,1, 1,-1, -1,1, -1,-1};
-		for (int x = 0; x < 8; x++){
-			tarx = kingx + moves[2*x];
-			tary = kingy + moves[2*x+1];
-			if (!((0 <= tarx) && (tarx <= 7) && (0 <= tary) && (tary <= 7))){
+		for (x = 0; x < 8; x++)
+		{
+			opponentx = friendx + moves[2*x];
+			opponenty = friendy + moves[2*x+1];
+			if (!((0 <= opponentx) && (opponentx <= 7) && (0 <= opponenty) && (opponenty <= 7)))
+			{
 				// Move out of bounds
 				continue;
 			}
-			if (king.getPiece().canMove(squares[tarx][tary]) && king.getPiece().moveable(squares[tarx][tary])){
+			if (king.getPiece().canMove(squares[opponentx][opponenty]) && king.getPiece().moveable(squares[opponentx][opponenty]))
+			{
 				tmpBoard = new BoardPanel(board);
-				tmpPiece = tmpBoard.squares[kingx][kingy].getPiece(); // get tmp king
-				tmpBoard.squares[kingx][kingy].removePiece();
-				tmpBoard.squares[tarx][tary].setPiece(tmpPiece);
-				if (!tmpBoard.check(king.getPiece().getColor())){
+				tmpPiece = tmpBoard.squares[friendx][friendy].getPiece(); // get tmp king
+				tmpBoard.squares[friendx][friendy].removePiece();
+				tmpBoard.squares[opponentx][opponenty].setPiece(tmpPiece);
+				if (!tmpBoard.check(king.getPiece().getColor()))
+				{
 					return false;
 				}
 			}
@@ -125,22 +129,28 @@ public class BoardPanel extends JPanel {
 		
 		
 		// Get Pieces in play
-		friendlyPieces = getColorPieces(king.getPiece().getColor());
 		if (king.getPiece().equals(Color.WHITE))
+		{
+			friendlyPieces = getColorPieces(Color.WHITE);
 			opponentPieces = getColorPieces(Color.BLACK);
+		}
 		else
+		{
+			friendlyPieces = getColorPieces(Color.BLACK);
 			opponentPieces = getColorPieces(Color.WHITE);
-		
+		}
 		
 		
 		// Can anyone kill the Assassin
-		Piece friend, opponent;
-		int friendx, friendy, opponentx, opponenty;
-		for (int x = 0; x < friendlyPieces.size(); x++){
+
+		for (x = 0; x < friendlyPieces.size(); x++)
+		{
 			friend = friendlyPieces.get(x);
-			for (int y = 0; y < opponentPieces.size(); y++){
+			for (y = 0; y < opponentPieces.size(); y++)
+			{
 				opponent = opponentPieces.get(y);
-				if (friend.canMove(opponent.getSquare()) && friend.moveable(opponent.getSquare())){
+				if (friend.canMove(opponent.getSquare()) && friend.moveable(opponent.getSquare()))
+				{
 					tmpBoard = new BoardPanel(board);
 					friendx = friend.getSquare().getColumn();
 					friendy = friend.getSquare().getRow();
@@ -149,7 +159,8 @@ public class BoardPanel extends JPanel {
 					tmpPiece = tmpBoard.squares[friendx][friendy].getPiece(); // Get tmp fiendly peice
 					tmpBoard.squares[friendx][friendy].removePiece();
 					tmpBoard.squares[opponentx][opponenty].setPiece(tmpPiece);
-					if (!tmpBoard.check(friend.getColor())){
+					if (!tmpBoard.check(friend.getColor()))
+					{
 						return false;
 					}
 					
@@ -158,18 +169,23 @@ public class BoardPanel extends JPanel {
 		}
 		
 		// Can anyone intercept the Assassin
-		for (int z = 0; z < friendlyPieces.size(); z++){
+		for (z = 0; z < friendlyPieces.size(); z++)
+		{
 			friend = friendlyPieces.get(z);
-			for (int y = 0; y < 8; y++){
-				for (int x = 0; x < 8; x++){
-					if (squares[x][y].getPiece() == null){
+			for (y = 0; y < 8; y++)
+			{
+				for (x = 0; x < 8; x++)
+				{
+					if (squares[x][y].getPiece() == null)
+					{
 						tmpBoard = new BoardPanel(board);
 						friendx = friend.getSquare().getColumn();
 						friendy = friend.getSquare().getRow();
 						tmpPiece = tmpBoard.squares[friendx][friendy].getPiece();
 						tmpBoard.squares[friendx][friendy].removePiece();
 						tmpBoard.squares[x][y].setPiece(tmpPiece);
-						if (!tmpBoard.check(friend.getColor())){
+						if (!tmpBoard.check(friend.getColor()))
+						{
 							return false;
 						}
 					}
@@ -203,7 +219,15 @@ public class BoardPanel extends JPanel {
 		int xDiff = Math.abs(square.getColumn() - square2.getColumn());
 		int yDiff = Math.abs(square.getRow() - square2.getRow());
 
-		int diff = Integer.max(xDiff, yDiff);
+		int diff;
+		if ( xDiff > yDiff)
+		{
+			diff = xDiff;
+		}
+		else
+		{
+			diff = yDiff;
+		}
 
 		int x = square.getColumn();
 		int y = square.getRow();
