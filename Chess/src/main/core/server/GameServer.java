@@ -40,46 +40,4 @@ public class GameServer{
 		new Thread(c1).start();
 		new Thread(c2).start();
 	}
-
-	//@Override
-	//public void run() 
-	//{
-	//	try {
-	//		startGame();
-	//	} catch (IOException e) {
-	//		// TODO Auto-generated catch block
-	//		e.printStackTrace();
-	//	}
-	//}
-	//
-	//private void startGame() throws IOException
-	//{
-	//	int cnt = 0;
-	//	String output;
-	//	ServerClient c = (ServerClient)this.pair.client1;
-	//	while(true)
-	//	{
-	//			//while ((inputLine = in.readLine()) != null) {
-	//		    //    outputLine = kkp.processInput(inputLine);
-	//		    //    out.println(outputLine);
-	//		    //    if (outputLine.equals("Bye."))
-	//		    //        break;
-	//		    //}
-	//			
-	//		//}
-	//		//catch(Exception e)
-	//		//{
-	//		//	pause();
-	//		//}
-	//	}
-	//}
-	
-	private synchronized void pause()
-	{
-		try {
-			wait();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-	}
 }

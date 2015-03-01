@@ -34,15 +34,15 @@ public class LoginView extends JPanel implements View{
 		this.frame.register(this);
 		setLayout(new GridBagLayout());
 
-		setupWelcome();
-		setupUsername();
-		setupUsernameInput();
-		setupConnectButton();
-		setupAbout();
-		setupQuitButton();
+		initWelcome();
+		initUsername();
+		initUsernameInput();
+		initConnectButton();
+		initAbout();
+		initQuitButton();
 	}
 
-	private void setupQuitButton() 
+	private void initQuitButton() 
 	{
 		GridBagConstraints gbc_quit = new GridBagConstraints();
 		gbc_quit.insets = new Insets(0, 0, 0, 5);
@@ -51,7 +51,7 @@ public class LoginView extends JPanel implements View{
 		this.add(quitButton, gbc_quit);
 	}
 
-	private void setupAbout() 
+	private void initAbout() 
 	{
 		GridBagConstraints gbc_about = new GridBagConstraints();
 		gbc_about.insets = new Insets(0, 0, 0, 5);
@@ -60,7 +60,7 @@ public class LoginView extends JPanel implements View{
 		this.add(aboutButton, gbc_about);
 	}
 
-	private void setupConnectButton() 
+	private void initConnectButton() 
 	{
 		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
 		gbc_btnNewButton.insets = new Insets(0, 0, 5, 5);
@@ -72,7 +72,7 @@ public class LoginView extends JPanel implements View{
 
 	}
 
-	private void setupUsernameInput() 
+	private void initUsernameInput() 
 	{
 		GridBagConstraints gbc_input = new GridBagConstraints();
 		gbc_input.insets = new Insets(0, 0, 5, 5);
@@ -82,7 +82,7 @@ public class LoginView extends JPanel implements View{
 		this.add(usernameText, gbc_input);
 	}
 
-	private void setupUsername() 
+	private void initUsername() 
 	{
 		usernameLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		GridBagConstraints gbc_username = new GridBagConstraints();
@@ -94,7 +94,7 @@ public class LoginView extends JPanel implements View{
 		this.add(usernameLabel, gbc_username);
 	}
 
-	private void setupWelcome() 
+	private void initWelcome() 
 	{
 		welcomeLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		welcomeLabel.setLabelFor(this);

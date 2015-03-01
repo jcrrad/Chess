@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import gui.ChessFrame;
 import gui.GameView;
 import core.client.Model;
+import core.client.Model.STATE;
 
 public class GameWindowController extends Controller{
 
@@ -14,6 +15,7 @@ public class GameWindowController extends Controller{
 		view.setButtonPanelQuitListener(new ButtonPanelQuitListener());
 		view.setChatPanelSubmitListener(new ChatPanelSubmitListener());
 		view.setButtonPanelStalemateListener(new ButtonPanelStalemateListener());
+		view.setBoardPieceListener(new BoardPieceListener());
 	}
 
 	public void sendMessage(String text) {  
@@ -50,7 +52,7 @@ public class GameWindowController extends Controller{
 	public void update() 
 	{
 		System.out.println("Checking ingame");
-		if(model.getState() == "ingame")
+		if(model.getState() == STATE.INGAME)
 		{
 			System.out.println("INGAME");
 			view.update();
@@ -62,7 +64,7 @@ public class GameWindowController extends Controller{
 		@Override
 		public void actionPerformed(ActionEvent e) 
 		{
-			model.setState("quit");
+			model.setState(STATE.QUIT);
 		}	
 	}
 	
@@ -82,5 +84,16 @@ public class GameWindowController extends Controller{
 		{
 			System.out.println("Offering Stalemate");
 		}
+	}
+	
+	class BoardPieceListener implements ActionListener
+	{
+
+		@Override
+		public void actionPerformed(ActionEvent arg0) 
+		{
+			System.out.println("A board piece moved");
+		}
+		
 	}
 }

@@ -2,6 +2,7 @@ package controller;
 
 import gui.ChessFrame;
 import core.client.Model;
+import core.client.Model.STATE;
 
 public class ConnectionController extends Controller {
 
@@ -12,10 +13,11 @@ public class ConnectionController extends Controller {
 	@Override
 	public void update() 
 	{
-		if(model.getState() == "connecting")
+		if(model.getState() == STATE.CONNECTING)
 		{
 			System.out.println("Trying to connect.");
-			model.setState("ingame");
+			//model.TryConnectToSever();
+			model.setState(STATE.INGAME);
 		}
 	}
 }

@@ -26,24 +26,42 @@ public class GameView extends JPanel implements View{
 		board = new BoardPanel();
 		setLayout(new GridBagLayout());
 		
+		initBoard();
+		initChat();
+		initButtonPanel();
+	}
+	
+	private void initBoard()
+	{
 		GridBagConstraints gbc_board = new GridBagConstraints();
 		gbc_board.fill = GridBagConstraints.BOTH;
 		gbc_board.weighty = 4.0;
 		gbc_board.weightx = 1;
 		this.add(board, gbc_board);
-		
+	}
+	
+	private void initChat()
+	{
 		GridBagConstraints gbc_chat = new GridBagConstraints();
 		gbc_chat.fill = GridBagConstraints.BOTH;
 		gbc_chat.weighty = 4.0;
 		gbc_chat.weightx = 10;
 		gbc_chat.gridwidth = GridBagConstraints.REMAINDER;
 		this.add(chat, gbc_chat);
-		
+	}
+	
+	private void initButtonPanel()
+	{
 		GridBagConstraints gbc_buttonPanel = new GridBagConstraints();
 		gbc_buttonPanel.fill = GridBagConstraints.BOTH;
 		gbc_buttonPanel.gridwidth = GridBagConstraints.REMAINDER;
 		gbc_buttonPanel.weighty = 1.0;
 		this.add(buttonPanel, gbc_buttonPanel);
+	}
+	
+	public void setBoardPieceListener(ActionListener listener)
+	{
+		this.board.setPieceListener(listener);
 	}
 	
 	public void setButtonPanelQuitListener(ActionListener listener)

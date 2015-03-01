@@ -5,6 +5,7 @@ import java.awt.CardLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 import controller.ConnectionController;
 import controller.GameWindowController;
@@ -30,29 +31,24 @@ public class ChessFrame extends JFrame {
 				appName);
 	}
 
-	public ChessFrame() {
+	public ChessFrame() throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException {
 		super("Chess");
 
 		macSetup("swing-mac");
-
-		try {
-			UIManager.setLookAndFeel(UIManager
-					.getCrossPlatformLookAndFeelClassName());
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		cardLayout = new CardLayout();
-
-		//setVisible(true);
+		
 		this.setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
+		UIManager.setLookAndFeel(UIManager .getCrossPlatformLookAndFeelClassName());
+		setScreenSize();
+	}
+
+	private void setScreenSize() 
+	{
 		if (java.awt.Toolkit.getDefaultToolkit().getScreenSize().getHeight() > 900)
 			setSize(900, 900);
 		else
 			setSize(700, 700);
 		
-		this.add(cards);
 	}
 
 	public void register(JPanel panel)

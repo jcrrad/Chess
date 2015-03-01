@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import gui.LoginView;
 import gui.View;
 import core.client.Model;
+import core.client.Model.STATE;
 
 public class LoginController extends Controller {
 
@@ -22,7 +23,7 @@ public class LoginController extends Controller {
 	public void update() 
 	{
 		System.out.println("Here in login");
-		if(this.model.getState() == "login")
+		if(this.model.getState() == STATE.LOGIN)
 		{
 			System.out.println("Login Update");
 			view.update();
@@ -35,7 +36,7 @@ public class LoginController extends Controller {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			System.out.println("Going to about button");
-			model.setState("about");
+			model.setState(STATE.ABOUT);
 		}
 		
 	}
@@ -45,7 +46,7 @@ public class LoginController extends Controller {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			model.setState("quit");
+			model.setState(STATE.QUIT);
 		}
 		
 	}
@@ -55,7 +56,7 @@ public class LoginController extends Controller {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			model.setState("connecting");
+			model.setState(STATE.CONNECTING);
 			
 		}
 		

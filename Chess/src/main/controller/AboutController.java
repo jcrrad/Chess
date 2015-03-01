@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import gui.AboutView;
 import gui.View;
 import core.client.Model;
+import core.client.Model.STATE;
 
 public class AboutController extends Controller {
 
@@ -17,7 +18,7 @@ public class AboutController extends Controller {
 	@Override
 	public void update() 
 	{
-		if(this.model.getState() == "about")
+		if(this.model.getState() == STATE.ABOUT)
 		{
 			System.out.println("About Update");
 			view.update();
@@ -29,7 +30,7 @@ public class AboutController extends Controller {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			model.setState("login");
+			model.setState(STATE.LOGIN);
 		}
 		
 	}

@@ -2,6 +2,7 @@ package gui;
 
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.awt.event.ActionListener;
 
 import javax.swing.JPanel;
 
@@ -58,5 +59,13 @@ public class BoardPanel extends JPanel {
 		squares[7][7].setPiece(new Rook(Color.BLACK, squares[7][7]));
 
 	}
-
+	
+	public void setPieceListener(ActionListener listener)
+	{
+		for(Square[] outer : squares)
+			for(Square inner : outer)
+			{
+				inner.addActionListener(listener);
+			}
+	}
 }

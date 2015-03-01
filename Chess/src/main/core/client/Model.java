@@ -10,16 +10,34 @@ import controller.Observable;
 import controller.Controller;
 import controller.Observer;
 
+
 public class Model implements Observable {
 
-	private ArrayList<Observer> observers = new ArrayList<Observer>();
-	String state = "login";
+	public enum STATE {
+		LOGIN, CONNECTING, PAIRED, INGAME, ABOUT, QUIT
+	}
 	
-	public static void main(String[] args) throws IOException
+	STATE state = STATE.LOGIN;
+	private ArrayList<Observer> observers = new ArrayList<Observer>();
+	Connection connection;
+	private final String hostname = "localhost";
+	private final int port = 8000;
+	
+	public void connect()
 	{
+		try {
+			connection = new Connection(hostname, port);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		setState(STATE.CONNECTING);
+		//connection.handShake(this);
+		Thread t = new Thread(new InputHandler(connection));
+		setState(STATE.INGAME);
 
 	}
-
+	
 	@Override
 	public void registerObserver(Observer observer) 
 	{
@@ -40,13 +58,13 @@ public class Model implements Observable {
 		}
 	}
 
-	public void setState(String state) 
+	public void setState(STATE state) 
 	{
 		this.state = state;
 		notifyObservers();
 	}
 
-	public String getState() 
+	public STATE getState() 
 	{
 		return this.state;
 	}
