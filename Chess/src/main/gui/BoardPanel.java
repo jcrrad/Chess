@@ -2,6 +2,7 @@ package gui;
 
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.awt.event.ActionListener;
 
 import javax.swing.JPanel;
 
@@ -21,7 +22,7 @@ public class BoardPanel extends JPanel {
 	private static final long serialVersionUID = -1700922085295001317L;
 	Square[][] squares = new Square[8][8];
 
-	public BoardPanel(GameWindowController gameWindowController) {
+	public BoardPanel() {
 		this.setLayout(new GridLayout(8, 8));
 		for (int y = 0; y < 8; y++)
 			for (int x = 0; x < 8; x++) {
@@ -57,5 +58,14 @@ public class BoardPanel extends JPanel {
 		squares[6][7].setPiece(new Knight(Color.BLACK, squares[6][7]));
 		squares[7][7].setPiece(new Rook(Color.BLACK, squares[7][7]));
 
+	}
+	
+	public void setPieceListener(ActionListener listener)
+	{
+		for(Square[] outer : squares)
+			for(Square inner : outer)
+			{
+				inner.addActionListener(listener);
+			}
 	}
 }

@@ -1,44 +1,23 @@
 package controller;
 
-import gui.View;
+import gui.ChessFrame;
 import core.client.Model;
+import core.client.Model.STATE;
 
-public class ConnectionController 
-{
-	private View view;
-	private Model model;
-	
-	public ConnectionController(Model model)
-	{
-		this.model = model;
+public class ConnectionController extends Controller {
+
+	public ConnectionController(Model model, ConnectionView view) {
+		super(model, view);
 	}
-	
-	public void connect() 
+
+	@Override
+	public void update() 
 	{
-		//TODO: This is where we will make a call to the model to connect to the server
-		//model.createConnection(); etc.
-		System.out.println("ControllerConnect");
-		view.goToGame();
-	}
-	
-	public void killWindow()
-	{
-		view.dispose();
-	}
-	
-	////////////////////////////////////
-	//
-	// Getters & Setters
-	//
-	////////////////////////////////////
-	
-	public View getView() 
-	{
-		return view;
-	}
-	
-	public void setView(View view) 
-	{
-		this.view = view;
+		if(model.getState() == STATE.CONNECTING)
+		{
+			System.out.println("Trying to connect.");
+			//model.TryConnectToSever();
+			model.setState(STATE.INGAME);
+		}
 	}
 }

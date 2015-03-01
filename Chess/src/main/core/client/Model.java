@@ -3,43 +3,70 @@ package core.client;
 import java.io.Console;
 import java.io.IOException;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Model {
-	public static void main(String[] args) throws IOException
+import controller.Observable;
+import controller.Controller;
+import controller.Observer;
+
+
+public class Model implements Observable {
+
+	public enum STATE {
+		LOGIN, CONNECTING, PAIRED, INGAME, ABOUT, QUIT
+	}
+	
+	STATE state = STATE.LOGIN;
+	private ArrayList<Observer> observers = new ArrayList<Observer>();
+	Connection connection;
+	private final String hostname = "localhost";
+	private final int port = 8000;
+	
+	public void connect()
 	{
-		// Everything here can be factored out, I am just keeping it for testing purposes.
-		// Feel free to correct me.
-		Client client = null;
 		try {
-			client = new Client("localhost", 8000);
-		} catch (Exception e) {
+			connection = new Connection(hostname, port);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		Scanner in = new Scanner(System.in);
-		
-		if (client != null)
+		setState(STATE.CONNECTING);
+		//connection.handShake(this);
+		Thread t = new Thread(new InputHandler(connection));
+		setState(STATE.INGAME);
+
+	}
+	
+	@Override
+	public void registerObserver(Observer observer) 
+	{
+		this.observers.add(observer);	
+	}
+
+	@Override
+	public void unregisterObserver(Observer observer) 
+	{
+		this.observers.remove(observer);	
+	}
+
+	@Override
+	public void notifyObservers() {
+		for(Observer obs : observers)
 		{
-			String fromServer;
-			
-			fromServer = client.in.readLine();
-			System.out.println(fromServer);
-			if( fromServer.equals("HandShake: Welcome to a game server. You decide who goes first."))
-			{
-				fromServer = in.nextLine();
-				client.out.println(fromServer);
-				client.out.flush();
-			}
-			
-			while( true )
-			{
-				fromServer = client.in.readLine();
-				System.out.println(fromServer);
-				fromServer = in.nextLine();
-				client.out.println(fromServer);
-				client.out.flush();
-			}
+			obs.update();
 		}
 	}
+
+	public void setState(STATE state) 
+	{
+		this.state = state;
+		notifyObservers();
+	}
+
+	public STATE getState() 
+	{
+		return this.state;
+	}
+
 }

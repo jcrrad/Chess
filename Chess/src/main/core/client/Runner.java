@@ -1,22 +1,32 @@
 package core.client;
 
-import gui.View;
+import javax.swing.UnsupportedLookAndFeelException;
+
+import gui.AboutView;
+import gui.ChessFrame;
+import gui.GameView;
+import gui.LoginView;
+import controller.AboutController;
 import controller.ConnectionController;
+import controller.ConnectionView;
 import controller.GameWindowController;
+import controller.LoginController;
 
 public class Runner {
 
-	public static void main(String[] args) 
-	{
+	public static void main(String[] args) throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException {
 		Model model = new Model();
+		ChessFrame chessFrame = new ChessFrame();
 		
-		GameWindowController gameWindowController = new GameWindowController(model);
-		ConnectionController connectionController = new ConnectionController(model);
+		LoginView loginView = new LoginView(chessFrame);
+		ConnectionView connectView = new ConnectionView(chessFrame);
+		GameView gameView = new GameView(chessFrame);
+		AboutView aboutView = new AboutView(chessFrame);
 		
-		View view = new View(gameWindowController, connectionController);
+		new LoginController(model, loginView);
+		new AboutController(model, aboutView);
+		new GameWindowController(model, gameView);
+		new ConnectionController(model, connectView);
 		
-		gameWindowController.setView(view);
-		connectionController.setView(view);
 	}
-
 }

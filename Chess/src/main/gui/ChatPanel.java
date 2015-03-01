@@ -19,16 +19,24 @@ public class ChatPanel extends JPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 	JTextField inputField;
+	JButton submitButton;
 
-	//TODO: JEFF - make scrollable
-	public ChatPanel(final GameWindowController gameWindowController) {
+	// TODO: JEFF - make scrollable
+	public ChatPanel() {
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[] { 450, 0 };
 		gridBagLayout.rowHeights = new int[] { 150, 150, 0 };
 		gridBagLayout.columnWeights = new double[] { 0.0, Double.MIN_VALUE };
 		gridBagLayout.rowWeights = new double[] { 0.0, 1.0, Double.MIN_VALUE };
 		setLayout(gridBagLayout);
-
+		
+		initChatField();
+		initInputField();
+		initSubmitButton();
+	}
+	
+	private void initChatField()
+	{
 		JTextField conversationField = new JTextField();
 		GridBagConstraints conv_gbc = new GridBagConstraints();
 		conv_gbc.fill = GridBagConstraints.BOTH;
@@ -37,7 +45,10 @@ public class ChatPanel extends JPanel {
 		this.add(conversationField, conv_gbc);
 		conversationField.setEnabled(false);
 		conversationField.setScrollOffset(HEIGHT);
-
+	}
+	
+	private void initInputField()
+	{
 		inputField = new JTextField();
 		GridBagConstraints input_gbc = new GridBagConstraints();
 		input_gbc.insets = new Insets(10, 0, 0, 5);
@@ -46,9 +57,12 @@ public class ChatPanel extends JPanel {
 		input_gbc.weightx = 5;
 		input_gbc.fill = GridBagConstraints.BOTH;
 		this.add(inputField, input_gbc);
+	}
 
-		JButton button = new JButton();
-		button.setText("Submit");
+	private void initSubmitButton()
+	{
+		submitButton = new JButton();
+		submitButton.setText("Submit");
 		GridBagConstraints button_gbc = new GridBagConstraints();
 		button_gbc.insets = new Insets(10, 5, 0, 0);
 		button_gbc.gridy = 1;
@@ -56,13 +70,6 @@ public class ChatPanel extends JPanel {
 		button_gbc.weighty = 0.1;
 		button_gbc.weighty = 1;
 		button_gbc.gridwidth = GridBagConstraints.REMAINDER;
-		this.add(button, button_gbc);
-		button.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent evt) {
-				gameWindowController.sendMessage(inputField.getText());
-				inputField.setText("");
-			}
-		});
-
+		this.add(submitButton, button_gbc);
 	}
 }
