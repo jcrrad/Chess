@@ -9,6 +9,10 @@ import core.client.Message;
 
 public class GameServer{
 
+	public enum STATE {
+		INGAME, PAUSED
+	}
+	
 	private Pair pair;
 	private String state;
 	

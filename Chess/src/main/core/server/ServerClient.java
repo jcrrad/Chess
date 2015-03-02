@@ -7,7 +7,11 @@ import java.io.PrintWriter;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
+
+import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+
+import core.client.Message;
 
 public class ServerClient implements Runnable {
 
@@ -59,8 +63,18 @@ public class ServerClient implements Runnable {
 		try {
 			communicate();
 		} catch (IOException e) {
-			e.printStackTrace();
+			System.out.println("Someone disconnected");
+			sendDisconnectionNotice();
 		}
+	}
+
+	private void sendDisconnectionNotice() 
+	{
+		Gson gson = new Gson();
+		Message message = new Message();
+		message.setDisconnected(true);
+		out.println(gson.toJson(message));
+		out.flush();
 	}
 
 	private void communicate() throws IOException 

@@ -6,6 +6,7 @@ public class Message {
 	private boolean hasChat = false;
 	private String chatText;
 	private boolean clientsTurn = false;
+	private boolean disconnected = false;
 
 	public boolean isClientsTurn() 
 	{
@@ -41,6 +42,22 @@ public class Message {
 	public Object getBoard() 
 	{
 		return null;
+	}
+
+	public boolean hasReconnected() {
+		return false;
+	}
+
+	public boolean hasDisconnected() {
+		return disconnected;
+	}
+
+	public boolean isDisconnected() {
+		return disconnected;
+	}
+
+	public void setDisconnected(boolean disconnected) {
+		this.disconnected = disconnected;
 	}
 
 

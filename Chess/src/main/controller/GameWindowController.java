@@ -4,11 +4,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import gui.GameView;
+import core.client.Connection;
+import core.client.Message;
 import core.client.Model;
 import core.client.Model.STATE;
 
 public class GameWindowController extends Controller{
 
+	private Connection connection;
+	
 	public GameWindowController(Model model, GameView view) {
 		super(model,view);
 		view.setButtonPanelQuitListener(new ButtonPanelQuitListener());
@@ -53,6 +57,9 @@ public class GameWindowController extends Controller{
 		System.out.println("Checking ingame");
 		if(model.getState() == STATE.INGAME)
 		{
+			if(this.connection == null )
+				this.connection = model.getConnection();
+			
 			System.out.println("INGAME");
 			((GameView) view).updateChat(model.getCurrentChat());
 			view.update();
@@ -73,7 +80,13 @@ public class GameWindowController extends Controller{
 		@Override
 		public void actionPerformed(ActionEvent e) 
 		{
-			System.out.println("Sending Text");
+			if(connection == null)
+				return;
+			Message message = new Message();
+			String text = ((GameView) view).getChatPanelInputField();
+			message.setChatText(text);
+			((GameView) view).updateChat(text);
+			connection.send(message);
 		}
 	}
 	

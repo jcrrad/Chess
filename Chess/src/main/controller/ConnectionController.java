@@ -33,12 +33,10 @@ public class ConnectionController extends Controller {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+			
+			model.setConnection(serverConnection);
 			handler = new InputHandler(serverConnection, this);
 			new Thread(handler).start();
-		}
-		else if(model.getState() == STATE.CHATTING)
-		{
-			
 		}
 	}
 	
@@ -54,23 +52,38 @@ public class ConnectionController extends Controller {
 	// however this could be advantagous because the controller doesnt know what methods should be called when updating.
 	public void processInput(Message message)
 	{
-		System.out.println("processing");
-		if(message.hasChat())
+		if(model.getState() == STATE.WAITING && message.hasReconnected() == true)
 		{
-			model.setCurrentChat(message.getChatText());
+			System.out.println("Received reconnection notice");
+			model.setState(STATE.INGAME);
+			//send the board state over
+		}else if(model.getState() == STATE.INGAME && message.hasDisconnected() == true)
+		{
+			System.out.println("Received disconnection notice");
+			model.setState(STATE.WAITING);
 		}
-		if(message.hasBoardUpdate())
+		else
 		{
-			model.updateBoard(message.getBoard());
-			model.setBoardOwner(true);
-		}
-		// this is too odd.
-		if(model.getState() == STATE.CONNECTING && message.isClientsTurn())
-		{
-			model.setBoardOwner(true);
+			System.out.println("processing");
+			if(message.hasChat())
+			{
+				System.out.println("Has chat stuff");
+				model.setCurrentChat(message.getChatText());
+			}
+			if(message.hasBoardUpdate())
+			{
+				model.updateBoard(message.getBoard());
+				model.setBoardOwner(true);
+			}
+			// this is too odd.
+			if(model.getState() == STATE.CONNECTING && message.isClientsTurn())
+			{
+				model.setBoardOwner(true);
+				model.setState(STATE.INGAME);
+			}
 			model.setState(STATE.INGAME);
 		}
-		model.setState(STATE.INGAME);
+
 	}
 
 	public class InputHandler implements Runnable{

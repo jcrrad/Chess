@@ -14,7 +14,7 @@ import controller.Observer;
 public class Model implements Observable {
 
 	public enum STATE {
-		LOGIN, CONNECTING, CHATTING, INGAME, ABOUT, QUIT
+		LOGIN, CONNECTING, CHATTING, INGAME, ABOUT, QUIT, WAITING
 	}
 	
 	STATE state = STATE.LOGIN;
@@ -86,6 +86,16 @@ public class Model implements Observable {
 	{
 		// TODO Auto-generated method stub
 		
+	}
+	
+	public Connection getConnection()
+	{
+		return connection;
+	}
+	
+	public void setConnection(Connection connection)
+	{
+		this.connection = connection;
 	}
 
 }

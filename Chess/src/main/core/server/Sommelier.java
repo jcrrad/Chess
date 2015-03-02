@@ -65,6 +65,10 @@ public class Sommelier implements Runnable {
 	{
 		for(ServerClient c : this.waitList)
 		{
+			for(GameServer g : games)
+			{
+				if
+			}
 			//System.out.println("Adding to pool");
 			// Inspect if this client was already in a previous game.
 			this.pool.add(c);
