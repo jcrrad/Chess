@@ -117,7 +117,7 @@ public class GameWindowController extends Controller{
 		}
 		for (int z = 0; z < opponentPieces.size(); z++) 
 		{
-			if (opponentPieces.get(z).canAttack(king.getSquare()))
+			if (opponentPieces.get(z).moveable(king.getSquare()))
 				return true;
 		}
 		return false;
@@ -147,7 +147,7 @@ public class GameWindowController extends Controller{
 		}
 		for (int z = 0; z < opponentPieces.size(); z++)
 		{
-			if (opponentPieces.get(z).canAttack(king.getSquare()))
+			if (opponentPieces.get(z).moveable(king.getSquare()))
 				return true;
 		}
 		return false;
@@ -197,8 +197,7 @@ public class GameWindowController extends Controller{
 				// Move out of bounds
 				continue;
 			}
-			if (king.canMove(this.model.getSquare(opponentx, opponenty)) 
-					&& king.moveable(this.model.getSquare(opponentx, opponenty)))
+			if (king.moveable(this.model.getSquare(opponentx, opponenty)))
 			{
 				this.model.updateTmpSquares();
 				tmpPiece = this.model.getTmpPiece(friendx, friendy); // Get tmp King
@@ -220,8 +219,7 @@ public class GameWindowController extends Controller{
 			for (y = 0; y < opponentPieces.size(); y++)
 			{
 				opponent = opponentPieces.get(y);
-				if (friend.canMove(opponent.getSquare()) 
-						&& friend.moveable(opponent.getSquare()))
+				if (friend.moveable(opponent.getSquare()))
 				{
 					this.model.updateTmpSquares();
 					friendx = friend.getSquare().getColumn();
@@ -250,15 +248,18 @@ public class GameWindowController extends Controller{
 				{
 					if (this.model.getSquare(x, y) == null)
 					{
-						this.model.updateTmpSquares();
 						friendx = friend.getSquare().getColumn();
 						friendy = friend.getSquare().getRow();
-						tmpPiece = this.model.getTmpPiece(friendx, friendy);
-						this.model.setTmpPiece(tmpPiece, x, y);
-						this.model.removeTmpPiece(friendx, friendy);
-						if (!checkTmp(friend.getColor()))
+						if (friend.moveable(this.model.getSquare(x, y)))
 						{
-							return false;
+							this.model.updateTmpSquares();
+							tmpPiece = this.model.getTmpPiece(friendx, friendy);
+							this.model.setTmpPiece(tmpPiece, x, y);
+							this.model.removeTmpPiece(friendx, friendy);
+							if (!checkTmp(friend.getColor()))
+							{
+								return false;
+							}
 						}
 					}
 				}
