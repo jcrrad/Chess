@@ -52,12 +52,16 @@ public class ConnectionController extends Controller {
 	// however this could be advantagous because the controller doesnt know what methods should be called when updating.
 	public void processInput(Message message)
 	{
+		System.out.println("received a message");
 		if(model.getState() == STATE.WAITING && message.hasReconnected() == true)
 		{
 			System.out.println("Received reconnection notice");
+			Message response = new Message();
+			response.setClientsTurn(!model.getBoardOwner());
+			serverConnection.send(response);
 			model.setState(STATE.INGAME);
 			//send the board state over
-		}else if(model.getState() == STATE.INGAME && message.hasDisconnected() == true)
+		}else if(model.getState() == STATE.INGAME && message.isDisconnected() == true)
 		{
 			System.out.println("Received disconnection notice");
 			model.setState(STATE.WAITING);

@@ -5,6 +5,8 @@ import java.util.LinkedList;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.Date;
 
+import core.server.GameServer.STATE;
+
 public class Sommelier implements Runnable {
 	
 	private Pool pool;
@@ -65,13 +67,18 @@ public class Sommelier implements Runnable {
 	{
 		for(ServerClient c : this.waitList)
 		{
+			boolean disconnectedUser = false;
+			
 			for(GameServer g : games)
 			{
-				if
+				if(g.state == STATE.PAUSED && g.isDisconnectedClient(c))
+				{
+					g.reconnect(c);
+					disconnectedUser = true;
+				}
 			}
-			//System.out.println("Adding to pool");
-			// Inspect if this client was already in a previous game.
-			this.pool.add(c);
+			if(!disconnectedUser)
+				this.pool.add(c);
 		}
 		this.waitList.clear();
 	}
@@ -83,7 +90,7 @@ public class Sommelier implements Runnable {
 	public synchronized void register(ServerClient client) 
 	{
 		//adds a client to the ready list
-		System.out.println("Adding client to the readylist. (IP: " + client.getIPAddress() + ")");
+		System.out.println("Adding client to the readylist. (IP: " + client.socket.getLocalAddress()+ ")");
 		this.waitList.add(client);
 		if( this.waitList.size() > 1)
 		{

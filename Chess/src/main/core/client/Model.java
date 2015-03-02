@@ -71,6 +71,11 @@ public class Model implements Observable {
 	{
 		this.boardOwner = b;
 	}
+	
+	public boolean getBoardOwner() 
+	{
+		return this.boardOwner;
+	}
 
 	public void setCurrentChat(String chatText) 
 	{

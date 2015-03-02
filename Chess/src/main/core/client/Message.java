@@ -45,11 +45,7 @@ public class Message {
 	}
 
 	public boolean hasReconnected() {
-		return false;
-	}
-
-	public boolean hasDisconnected() {
-		return disconnected;
+		return !disconnected;
 	}
 
 	public boolean isDisconnected() {

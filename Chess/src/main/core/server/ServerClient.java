@@ -15,19 +15,22 @@ import core.client.Message;
 
 public class ServerClient implements Runnable {
 
-	private Socket socket;
-	private PrintWriter out = null;
-	private BufferedReader in;
+	private GameServer game;
+	public Socket socket;
+	private PrintWriter toClient = null;
+	private BufferedReader fromClient;
+	private BufferedReader fromOpponent;
 	
 	public ServerClient(Socket clientSocket) throws IOException {
 		this.socket = clientSocket;
 		setInputStream(socket.getInputStream());
-		this.out = new PrintWriter(socket.getOutputStream());
+		this.toClient = new PrintWriter(socket.getOutputStream());
+		//this.fromClient = new BufferedReader( new InputStreamReader(in));
 	}
 	
 	private void setInputStream(InputStream in)
 	{
-		this.in = new BufferedReader( new InputStreamReader(in));		
+		this.fromOpponent = new BufferedReader( new InputStreamReader(in));		
 	}
 	
 	public String getIPAddress()
@@ -42,14 +45,13 @@ public class ServerClient implements Runnable {
 	
 	public void send(String msg)
 	{
-		System.out.println("Sending message");
-		this.out.println(msg);
-		this.out.flush();
+		this.toClient.println(msg);
+		this.toClient.flush();
 	}
 	
 	public void connect(ServerClient opponent) throws IOException
 	{
-		this.out = new PrintWriter(opponent.getOutputStream());
+		this.toClient = new PrintWriter(opponent.getOutputStream());
 	}
 
 	public void disconnect() throws IOException 
@@ -65,6 +67,7 @@ public class ServerClient implements Runnable {
 		} catch (IOException e) {
 			System.out.println("Someone disconnected");
 			sendDisconnectionNotice();
+			this.game.playerDisconnect(this);
 		}
 	}
 
@@ -73,16 +76,21 @@ public class ServerClient implements Runnable {
 		Gson gson = new Gson();
 		Message message = new Message();
 		message.setDisconnected(true);
-		out.println(gson.toJson(message));
-		out.flush();
+		toClient.println(gson.toJson(message));
+		toClient.flush();
 	}
 
 	private void communicate() throws IOException 
 	{
 		String inputLine;
-		while ((inputLine = in.readLine()) != null) {
-	        out.println(inputLine);
-	        out.flush();
+		while ((inputLine = fromOpponent.readLine()) != null) {
+	        toClient.println(inputLine);
+	        toClient.flush();
 	    }
+	}
+
+	public void setGame(GameServer gameServer) 
+	{
+		this.game = gameServer;
 	}
 }
