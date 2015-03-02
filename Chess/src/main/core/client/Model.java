@@ -14,7 +14,7 @@ import controller.Observer;
 public class Model implements Observable {
 
 	public enum STATE {
-		LOGIN, CONNECTING, PAIRED, INGAME, ABOUT, QUIT
+		LOGIN, CONNECTING, CHATTING, INGAME, ABOUT, QUIT
 	}
 	
 	STATE state = STATE.LOGIN;
@@ -22,21 +22,8 @@ public class Model implements Observable {
 	Connection connection;
 	private final String hostname = "localhost";
 	private final int port = 8000;
-	
-	public void connect()
-	{
-		try {
-			connection = new Connection(hostname, port);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		setState(STATE.CONNECTING);
-		//connection.handShake(this);
-		Thread t = new Thread(new InputHandler(connection));
-		setState(STATE.INGAME);
-
-	}
+	private boolean boardOwner = false;
+	private String chatText;
 	
 	@Override
 	public void registerObserver(Observer observer) 
@@ -67,6 +54,38 @@ public class Model implements Observable {
 	public STATE getState() 
 	{
 		return this.state;
+	}
+
+
+	public String getServerHostname() 
+	{
+		return hostname;
+	}
+	
+	public int getServerPort()
+	{
+		return port;
+	}
+
+	public void setBoardOwner(boolean b) 
+	{
+		this.boardOwner = b;
+	}
+
+	public void setCurrentChat(String chatText) 
+	{
+		this.chatText = chatText;
+	}
+	
+	public String getCurrentChat() 
+	{
+		return this.chatText;
+	}
+
+	public void updateBoard(Object board) 
+	{
+		// TODO Auto-generated method stub
+		
 	}
 
 }

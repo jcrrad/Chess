@@ -38,6 +38,7 @@ public class ServerClient implements Runnable {
 	
 	public void send(String msg)
 	{
+		System.out.println("Sending message");
 		this.out.println(msg);
 		this.out.flush();
 	}

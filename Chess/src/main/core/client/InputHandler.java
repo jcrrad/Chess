@@ -1,15 +1,26 @@
 package core.client;
 
-public class InputHandler implements Runnable {
+import controller.ConnectionController;
+import controller.GameWindowController;
 
-	public InputHandler(Connection connection) {
-		// TODO Auto-generated constructor stub
+public class InputHandler implements Runnable{
+	
+	private Connection connection;
+	private ConnectionController controller;
+
+	public InputHandler(Connection con, ConnectionController controller)
+	{
+		this.connection = con;
+		this.controller = controller;
 	}
 
 	@Override
-	public void run() {
-		// TODO Auto-generated method stub
-
+	public void run() 
+	{
+		Message message;
+		while ((message = connection.receive()) != null) {
+			this.controller.processInput(message);
+	    }
 	}
 
 }

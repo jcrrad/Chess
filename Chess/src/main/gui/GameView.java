@@ -83,6 +83,11 @@ public class GameView extends JPanel implements View{
 	{
 		return this.chat.chatSection.inputField.getText();
 	}
+	
+	public void updateChat(String msg)
+	{
+		this.chat.chatSection.conversationField.setText(msg + "\n");
+	}
 
 	@Override
 	public void update() 

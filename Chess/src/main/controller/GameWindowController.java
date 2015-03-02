@@ -3,7 +3,6 @@ package controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import gui.ChessFrame;
 import gui.GameView;
 import core.client.Model;
 import core.client.Model.STATE;
@@ -55,6 +54,7 @@ public class GameWindowController extends Controller{
 		if(model.getState() == STATE.INGAME)
 		{
 			System.out.println("INGAME");
+			((GameView) view).updateChat(model.getCurrentChat());
 			view.update();
 		}
 	}
@@ -94,6 +94,5 @@ public class GameWindowController extends Controller{
 		{
 			System.out.println("A board piece moved");
 		}
-		
 	}
 }

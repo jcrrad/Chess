@@ -8,7 +8,6 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonSyntaxException;
 
 public class Connection {
 	
@@ -31,37 +30,15 @@ public class Connection {
 		out.println(msg);
 		out.flush();
 	}
-
+	// CLEAN THIS METHOD UP
 	public Message receive() {
 		try {
 			Message message = gson.fromJson(in.readLine(), Message.class);
+			System.out.println("Casting message into message");
 			return message;
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		return null;
 	}
-
-	public void handShake(Model model) throws JsonSyntaxException, IOException 
-	{
-		boolean isPaired = false;
-		while(!isPaired)
-		{
-			Message message = gson.fromJson(in.readLine(),  Message.class);
-			if(message.isServerMessage())
-			{
-				isPaired = true;
-			}
-		}
-		
-		
-	}
-
 }
-/*
- * Try to connect to the server
- * Change state to pairing
- * Catch pairing message
- * Determine if it is your turn
- * Start the game process handling
-*/
