@@ -39,6 +39,7 @@ public class AboutController implements Observer{
 		}
 		
 	}
+	
 	class GoBackButtonListener implements ActionListener
 	{
 
