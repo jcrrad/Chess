@@ -10,9 +10,20 @@ public abstract class Piece {
 	String name;
 	Color color;
 	Square square;
+	boolean moved = false;
 
 	public Piece(Square square) {
 		this.square = square;
+	}
+	
+	public boolean hasMoved()
+	{
+		return moved;
+	}
+	
+	public void setMoved()
+	{
+		moved = true;
 	}
 
 	public String getName() {
@@ -42,7 +53,7 @@ public abstract class Piece {
 	public boolean moveable(Square square2) {
 		if (this.canMove(square2)) {
 			BoardPanel board = (BoardPanel) square.getParent();
-			return board.walk(this.getSquare(), square2);
+			return board.walk(this.getSquare().getColumn(), this.getSquare().getRow(), square2.getColumn(), square2.getRow());
 		}
 		return false;
 	}

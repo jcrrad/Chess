@@ -3,6 +3,7 @@ package core.client;
 import gui.BoardPanel;
 import gui.Square;
 
+import java.awt.Color;
 import java.io.Console;
 import java.io.IOException;
 import java.net.UnknownHostException;
@@ -26,8 +27,7 @@ public class Model implements Observable {
 	Connection connection;
 	private final String hostname = "localhost";
 	private final int port = 8000;
-	private Square[][] squares = new Square[8][8];
-	private Square[][] tmpSquares = new Square[8][8];
+	BoardPanel board = new BoardPanel();
 	
 	public void connect()
 	{
@@ -42,46 +42,6 @@ public class Model implements Observable {
 		Thread t = new Thread(new InputHandler(connection));
 		setState(STATE.INGAME);
 
-	}
-	
-	public void updateTmpSquares()
-	{
-		tmpSquares = squares.clone();
-	}
-	
-	public void setTmpPiece(Piece newPiece, int x, int y)
-	{
-		this.tmpSquares[x][y].setPiece(newPiece);
-	}
-	
-	public void removeTmpPiece(int x, int y)
-	{
-		this.tmpSquares[x][y].removePiece();
-	}
-	
-	public Piece getTmpPiece(int x, int y)
-	{
-		return this.tmpSquares[x][y].getPiece();
-	}
-	
-	public void setPiece(Piece newPiece, int x, int y)
-	{
-		this.squares[x][y].setPiece(newPiece);
-	}
-	
-	public void removePiece(int x, int y)
-	{
-		this.squares[x][y].removePiece();
-	}
-	
-	public Piece getPiece(int x, int y)
-	{
-		return this.squares[x][y].getPiece();
-	}
-	
-	public Square getSquare(int x, int y)
-	{
-		return this.squares[x][y];
 	}
 	
 	@Override
@@ -114,5 +74,45 @@ public class Model implements Observable {
 	{
 		return this.state;
 	}
+	
+	public void setPiece(Piece newPiece, int x, int y)
+	{
+		this.board.setPiece(newPiece, x, y);
+	}
+	
+	public Piece getPiece(int x, int y)
+	{
+		return this.board.getPiece(x, y);
+	}
+	
+	public Square getSquare(int x, int y)
+	{
+		return this.board.getSquare(x, y);
+	}
+	
+	public void removePiece(int x, int y)
+	{
+		this.board.removePiece(x, y);
+	}
 
+	public boolean movePiece(int x1, int y1, int x2, int y2)
+	{
+		// TODO: Fill this in
+		return true;
+	}
+	
+	public boolean walkBoard(int x1, int y1, int x2, int y2)
+	{
+		return this.board.walk(x1, y1, x2, y2);
+	}
+	
+	public boolean check(Color playerColor)
+	{
+		return this.board.check(playerColor);
+	}
+	
+	public boolean checkmate(Color playerColor)
+	{
+		return this.board.checkmate(playerColor);
+	}
 }
