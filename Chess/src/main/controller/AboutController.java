@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import gui.AboutView;
+import core.client.Message;
 import core.client.Model;
 import core.client.ProductInfo;
 import core.client.Model.STATE;
@@ -37,6 +38,12 @@ public class AboutController implements Observer{
 			view.setReleaseDate(info.getReleaseDate());
 			this.view.update();
 		}
+		
+	}
+	
+	@Override
+	public void update(Object message) {
+		// TODO no default
 		
 	}
 	

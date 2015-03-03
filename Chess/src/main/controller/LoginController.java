@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 
 import gui.LoginView;
 import gui.View;
+import core.client.Message;
 import core.client.Model;
 import core.client.Model.STATE;
 
@@ -31,6 +32,12 @@ public class LoginController implements Observer {
 		{
 			view.update();
 		}
+	}
+	
+	@Override
+	public void update(Object message) {
+		// TODO no default
+		
 	}
 	
 	class AboutButtonListener implements ActionListener

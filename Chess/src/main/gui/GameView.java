@@ -81,4 +81,11 @@ public class GameView extends View{
 	{
 		return this.chat.chatSection.inputField.getText();
 	}
+	
+	public void updateChat(String text)
+	{
+		this.chat.chatSection.conversationField.setText(
+				this.chat.chatSection.conversationField.getText()+"\r\n"+text);
+	}
+	
 }

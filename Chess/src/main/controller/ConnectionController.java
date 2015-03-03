@@ -1,6 +1,7 @@
 package controller;
 
 import gui.ConnectionView;
+import core.client.Message;
 import core.client.Model;
 import core.client.Model.STATE;
 
@@ -24,5 +25,11 @@ public class ConnectionController implements Observer{
 			//model.TryConnectToSever();
 			model.setState(STATE.INGAME);
 		}
+	}
+	
+	@Override
+	public void update(Object message) {
+		// TODO no default
+		
 	}
 }

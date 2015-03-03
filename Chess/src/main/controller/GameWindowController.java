@@ -1,9 +1,15 @@
 package controller;
 
+import gui.GameView;
+import gui.Square;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
-import gui.GameView;
+import core.client.Coordinate;
+import core.client.Message;
 import core.client.Model;
 import core.client.Model.STATE;
 
@@ -11,6 +17,9 @@ public class GameWindowController implements Observer{
 
 	private Model model;
 	private GameView view;
+	private Coordinate start, end;
+	private Date time;
+	private boolean attempt, check;
 
 	public GameWindowController(Model model, GameView view) {
 		this.model = model;
@@ -63,6 +72,16 @@ public class GameWindowController implements Observer{
 			view.update();
 		}
 	}
+	
+	@Override
+	public void update(Object message)
+	{
+		Message chatMessage = (Message) message;
+		time = new Date();
+		String timeString = new SimpleDateFormat("HH:mm:ss").format(time);
+		String chat = timeString+" "+model.getUsername()+": "+chatMessage.getChatText(); 
+		view.updateChat(chat);
+	}
 
 	class ButtonPanelQuitListener implements ActionListener
 	{
@@ -98,7 +117,27 @@ public class GameWindowController implements Observer{
 		@Override
 		public void actionPerformed(ActionEvent arg0) 
 		{
-			
+			if(start == null)
+			{
+				Square square = (Square) arg0.getSource();
+				start.setX(square.getColumn());
+				start.setY(square.getRow());
+			}
+			else
+			{
+				Square square = (Square) arg0.getSource();
+				end.setX(square.getColumn());
+				end.setY(square.getRow());
+				if(!((start.getX() == end.getX()) && (start.getY() == end.getY())))
+				{
+					attempt = model.tryPlayerMove(start, end);
+					check = model.isInCheckmate();
+					if(attempt && !check)
+					{
+						view.update();
+					}
+				}
+			}
 			System.out.println("A board piece moved");
 		}
 		
