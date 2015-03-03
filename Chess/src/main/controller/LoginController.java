@@ -10,8 +10,15 @@ import core.client.Model.STATE;
 
 public class LoginController extends Controller {
 
+	private Model model;
+	private LoginView view;
+
 	public LoginController(Model model, LoginView view) {
-		super(model, view);
+		super(model);
+		
+		this.model = model;
+		this.view = view;
+		
 		System.out.println("about to update");
 		view.setAboutListener(new AboutButtonListener());
 		view.setConnectListener(new ConnectButtonListener());

@@ -3,15 +3,20 @@ package controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import gui.ChessFrame;
 import gui.GameView;
 import core.client.Model;
 import core.client.Model.STATE;
 
 public class GameWindowController extends Controller{
 
+	private Model model;
+	private GameView view;
+
 	public GameWindowController(Model model, GameView view) {
-		super(model,view);
+		super(model);
+		this.model = model;
+		this.view = view;
+		
 		view.setButtonPanelQuitListener(new ButtonPanelQuitListener());
 		view.setChatPanelSubmitListener(new ChatPanelSubmitListener());
 		view.setButtonPanelStalemateListener(new ButtonPanelStalemateListener());

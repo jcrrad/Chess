@@ -9,17 +9,15 @@ import javax.swing.JPanel;
 
 import controller.GameWindowController;
 
-public class GameView extends JPanel implements View{
+public class GameView extends View{
 	private static final long serialVersionUID = 1L;
 	BoardPanel board;
 	TabbedPanel chat;
 	ButtonPanel buttonPanel;
-	ChessFrame frame;
 	
 	// TODO add clock Section
 	public GameView(ChessFrame frame) {
-		this.frame = frame;
-		this.frame.register(this);
+		super(frame);
 
 		buttonPanel = new ButtonPanel();
 		chat = new TabbedPanel();
@@ -83,11 +81,4 @@ public class GameView extends JPanel implements View{
 	{
 		return this.chat.chatSection.inputField.getText();
 	}
-
-	@Override
-	public void update() 
-	{
-		this.frame.update(this);
-	}
-	
 }

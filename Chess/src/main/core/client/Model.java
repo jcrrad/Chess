@@ -22,6 +22,7 @@ public class Model implements Observable {
 	Connection connection;
 	private final String hostname = "localhost";
 	private final int port = 8000;
+	private ProductInfo pinfo = new ProductInfo("filename");
 	
 	public void connect()
 	{
@@ -69,4 +70,7 @@ public class Model implements Observable {
 		return this.state;
 	}
 
+	public ProductInfo getProductInformation() {
+		return pinfo;
+	}
 }

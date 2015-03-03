@@ -1,13 +1,18 @@
 package controller;
 
-import gui.ChessFrame;
+import gui.ConnectionView;
 import core.client.Model;
 import core.client.Model.STATE;
 
 public class ConnectionController extends Controller {
-
+	
+	private Model model;
+	private ConnectionView view;
+	
 	public ConnectionController(Model model, ConnectionView view) {
-		super(model, view);
+		super(model);
+		this.model = model;
+		this.view = view;
 	}
 
 	@Override
