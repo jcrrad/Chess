@@ -17,8 +17,7 @@ public class LoginController implements Observer {
 		this.model = model;
 		this.view = view;
 		model.registerObserver(this);
-		
-		System.out.println("about to update");
+
 		view.setAboutListener(new AboutButtonListener());
 		view.setConnectListener(new ConnectButtonListener());
 		view.setQuitListener(new QuitButtonListener());
@@ -28,10 +27,8 @@ public class LoginController implements Observer {
 	@Override
 	public void update() 
 	{
-		System.out.println("Here in login");
 		if(this.model.getState() == STATE.LOGIN)
 		{
-			System.out.println("Login Update");
 			view.update();
 		}
 	}
@@ -41,7 +38,6 @@ public class LoginController implements Observer {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			System.out.println("Going to about button");
 			model.setState(STATE.ABOUT);
 		}
 		
