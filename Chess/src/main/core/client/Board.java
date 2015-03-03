@@ -7,4 +7,9 @@ public class Board {
 		return false;
 	}
 
+	public boolean isInCheckmate() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

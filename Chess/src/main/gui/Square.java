@@ -96,6 +96,5 @@ public class Square extends JButton implements ActionListener {
 			this.setForeground(piece.getColor());
 			invalidate();
 		}
-
 	};
 }

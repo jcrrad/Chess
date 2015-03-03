@@ -10,7 +10,7 @@ import controller.Observer;
 public class Model implements Observable {
 
 	public enum STATE {
-		LOGIN, CONNECTING, PAIRED, INGAME, ABOUT, QUIT
+		LOGIN, CONNECTING, INGAME, ABOUT, QUIT
 	}
 	
 	STATE state = STATE.LOGIN;
@@ -20,6 +20,7 @@ public class Model implements Observable {
 	private final int port = 8000;
 	private ProductInfo pinfo = new ProductInfo("filename");
 	private String username;
+	private Board board;
 	
 	public void connect()
 	{
@@ -69,11 +70,12 @@ public class Model implements Observable {
 
 	public boolean tryPlayerMove(Coordinate start, Coordinate end)
 	{
-		if(Board.movePiece(start, end))
-		{
-			
-		}
-		return false;
+		return board.movePiece(start, end);
+	}
+	
+	public boolean isInCheckmate()
+	{
+		return board.isInCheckmate();
 	}
 	
 	public ProductInfo getProductInformation() {
