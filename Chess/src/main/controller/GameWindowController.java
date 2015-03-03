@@ -17,9 +17,7 @@ public class GameWindowController implements Observer{
 
 	private Model model;
 	private GameView view;
-	private Coordinate start, end;
 	private Date time;
-	private boolean attempt, check;
 
 	public GameWindowController(Model model, GameView view) {
 		this.model = model;
@@ -114,32 +112,54 @@ public class GameWindowController implements Observer{
 	
 	class BoardPieceListener implements ActionListener
 	{
+		private boolean attempt, check;
+		private Coordinate start, end;
+		
 		@Override
-		public void actionPerformed(ActionEvent arg0) 
+		public void actionPerformed(ActionEvent e) 
 		{
+			System.out.println("Handling piece move");
 			if(start == null)
 			{
-				Square square = (Square) arg0.getSource();
-				start.setX(square.getColumn());
-				start.setY(square.getRow());
+				recordPickUp(e);
 			}
 			else
 			{
-				Square square = (Square) arg0.getSource();
-				end.setX(square.getColumn());
-				end.setY(square.getRow());
-				if(!((start.getX() == end.getX()) && (start.getY() == end.getY())))
+				recordPutDown(e);
+				if(!isSamePosition())
 				{
 					attempt = model.tryPlayerMove(start, end);
 					check = model.isInCheckmate();
 					if(attempt && !check)
 					{
+						System.out.println("good move");
 						view.update();
 					}
 				}
+				start = null;
+				end = null;
 			}
-			System.out.println("A board piece moved");
 		}
 		
-	}
+		private void recordPickUp(ActionEvent e)
+		{
+			start = new Coordinate();
+			Square square = (Square) e.getSource();
+			start.setX(square.getColumn());
+			start.setY(square.getRow());
+		}
+		
+		private void recordPutDown(ActionEvent e) 
+		{
+			end = new Coordinate();
+			Square square = (Square) e.getSource();
+			end.setX(square.getColumn());
+			end.setY(square.getRow());
+		}
+		
+		private boolean isSamePosition()
+		{
+			return ((start.getX() == end.getX()) && (start.getY() == end.getY()));
+		}
+	}	
 }

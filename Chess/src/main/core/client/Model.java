@@ -20,7 +20,7 @@ public class Model implements Observable {
 	private final int port = 8000;
 	private ProductInfo pinfo = new ProductInfo("filename");
 	private String username;
-	private Board board;
+	private Board board = new Board();
 	
 	public void connect()
 	{
