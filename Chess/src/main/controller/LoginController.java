@@ -63,6 +63,7 @@ public class LoginController implements Observer {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
+			model.setUsername(view.getUsername());
 			model.setState(STATE.CONNECTING);
 			
 		}

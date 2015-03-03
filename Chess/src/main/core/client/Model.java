@@ -19,6 +19,7 @@ public class Model implements Observable {
 	private final String hostname = "localhost";
 	private final int port = 8000;
 	private ProductInfo pinfo = new ProductInfo("filename");
+	private String username;
 	
 	public void connect()
 	{
@@ -68,5 +69,15 @@ public class Model implements Observable {
 
 	public ProductInfo getProductInformation() {
 		return pinfo;
+	}
+
+	public void setUsername(String username) 
+	{
+		this.username = username;
+	}
+	
+	public String getUsername()
+	{
+		return this.username;
 	}
 }
