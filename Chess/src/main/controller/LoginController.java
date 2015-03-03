@@ -53,6 +53,7 @@ public class LoginController implements Observer {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			model.setState(STATE.QUIT);
+			view.quit();
 		}
 		
 	}
