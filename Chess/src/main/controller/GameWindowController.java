@@ -1,24 +1,24 @@
 package controller;
 
+import gui.GameView;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import gui.ChessFrame;
-import gui.GameView;
 import core.client.Model;
 import core.client.Model.STATE;
 
-public class GameWindowController extends Controller{
+public class GameWindowController extends Controller {
 
 	public GameWindowController(Model model, GameView view) {
-		super(model,view);
+		super(model, view);
 		view.setButtonPanelQuitListener(new ButtonPanelQuitListener());
 		view.setChatPanelSubmitListener(new ChatPanelSubmitListener());
 		view.setButtonPanelStalemateListener(new ButtonPanelStalemateListener());
 		view.setBoardPieceListener(new BoardPieceListener());
 	}
 
-	public void sendMessage(String text) {  
+	public void sendMessage(String text) {
 		/*
 		 * TODO: This will be the method to send messages out to the server,
 		 * this controller will also receive messages, we should keep the null
@@ -45,55 +45,45 @@ public class GameWindowController extends Controller{
 	}
 
 	public void killWindow() {
-		//view.dispose();
+		// view.dispose();
 	}
 
 	@Override
-	public void update() 
-	{
+	public void update() {
 		System.out.println("Checking ingame");
-		if(model.getState() == STATE.INGAME)
-		{
+		if (model.getState() == STATE.INGAME) {
 			System.out.println("INGAME");
 			view.update();
 		}
 	}
 
-	class ButtonPanelQuitListener implements ActionListener
-	{
+	class ButtonPanelQuitListener implements ActionListener {
 		@Override
-		public void actionPerformed(ActionEvent e) 
-		{
+		public void actionPerformed(ActionEvent e) {
 			model.setState(STATE.QUIT);
-		}	
+		}
 	}
-	
-	class ChatPanelSubmitListener implements ActionListener
-	{
+
+	class ChatPanelSubmitListener implements ActionListener {
 		@Override
-		public void actionPerformed(ActionEvent e) 
-		{
+		public void actionPerformed(ActionEvent e) {
 			System.out.println("Sending Text");
 		}
 	}
-	
-	class ButtonPanelStalemateListener implements ActionListener
-	{
+
+	class ButtonPanelStalemateListener implements ActionListener {
 		@Override
-		public void actionPerformed(ActionEvent e) 
-		{
+		public void actionPerformed(ActionEvent e) {
 			System.out.println("Offering Stalemate");
 		}
 	}
-	
-	class BoardPieceListener implements ActionListener
-	{
+
+	class BoardPieceListener implements ActionListener {
 
 		@Override
-		public void actionPerformed(ActionEvent arg0) 
-		{
+		public void actionPerformed(ActionEvent arg0) {
 			System.out.println("A board piece moved");
 		}
-		
+
 	}
 }
