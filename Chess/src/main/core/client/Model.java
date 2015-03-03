@@ -67,6 +67,15 @@ public class Model implements Observable {
 		return this.state;
 	}
 
+	public boolean tryPlayerMove(Coordinate start, Coordinate end)
+	{
+		if(Board.movePiece(start, end))
+		{
+			
+		}
+		return false;
+	}
+	
 	public ProductInfo getProductInformation() {
 		return pinfo;
 	}
