@@ -1,13 +1,9 @@
 package core.client;
 
-import java.io.Console;
 import java.io.IOException;
-import java.net.UnknownHostException;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 import controller.Observable;
-import controller.Controller;
 import controller.Observer;
 
 

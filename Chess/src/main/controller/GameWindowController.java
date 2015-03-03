@@ -7,15 +7,15 @@ import gui.GameView;
 import core.client.Model;
 import core.client.Model.STATE;
 
-public class GameWindowController extends Controller{
+public class GameWindowController implements Observer{
 
 	private Model model;
 	private GameView view;
 
 	public GameWindowController(Model model, GameView view) {
-		super(model);
 		this.model = model;
 		this.view = view;
+		model.registerObserver(this);
 		
 		view.setButtonPanelQuitListener(new ButtonPanelQuitListener());
 		view.setChatPanelSubmitListener(new ChatPanelSubmitListener());

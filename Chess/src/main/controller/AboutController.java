@@ -8,15 +8,15 @@ import core.client.Model;
 import core.client.ProductInfo;
 import core.client.Model.STATE;
 
-public class AboutController extends Controller {
+public class AboutController implements Observer{
 
 	private Model model;
 	private AboutView view;
 	
 	public AboutController(Model model, AboutView view) {
-		super(model);
 		this.model = model;
 		this.view = view;
+		model.registerObserver(this);
 
 		view.setGoBackListener(new GoBackButtonListener());
 	}

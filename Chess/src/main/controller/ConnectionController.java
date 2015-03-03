@@ -4,15 +4,15 @@ import gui.ConnectionView;
 import core.client.Model;
 import core.client.Model.STATE;
 
-public class ConnectionController extends Controller {
+public class ConnectionController implements Observer{
 	
 	private Model model;
 	private ConnectionView view;
 	
 	public ConnectionController(Model model, ConnectionView view) {
-		super(model);
 		this.model = model;
 		this.view = view;
+		model.registerObserver(this);
 	}
 
 	@Override

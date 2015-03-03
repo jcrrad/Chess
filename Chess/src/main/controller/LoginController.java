@@ -8,16 +8,15 @@ import gui.View;
 import core.client.Model;
 import core.client.Model.STATE;
 
-public class LoginController extends Controller {
+public class LoginController implements Observer {
 
 	private Model model;
 	private LoginView view;
 
-	public LoginController(Model model, LoginView view) {
-		super(model);
-		
+	public LoginController(Model model, LoginView view) {		
 		this.model = model;
 		this.view = view;
+		model.registerObserver(this);
 		
 		System.out.println("about to update");
 		view.setAboutListener(new AboutButtonListener());
