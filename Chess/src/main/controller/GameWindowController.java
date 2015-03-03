@@ -70,6 +70,8 @@ public class GameWindowController implements Observer{
 		public void actionPerformed(ActionEvent e) 
 		{
 			model.setState(STATE.QUIT);
+			//TODO: Add forfeit message to send
+			view.quit();
 		}	
 	}
 	
@@ -93,10 +95,10 @@ public class GameWindowController implements Observer{
 	
 	class BoardPieceListener implements ActionListener
 	{
-
 		@Override
 		public void actionPerformed(ActionEvent arg0) 
 		{
+			
 			System.out.println("A board piece moved");
 		}
 		
