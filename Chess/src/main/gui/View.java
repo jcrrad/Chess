@@ -15,5 +15,10 @@ public abstract class View extends JPanel{
 	{
 		this.frame.update(this);
 	}
+	
+	public void quit()
+	{
+		frame.dispose();
+	}
 
 }
