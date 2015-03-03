@@ -79,7 +79,9 @@ public class GameView extends View{
 	
 	public String getChatPanelInputField()
 	{
-		return this.chat.chatSection.inputField.getText();
+		String text = this.chat.chatSection.inputField.getText();
+		this.chat.chatSection.inputField.setText("");
+		return text;
 	}
 	
 	public void updateChat(String text)

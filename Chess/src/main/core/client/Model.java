@@ -46,6 +46,18 @@ public class Model implements Observable {
 			obs.update();
 		}
 	}
+	
+	public void lockBoard()
+	{
+		//TODO: Lock the board
+		System.out.println("Board Locked");
+	}
+	
+	public void unlockBoard()
+	{
+		//TODO: Unlock the board
+		System.out.println("Board Unlocked");
+	}
 
 	public void setState(STATE state) 
 	{

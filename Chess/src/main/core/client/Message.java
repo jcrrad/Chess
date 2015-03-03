@@ -7,6 +7,7 @@ public class Message {
 	private String chatText;
 	private boolean clientsTurn = false;
 	private boolean disconnected = false;
+	private boolean stalemate = false;
 
 	public boolean isClientsTurn() 
 	{
@@ -56,6 +57,12 @@ public class Message {
 		this.disconnected = disconnected;
 	}
 
+	public boolean isStalemate() {
+		return stalemate;
+	}
 
+	public void setStalemate(boolean stalemate) {
+		this.stalemate = stalemate;
+	}
 
 }
