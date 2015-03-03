@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 
-import controller.piece.Piece;
+import core.client.game.Piece;
 
 public class Square extends JButton implements ActionListener {
 	/**

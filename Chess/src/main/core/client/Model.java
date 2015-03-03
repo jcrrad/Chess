@@ -1,8 +1,5 @@
 package core.client;
 
-import gui.BoardPanel;
-import gui.Square;
-
 import java.awt.Color;
 import java.io.Console;
 import java.io.IOException;
@@ -13,7 +10,8 @@ import java.util.Scanner;
 import controller.Observable;
 import controller.Controller;
 import controller.Observer;
-import controller.piece.Piece;
+import core.client.game.Board;
+import core.client.game.Piece;
 
 
 public class Model implements Observable {
@@ -27,7 +25,7 @@ public class Model implements Observable {
 	Connection connection;
 	private final String hostname = "localhost";
 	private final int port = 8000;
-	BoardPanel board = new BoardPanel();
+	Board board = new Board();
 	
 	public void connect()
 	{
@@ -75,44 +73,38 @@ public class Model implements Observable {
 		return this.state;
 	}
 	
-	public void setPiece(Piece newPiece, int x, int y)
+	public Piece getPiece(Coordinate location)
 	{
-		this.board.setPiece(newPiece, x, y);
+		return this.board.getPiece(location);
 	}
 	
-	public Piece getPiece(int x, int y)
+	public void setPiece(Piece piece, Coordinate location)
 	{
-		return this.board.getPiece(x, y);
+		this.board.setPiece(piece, location);
 	}
 	
-	public Square getSquare(int x, int y)
+	public void removePiece(Coordinate location)
 	{
-		return this.board.getSquare(x, y);
-	}
-	
-	public void removePiece(int x, int y)
-	{
-		this.board.removePiece(x, y);
+		this.board.removePiece(location);
 	}
 
-	public boolean movePiece(int x1, int y1, int x2, int y2)
+	public boolean movePiece(Coordinate location1, Coordinate location2)
 	{
-		// TODO: Fill this in
-		return true;
+		return this.board.movePiece(location1, location2);
 	}
 	
-	public boolean walkBoard(int x1, int y1, int x2, int y2)
+	public boolean walkBoard(Coordinate location1, Coordinate location2)
 	{
-		return this.board.walk(x1, y1, x2, y2);
+		return this.board.walk(location1, location2);
 	}
 	
-	public boolean check(Color playerColor)
+	public boolean isInCheck(Color playerColor)
 	{
-		return this.board.check(playerColor);
+		return this.board.isInCheck(playerColor);
 	}
 	
-	public boolean checkmate(Color playerColor)
+	public boolean isInCheckmate(Color playerColor)
 	{
-		return this.board.checkmate(playerColor);
+		return this.board.isInCheckmate(playerColor);
 	}
 }
