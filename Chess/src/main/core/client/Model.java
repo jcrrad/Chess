@@ -22,19 +22,9 @@ public class Model implements Observable {
 	private String username;
 	private Board board = new Board();
 	
-	public void connect()
+	public Connection getConnection()
 	{
-		try {
-			connection = new Connection(hostname, port);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		setState(STATE.CONNECTING);
-		//connection.handShake(this);
-		Thread t = new Thread(new InputHandler(connection));
-		setState(STATE.INGAME);
-
+		return connection;
 	}
 	
 	@Override
