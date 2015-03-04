@@ -4,15 +4,15 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+
 import gui.GameView;
 import gui.Square;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import core.client.Board;
+import core.client.game.Board;
+import core.client.game.Piece;
 import core.client.Connection;
 import core.client.Coordinate;
 import core.client.Message;
@@ -35,45 +35,20 @@ public class GameWindowController implements Observer{
 		view.setButtonPanelStalemateListener(new ButtonPanelStalemateListener());
 		view.setBoardPieceListener(new BoardPieceListener());
 	}
-
-	@Deprecated
-	public void sendMessage(String text) {  
-		/*
-		 * TODO: This will be the method to send messages out to the server,
-		 * this controller will also receive messages, we should keep the null
-		 * check as this will keep us from sending blank messages back and forth
-		 * and wasting resources
-		 */
-		if (text.length() != 0)
-			System.out.println(text);
-		// model.sendMessage();
-	}
-
-	@Deprecated
-	public void handleQuit() {
-		/*
-		 * TODO: This will be the method called when a player quits, the player
-		 * who does will be returned to the login screen, but the opposing
-		 * player needs to be alerted.
-		 */
-		System.out.println("Quit Requested");
-	}
-
-	@Deprecated
-	public void offerStalemate() {
-		// TODO: This will be called when one person offers a stalemate
-		System.out.println("Stalemate Offered");
-	}
-
-	@Deprecated
-	public void killWindow() {
-		//view.dispose();
-	}
 	
 	protected void updateBoardUI(Board board)
 	{
-		
-		
+		Coordinate coords = new Coordinate();
+		for(int i = 0; i < 8; ++i)
+			for(int j = 0; j < 8; ++j)
+			{
+				coords.setX(j);
+				coords.setY(i);
+				
+				Piece p = board.getPiece(coords);
+				System.out.println(p.getName());
+				view.setPiece(p.getName(), j, i, p.getColor());
+			}
 	}
 
 	@Override
@@ -82,6 +57,7 @@ public class GameWindowController implements Observer{
 		System.out.println("Checking ingame");
 		if(model.getState() == STATE.INGAME)
 		{
+			updateBoardUI(model.getBoard());
 			System.out.println("INGAME");
 			view.update();
 		}
@@ -107,18 +83,22 @@ public class GameWindowController implements Observer{
 	
 	public void updateStalemate(Object message)
 	{
-		model.lockBoard();
+		view.lockBoard();
 		//Lock the board and offer a stalemate on the gui
 		view.update();
-		model.unlockBoard();
+		view.unlockBoard();
 	}
 	
 	public void updateBoard(Object message)
 	{
 		Message mes = (Message) message;
-		Board boardRep = (Board) mes.getBoard();
+		//Board boardRep = (Board) mes.getBoard();
+		//String boardRep = mes.getBoard();
+		//Board board = new Board(boardRep);
+		//updateBoardUI(board);
+		//model.setBoard(board);
+		view.unlockBoard();
 		view.update();
-		model.unlockBoard();
 	}
 	
 	public void updateChat(Object message)
@@ -183,6 +163,7 @@ public class GameWindowController implements Observer{
 		public void actionPerformed(ActionEvent e) 
 		{
 			System.out.println("Handling piece move");
+			view.lockBoard();
 			if(start == null)
 			{
 				recordPickUp(e);
@@ -202,7 +183,7 @@ public class GameWindowController implements Observer{
 					}
 					else
 					{
-						model.unlockBoard();
+						view.unlockBoard();
 					}
 				}
 				start = null;

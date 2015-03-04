@@ -1,5 +1,6 @@
 package gui;
 
+import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
@@ -88,6 +89,22 @@ public class GameView extends View{
 	{
 		this.chat.chatSection.conversationField.setText(
 				this.chat.chatSection.conversationField.getText()+"\r\n"+text);
+	}
+	
+	public void setPiece(String name, int x, int y, Color color)
+	{
+		board.squares[x][y].setText(name);
+		board.squares[x][y].setForeground(color);
+	}
+	
+	public void lockBoard()
+	{
+		board.setEnabled(false);
+	}
+	
+	public void unlockBoard()
+	{
+		board.setEnabled(true);
 	}
 	
 }

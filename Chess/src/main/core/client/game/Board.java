@@ -84,7 +84,7 @@ public class Board {
 	private void initPawns() {
 		for (int x = 0; x < 8; x++) {
 			pieces[x][6] = new Pawn(this, Color.BLACK, new Coordinate(x, 6));
-			pieces[x][1] = new Pawn(this, Color.BLACK, new Coordinate(x, 1));
+			pieces[x][1] = new Pawn(this, Color.WHITE, new Coordinate(x, 1));
 
 		}
 	}

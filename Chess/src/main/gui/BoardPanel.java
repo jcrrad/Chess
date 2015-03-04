@@ -26,6 +26,7 @@ public class BoardPanel extends JPanel {
 				else
 					color = new Color(245, 222, 189);
 				squares[x][y] = new Square(x, y, color);
+				squares[x][y].setName("thisname");
 				this.add(squares[x][y]);
 			}
 	}

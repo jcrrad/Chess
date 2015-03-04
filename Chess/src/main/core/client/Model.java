@@ -74,6 +74,17 @@ public class Model implements Observable {
 		return this.state;
 	}
 	
+	public Board getBoard()
+	{
+		return this.board;
+	}
+	
+	public void setBoard(Board board)
+	{
+		if( board != null)
+			this.board = board;
+	}
+	
 	public Piece getPiece(Coordinate location)
 	{
 		return this.board.getPiece(location);
