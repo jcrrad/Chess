@@ -14,13 +14,12 @@ import javax.swing.SwingConstants;
 
 import controller.ConnectionController;
 
-public class LoginView extends JPanel implements View{
+public class LoginView extends View{
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	ChessFrame frame;
 	JTextField usernameText = new JTextField();
 	JLabel usernameLabel = new JLabel("What is your username?");
 	JLabel welcomeLabel = new JLabel("Welcome to Chess");
@@ -30,8 +29,7 @@ public class LoginView extends JPanel implements View{
 	
 
 	public LoginView(ChessFrame frame) {
-		this.frame = frame;
-		this.frame.register(this);
+		super(frame);
 		setLayout(new GridBagLayout());
 
 		initWelcome();
@@ -124,11 +122,5 @@ public class LoginView extends JPanel implements View{
 	public String getUsername()
 	{
 		return this.usernameText.getText();
-	}
-
-	@Override
-	public void update() 
-	{
-		this.frame.update(this);
 	}
 }

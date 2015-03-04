@@ -1,20 +1,16 @@
 package core.client;
 
-import java.io.Console;
 import java.io.IOException;
-import java.net.UnknownHostException;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 import controller.Observable;
-import controller.Controller;
 import controller.Observer;
 
 
 public class Model implements Observable {
 
 	public enum STATE {
-		LOGIN, CONNECTING, PAIRED, INGAME, ABOUT, QUIT
+		LOGIN, CONNECTING, INGAME, ABOUT, QUIT
 	}
 	
 	STATE state = STATE.LOGIN;
@@ -22,20 +18,13 @@ public class Model implements Observable {
 	Connection connection;
 	private final String hostname = "localhost";
 	private final int port = 8000;
+	private ProductInfo pinfo = new ProductInfo("filename");
+	private String username;
+	private Board board = new Board();
 	
-	public void connect()
+	public Connection getConnection()
 	{
-		try {
-			connection = new Connection(hostname, port);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		setState(STATE.CONNECTING);
-		//connection.handShake(this);
-		Thread t = new Thread(new InputHandler(connection));
-		setState(STATE.INGAME);
-
+		return connection;
 	}
 	
 	@Override
@@ -57,6 +46,18 @@ public class Model implements Observable {
 			obs.update();
 		}
 	}
+	
+	public void lockBoard()
+	{
+		//TODO: Lock the board
+		System.out.println("Board Locked");
+	}
+	
+	public void unlockBoard()
+	{
+		//TODO: Unlock the board
+		System.out.println("Board Unlocked");
+	}
 
 	public void setState(STATE state) 
 	{
@@ -69,4 +70,27 @@ public class Model implements Observable {
 		return this.state;
 	}
 
+	public boolean tryPlayerMove(Coordinate start, Coordinate end)
+	{
+		return board.movePiece(start, end);
+	}
+	
+	public boolean isInCheckmate()
+	{
+		return board.isInCheckmate();
+	}
+	
+	public ProductInfo getProductInformation() {
+		return pinfo;
+	}
+
+	public void setUsername(String username) 
+	{
+		this.username = username;
+	}
+	
+	public String getUsername()
+	{
+		return this.username;
+	}
 }

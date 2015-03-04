@@ -77,11 +77,12 @@ public class Square extends JButton implements ActionListener {
 			if ((piece == null || !(piece.getColor().equals(movingPiece.getColor()))) && (movingPiece.canMove(this))) {
 				// if moving piece can move to new square
 				placePiece(movingPiece);
+				// set moved flag
+				//movingPiece.setMoved();
 				movingPiece = null;
 			} else {// move failed put it back
 				movingPiece.getSquare().placePiece(movingPiece);
 				movingPiece = null;
-
 			}
 		}
 		this.updateSquare();
@@ -95,6 +96,5 @@ public class Square extends JButton implements ActionListener {
 			this.setForeground(piece.getColor());
 			invalidate();
 		}
-
 	};
 }
