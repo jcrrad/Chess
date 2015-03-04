@@ -16,14 +16,12 @@ public abstract class Piece {
 		this.board = board;
 		this.location = location;
 	}
-	
-	public boolean hasMoved()
-	{
+
+	public boolean hasMoved() {
 		return moved;
 	}
-	
-	public void setMoved()
-	{
+
+	public void setMoved() {
 		moved = true;
 	}
 
@@ -35,11 +33,11 @@ public abstract class Piece {
 		this.name = name;
 	}
 
-	public void setLocation(Coordinate location){
+	public void setLocation(Coordinate location) {
 		this.location = location;
 	}
-	
-	public Coordinate getLocation(){
+
+	public Coordinate getLocation() {
 		return this.location;
 	}
 
@@ -48,7 +46,8 @@ public abstract class Piece {
 	}
 
 	public String toString() {
-		return name + "\t" + color + "\t" + this.location.getX() + "," + this.location.getY();
+		return name + "\t" + color + "\t" + this.location.getX() + ","
+				+ this.location.getY();
 	}
 
 	public boolean moveable(Coordinate location) {
@@ -57,10 +56,12 @@ public abstract class Piece {
 		}
 		return false;
 	}
-	
+
 	public abstract boolean canMove(Coordinate location);
 
 	public boolean canAttack(Coordinate location) {
 		return moveable(location);
 	}
+
+	public abstract String getSymbol();
 }

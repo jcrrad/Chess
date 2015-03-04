@@ -22,9 +22,16 @@ public class Knight extends Piece {
 			return true;
 		return false;
 	}
-	
-	public boolean moveable(Coordinate location)
-	{
+
+	public boolean moveable(Coordinate location) {
 		return canMove(location);
+	}
+
+	@Override
+	public String getSymbol() {
+		if (color.equals(Color.BLACK))
+			return "N";
+		else
+			return "n";
 	}
 }

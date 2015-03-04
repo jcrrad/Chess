@@ -20,4 +20,11 @@ public class King extends Piece {
 			return true;
 		return false;
 	}
+	@Override
+	public String getSymbol() {
+		if (color.equals(Color.BLACK))
+			return "K";
+		else
+			return "k";
+	}
 }

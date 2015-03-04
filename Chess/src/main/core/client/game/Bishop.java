@@ -20,4 +20,12 @@ public class Bishop extends Piece {
 			return true;
 		return false;
 	}
+
+	@Override
+	public String getSymbol() {
+		if (color.equals(Color.BLACK))
+			return "B";
+		else
+			return "b";
+	}
 }

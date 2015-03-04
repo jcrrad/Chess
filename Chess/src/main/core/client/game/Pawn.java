@@ -14,34 +14,39 @@ public class Pawn extends Piece {
 	public boolean canAttack(Coordinate location) {
 		// Diagonal Attack
 		if ((Math.abs(this.location.getY() - location.getY()) == 1)
-				&& (Math.abs(this.location.getX() - location.getX()) == 1) 
-				&& (this.board.getPiece(location) != null)) 
-		{
-			if (((this.color.equals(Color.BLACK)) && (this.location.getY() > location.getY()))
-					|| ((this.color.equals(Color.WHITE)) && (this.location.getY() < location.getY())))
+				&& (Math.abs(this.location.getX() - location.getX()) == 1)
+				&& (this.board.getPiece(location) != null)) {
+			if (((this.color.equals(Color.BLACK)) && (this.location.getY() > location
+					.getY()))
+					|| ((this.color.equals(Color.WHITE)) && (this.location
+							.getY() < location.getY())))
 				return true;
 		}
 		return false;
 	}
-	
-	public boolean canMove(Coordinate location)
-	{
+
+	public boolean canMove(Coordinate location) {
 		if (Math.abs(this.location.getX() - location.getX()) > 0)
 			return false;
 
 		// Double Move
-		if ((Math.abs(this.location.getY() - location.getY()) == 2) && (this.board.getPiece(location) == null)) {
+		if ((Math.abs(this.location.getY() - location.getY()) == 2)
+				&& (this.board.getPiece(location) == null)) {
 			if (((this.color.equals(Color.BLACK)) && (this.location.getY() == 6))
-					|| ((this.color.equals(Color.WHITE)) && (this.location.getY() == 1)))
+					|| ((this.color.equals(Color.WHITE)) && (this.location
+							.getY() == 1)))
 				return true;
 		}
 		if (Math.abs(this.location.getY() - location.getY()) > 1)
 			return false;
 
 		// Single Move
-		if ((Math.abs(this.location.getY() - location.getY()) == 1) && (this.board.getPiece(location) == null)) {
-			if (((this.color.equals(Color.BLACK)) && (this.location.getY() > location.getY()))
-					|| ((this.color.equals(Color.WHITE)) && (this.location.getY() < location.getY())))
+		if ((Math.abs(this.location.getY() - location.getY()) == 1)
+				&& (this.board.getPiece(location) == null)) {
+			if (((this.color.equals(Color.BLACK)) && (this.location.getY() > location
+					.getY()))
+					|| ((this.color.equals(Color.WHITE)) && (this.location
+							.getY() < location.getY())))
 				return true;
 		}
 
@@ -49,5 +54,12 @@ public class Pawn extends Piece {
 		return canAttack(location);
 	}
 
-	
+	@Override
+	public String getSymbol() {
+		if (color.equals(Color.BLACK))
+			return "P";
+		else
+			return "p";
+	}
+
 }

@@ -22,4 +22,12 @@ public class Queen extends Piece {
 
 		return false;
 	}
+
+	@Override
+	public String getSymbol() {
+		if (color.equals(Color.BLACK))
+			return "Q";
+		else
+			return "q";
+	}
 }

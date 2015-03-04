@@ -20,4 +20,12 @@ public class Rook extends Piece {
 			return true;
 		return false;
 	}
+
+	@Override
+	public String getSymbol() {
+		if (color.equals(Color.BLACK))
+			return "R";
+		else
+			return "r";
+	}
 }
