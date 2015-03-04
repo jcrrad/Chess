@@ -1,6 +1,6 @@
 package controller.piece;
 
-import controller.piece.Rook;
+import core.client.game.Rook;
 
 /**
  * Base test class for {@link Rook}

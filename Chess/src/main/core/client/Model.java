@@ -1,10 +1,14 @@
 package core.client;
 
+import java.awt.Color;
+import java.io.Console;
 import java.io.IOException;
 import java.util.ArrayList;
 
 import controller.Observable;
 import controller.Observer;
+import core.client.game.Board;
+import core.client.game.Piece;
 
 
 public class Model implements Observable {
@@ -69,15 +73,35 @@ public class Model implements Observable {
 	{
 		return this.state;
 	}
+	
+	public Piece getPiece(Coordinate location)
+	{
+		return this.board.getPiece(location);
+	}
+	
+	public void setPiece(Piece piece, Coordinate location)
+	{
+		this.board.setPiece(piece, location);
+	}
+	
+	public void removePiece(Coordinate location)
+	{
+		this.board.removePiece(location);
+	}
+
+	public boolean isInCheck(Color playerColor)
+	{
+		return this.board.isInCheck(playerColor);
+	}
+	
+	public boolean isInCheckmate(Color playerColor)
+	{
+		return this.board.isInCheckmate(playerColor);
+	}
 
 	public boolean tryPlayerMove(Coordinate start, Coordinate end)
 	{
 		return board.movePiece(start, end);
-	}
-	
-	public boolean isInCheckmate()
-	{
-		return board.isInCheckmate();
 	}
 	
 	public ProductInfo getProductInformation() {

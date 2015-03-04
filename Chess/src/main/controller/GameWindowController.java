@@ -1,5 +1,9 @@
 package controller;
 
+import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import gui.GameView;
 import gui.Square;
 
@@ -190,7 +194,7 @@ public class GameWindowController implements Observer{
 				{
 					model.lockBoard();
 					attempt = model.tryPlayerMove(start, end);
-					check = model.isInCheckmate();
+					check = model.isInCheckmate(Color.RED);
 					if(attempt && !check)
 					{
 						System.out.println("good move");

@@ -1,6 +1,6 @@
 package controller.piece;
 
-import controller.piece.Queen;
+import core.client.game.Queen;
 
 /**
  * Base test class for {@link Queen}
