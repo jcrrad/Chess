@@ -31,47 +31,38 @@ public class ChessFrame extends JFrame {
 				appName);
 	}
 
-	public ChessFrame() throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException {
+	public ChessFrame() throws ClassNotFoundException, InstantiationException,
+			IllegalAccessException, UnsupportedLookAndFeelException {
 		super("Chess");
 
 		macSetup("swing-mac");
-		
-		this.setResizable(false);
+		// this.setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		UIManager.setLookAndFeel(UIManager .getCrossPlatformLookAndFeelClassName());
+		UIManager.setLookAndFeel(UIManager
+				.getCrossPlatformLookAndFeelClassName());
 		setScreenSize();
 	}
 
-	private void setScreenSize() 
-	{
-		if (java.awt.Toolkit.getDefaultToolkit().getScreenSize().getHeight() > 900)
-			setSize(900, 900);
-		else
-			setSize(700, 700);
-		
+	private void setScreenSize() {
+		setSize(java.awt.Toolkit.getDefaultToolkit().getScreenSize());
+
 	}
 
-	public void register(JPanel panel)
-	{
+	public void register(JPanel panel) {
 		cards.add(panel, panel.getName());
 	}
-	
-	public void update(JPanel panel)
-	{
-		if(current != null)
-		{
+
+	public void update(JPanel panel) {
+		if (current != null) {
 			this.current.setVisible(false);
 			this.remove(current);
 		}
-		
 		this.current = panel;
 		this.add(current);
 		panel.setVisible(true);
 		this.setVisible(true);
-	
-		//cardLayout.show(cards, panel.getName());
 	}
-	
+
 	public void kill() {
 		// TODO KILL EVERYTHING
 		this.dispose();
