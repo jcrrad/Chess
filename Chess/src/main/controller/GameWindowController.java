@@ -65,6 +65,12 @@ public class GameWindowController implements Observer{
 	public void killWindow() {
 		//view.dispose();
 	}
+	
+	protected void updateBoardUI(Board board)
+	{
+		
+		
+	}
 
 	@Override
 	public void update() 

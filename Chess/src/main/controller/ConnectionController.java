@@ -21,14 +21,13 @@ public class ConnectionController implements Observer{
 	{
 		if(model.getState() == STATE.CONNECTING)
 		{
-			System.out.println("Trying to connect.");
-			//model.TryConnectToSever();
 			model.setState(STATE.INGAME);
 		}
 	}
 	
 	@Override
-	public void update(Object message) {
+	public void update(Object message) 
+	{
 		// TODO no default
 		
 	}
