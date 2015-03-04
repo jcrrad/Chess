@@ -194,7 +194,7 @@ public class GameWindowController implements Observer{
 				{
 					model.lockBoard();
 					attempt = model.tryPlayerMove(start, end);
-					check = model.isInCheckmate();
+					check = model.isInCheckmate(Color.RED);
 					if(attempt && !check)
 					{
 						System.out.println("good move");
