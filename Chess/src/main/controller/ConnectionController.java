@@ -1,13 +1,19 @@
 package controller;
 
-import gui.ChessFrame;
+import gui.ConnectionView;
+import core.client.Message;
 import core.client.Model;
 import core.client.Model.STATE;
 
-public class ConnectionController extends Controller {
-
+public class ConnectionController implements Observer{
+	
+	private Model model;
+	private ConnectionView view;
+	
 	public ConnectionController(Model model, ConnectionView view) {
-		super(model, view);
+		this.model = model;
+		this.view = view;
+		model.registerObserver(this);
 	}
 
 	@Override
@@ -15,9 +21,14 @@ public class ConnectionController extends Controller {
 	{
 		if(model.getState() == STATE.CONNECTING)
 		{
-			System.out.println("Trying to connect.");
-			//model.TryConnectToSever();
 			model.setState(STATE.INGAME);
 		}
+	}
+	
+	@Override
+	public void update(Object message) 
+	{
+		// TODO no default
+		
 	}
 }

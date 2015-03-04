@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 
-import core.client.game.Piece;
+import controller.piece.Piece;
 
 public class Square extends JButton implements ActionListener {
 	/**
@@ -74,17 +74,15 @@ public class Square extends JButton implements ActionListener {
 			movingPiece = removePiece();
 			System.out.println("Piece picked up" + movingPiece.toString());
 		} else {// player has a piece in their hand
-			if ((piece == null || !(piece.getColor().equals(movingPiece
-					.getColor()))) && (movingPiece.canMove(this))) {
+			if ((piece == null || !(piece.getColor().equals(movingPiece.getColor()))) && (movingPiece.canMove(this))) {
 				// if moving piece can move to new square
 				placePiece(movingPiece);
 				// set moved flag
-				movingPiece.setMoved();
+				//movingPiece.setMoved();
 				movingPiece = null;
 			} else {// move failed put it back
 				movingPiece.getSquare().placePiece(movingPiece);
 				movingPiece = null;
-
 			}
 		}
 		this.updateSquare();
@@ -98,6 +96,5 @@ public class Square extends JButton implements ActionListener {
 			this.setForeground(piece.getColor());
 			invalidate();
 		}
-
 	};
 }

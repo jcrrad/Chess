@@ -4,11 +4,11 @@ import javax.swing.UnsupportedLookAndFeelException;
 
 import gui.AboutView;
 import gui.ChessFrame;
+import gui.ConnectionView;
 import gui.GameView;
 import gui.LoginView;
 import controller.AboutController;
 import controller.ConnectionController;
-import controller.ConnectionView;
 import controller.GameWindowController;
 import controller.LoginController;
 

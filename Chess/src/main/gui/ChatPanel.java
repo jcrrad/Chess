@@ -19,6 +19,7 @@ public class ChatPanel extends JPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 	JTextField inputField;
+	JTextField conversationField;
 	JButton submitButton;
 
 	// TODO: JEFF - make scrollable
@@ -37,7 +38,7 @@ public class ChatPanel extends JPanel {
 	
 	private void initChatField()
 	{
-		JTextField conversationField = new JTextField();
+		conversationField = new JTextField();
 		GridBagConstraints conv_gbc = new GridBagConstraints();
 		conv_gbc.fill = GridBagConstraints.BOTH;
 		conv_gbc.gridwidth = GridBagConstraints.REMAINDER;

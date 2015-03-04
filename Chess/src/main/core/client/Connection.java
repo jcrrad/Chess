@@ -48,7 +48,7 @@ public class Connection {
 		while(!isPaired)
 		{
 			Message message = gson.fromJson(in.readLine(),  Message.class);
-			if(message.isServerMessage())
+			if(true)
 			{
 				isPaired = true;
 			}
