@@ -25,6 +25,7 @@ public class Model implements Observable {
 	private ProductInfo pinfo = new ProductInfo("filename");
 	private String username;
 	private Board board = new Board();
+	private boolean playerTurn = false;
 	
 	public Connection getConnection()
 	{
@@ -51,16 +52,12 @@ public class Model implements Observable {
 		}
 	}
 	
-	public void lockBoard()
+	public void setMessage(Message msg)
 	{
-		//TODO: Lock the board
-		System.out.println("Board Locked");
-	}
-	
-	public void unlockBoard()
-	{
-		//TODO: Unlock the board
-		System.out.println("Board Unlocked");
+		for(Observer obs : observers)
+		{
+			obs.update(msg);
+		}
 	}
 
 	public void setState(STATE state) 
@@ -74,6 +71,38 @@ public class Model implements Observable {
 		return this.state;
 	}
 	
+	public ProductInfo getProductInformation() {
+		return pinfo;
+	}
+	
+	// CLIENT AND SERVER INFO
+	public void setUsername(String username) 
+	{
+		this.username = username;
+	}
+	
+	public String getUsername()
+	{
+		return this.username;
+	}
+	
+	public String getServerHostname() 
+	{
+		return this.hostname;
+	}
+
+	public int getServerPort() 
+	{
+		return this.port;
+	}
+	
+	public void setConnection(Connection serverConnection) 
+	{
+		this.connection = serverConnection;
+	}
+	
+	// BOARD ACCESSORS
+	
 	public Board getBoard()
 	{
 		return this.board;
@@ -83,26 +112,6 @@ public class Model implements Observable {
 	{
 		if( board != null)
 			this.board = board;
-	}
-	
-	public Piece getPiece(Coordinate location)
-	{
-		return this.board.getPiece(location);
-	}
-	
-	public void setPiece(Piece piece, Coordinate location)
-	{
-		this.board.setPiece(piece, location);
-	}
-	
-	public void removePiece(Coordinate location)
-	{
-		this.board.removePiece(location);
-	}
-
-	public boolean isInCheck(Color playerColor)
-	{
-		return this.board.isInCheck(playerColor);
 	}
 	
 	public boolean isInCheckmate(Color playerColor)
@@ -115,17 +124,13 @@ public class Model implements Observable {
 		return board.movePiece(start, end);
 	}
 	
-	public ProductInfo getProductInformation() {
-		return pinfo;
-	}
-
-	public void setUsername(String username) 
+	public boolean isPlayerTurn()
 	{
-		this.username = username;
+		return this.playerTurn;
 	}
 	
-	public String getUsername()
+	public void setPlayerTurn(boolean b) 
 	{
-		return this.username;
+		this.playerTurn = b;
 	}
 }
