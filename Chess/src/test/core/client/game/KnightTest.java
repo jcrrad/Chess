@@ -19,20 +19,14 @@ public class KnightTest
 	@Test
 	public void testGetSymbol_black()
 	{
-		Coordinate coord = new Coordinate();
-		coord.setX(3);
-		coord.setY(3);
-		Knight knight = new Knight(null, Color.BLACK, coord);
+		Knight knight = new Knight(null, Color.BLACK, null);
 		assertEquals("N", knight.getSymbol());
 	}
 	
 	@Test
 	public void testGetSymbol_white()
 	{
-		Coordinate coord = new Coordinate();
-		coord.setX(3);
-		coord.setY(3);
-		Knight knight = new Knight(null, Color.WHITE, coord);
+		Knight knight = new Knight(null, Color.WHITE, null);
 		assertEquals("n", knight.getSymbol());
 	}
 	

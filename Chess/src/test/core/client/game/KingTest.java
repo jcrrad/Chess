@@ -19,20 +19,14 @@ public class KingTest
 	@Test
 	public void testGetSymbol_black()
 	{
-		Coordinate coord = new Coordinate();
-		coord.setX(3);
-		coord.setY(3);
-		King king = new King(null, Color.BLACK, coord);
+		King king = new King(null, Color.BLACK, null);
 		assertEquals("K", king.getSymbol());
 	}
 	
 	@Test
 	public void testGetSymbol_white()
 	{
-		Coordinate coord = new Coordinate();
-		coord.setX(3);
-		coord.setY(3);
-		King king = new King(null, Color.WHITE, coord);;
+		King king = new King(null, Color.WHITE, null);;
 		assertEquals("k", king.getSymbol());
 	}
 	
