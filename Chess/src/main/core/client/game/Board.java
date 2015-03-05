@@ -316,7 +316,7 @@ public class Board {
 
 		int x = x1;
 		int y = y1;
-		for (int z = 0; z < diff; z++) {
+		for (int z = 1; z < diff; z++) {
 			int X = x + (z * xDirection);
 			int Y = y + (z * yDirection);
 			if (!this.getPiece(new Coordinate(X, Y)).getName().equals("")) {
