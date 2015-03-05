@@ -14,9 +14,8 @@ public class BoardPanel extends JPanel {
 		// Create Layout
 		this.initLayout();
 	}
-	
-	private void initLayout()
-	{
+
+	private void initLayout() {
 		this.setLayout(new GridLayout(8, 8));
 		for (int y = 0; y < 8; y++)
 			for (int x = 0; x < 8; x++) {
@@ -30,12 +29,10 @@ public class BoardPanel extends JPanel {
 				this.add(squares[x][y]);
 			}
 	}
-	
-	public void setPieceListener(ActionListener listener)
-	{
-		for(Square[] outer : squares)
-			for(Square inner : outer)
-			{
+
+	public void setPieceListener(ActionListener listener) {
+		for (Square[] outer : squares)
+			for (Square inner : outer) {
 				inner.addActionListener(listener);
 			}
 	}
