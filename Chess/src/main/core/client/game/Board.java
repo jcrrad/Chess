@@ -21,6 +21,7 @@ public class Board {
 	}
 
 	public Board(String board) {
+		System.out.println(board);
 		for (int y = 0; y < 8; y++)
 			for (int x = 0; x < 8; x++) {
 				switch (board.substring(0, 1)) {
@@ -79,6 +80,7 @@ public class Board {
 							new Coordinate(x, y));
 					break;
 				}
+				board = board.substring(1);
 			}
 	}
 
@@ -316,7 +318,7 @@ public class Board {
 
 		int x = x1;
 		int y = y1;
-		for (int z = 0; z < diff; z++) {
+		for (int z = 1; z < diff; z++) {
 			int X = x + (z * xDirection);
 			int Y = y + (z * yDirection);
 			if (!this.getPiece(new Coordinate(X, Y)).getName().equals("")) {
