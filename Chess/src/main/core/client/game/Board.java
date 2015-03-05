@@ -2,6 +2,7 @@ package core.client.game;
 
 import java.awt.Color;
 import java.util.ArrayList;
+
 import core.client.Coordinate;
 
 public class Board {
@@ -84,7 +85,7 @@ public class Board {
 	private void initPawns() {
 		for (int x = 0; x < 8; x++) {
 			pieces[x][6] = new Pawn(this, Color.BLACK, new Coordinate(x, 6));
-			pieces[x][1] = new Pawn(this, Color.BLACK, new Coordinate(x, 1));
+			pieces[x][1] = new Pawn(this, Color.WHITE, new Coordinate(x, 1));
 
 		}
 	}
@@ -136,17 +137,22 @@ public class Board {
 	}
 
 	public boolean movePiece(Coordinate location1, Coordinate location2) {
+		System.out.println("TryMove1:"+location1.getX()+","+location1.getY()+"->"+location2.getX()+","+location2.getY());
 		Piece piece1, piece2;
 		piece1 = this.getPiece(location1);
+		System.out.println("Piece1: "+piece1.getName());
 		piece2 = this.getPiece(location2);
+		System.out.println("Piece2: "+piece2.getName());
 
 		if ((piece2.getName().equals("") || !(piece1.getColor().equals(piece2
 				.getColor()))) && (piece1.moveable(location2))) {
+			System.out.println("Placeing piece");
 			// Set Piece in new location
 			this.setPiece(piece1, location2);
 			piece1.setMoved();
 			// Clear Piece in old location
 			this.removePiece(location1);
+			System.out.println("Piece Placed");
 			return true;
 		}
 		return false;
@@ -159,14 +165,13 @@ public class Board {
 		for (int y = 0; y < 8; y++) {
 			for (int x = 0; x < 8; x++) {
 				temp = this.getPiece(new Coordinate(x, y));
-				if (temp != null) {
-					if (!(temp.equals(playerColor))) {
+				if (!temp.getName().equals("")) {
+					if (!(temp.getColor().equals(playerColor))) {
 						opponentPieces.add(temp);
-					}
-					if (temp.equals(playerColor))
-						if (temp.getColor().equals(playerColor)
-								&& temp.getName().equals("KING"))
+					}else{
+						if (temp.getName().equals("KING"))
 							king = (King) temp;
+					}
 				}
 			}
 		}
@@ -189,8 +194,8 @@ public class Board {
 		for (y = 0; y < 8; y++) {
 			for (x = 0; x < 8; x++) {
 				tmpPiece = this.getPiece(new Coordinate(x, y));
-				if (tmpPiece != null) {
-					if (tmpPiece.equals(playerColor)) {
+				if (!tmpPiece.getName().equals("")) {
+					if (tmpPiece.getColor().equals(playerColor)) {
 						if (tmpPiece.getName().equals("KING")) {
 							king = (King) tmpPiece;
 						}
@@ -278,6 +283,8 @@ public class Board {
 	public boolean walk(Coordinate location1, Coordinate location2) {
 		int x1 = location1.getX(), y1 = location1.getY();
 		int x2 = location2.getX(), y2 = location2.getY();
+		
+		System.out.println("walk: " + x1 + "," + y1 + " -> " + x2 + "," + y2);
 
 		int xDirection, yDirection;
 		if (y1 == y2) {
@@ -312,7 +319,7 @@ public class Board {
 		for (int z = 0; z < diff; z++) {
 			int X = x + (z * xDirection);
 			int Y = y + (z * yDirection);
-			if (this.getPiece(new Coordinate(X, Y)) != null) {
+			if (!this.getPiece(new Coordinate(X, Y)).getName().equals("")) {
 				System.out.println(X + "," + Y + "\tFailed");
 				return false;
 			}

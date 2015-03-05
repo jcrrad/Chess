@@ -1,5 +1,6 @@
 package gui;
 
+import java.awt.Dimension;
 import java.awt.GridLayout;
 
 import javax.swing.JPanel;
@@ -22,6 +23,7 @@ public class TabbedPanel extends JPanel {
 		this.add(tabbedPane);
 		tabbedPane.add("Chat", chatSection = new ChatPanel());
 		tabbedPane.add("Record", recordSection);
+		this.setMaximumSize(new Dimension(25, 1000));
 	}
 
 }
