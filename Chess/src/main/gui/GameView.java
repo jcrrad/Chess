@@ -29,6 +29,8 @@ public class GameView extends View{
 		initBoard();
 		initChat();
 		initButtonPanel();
+		
+		lockBoard();
 	}
 	
 	private void initBoard()

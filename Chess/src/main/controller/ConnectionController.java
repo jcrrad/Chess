@@ -59,10 +59,15 @@ public class ConnectionController implements Observer{
 	{
 		if(model.getState() == STATE.CONNECTING && message.isClientsTurn())
 		{
-			model.setBoardOwner(true);
+			model.setPlayerTurn(true);
 			model.setState(STATE.INGAME);
 		}
-			
+		else
+		{
+			model.setState(STATE.INGAME);
+		}
+		
+		model.setMessage(message);
 		//System.out.println("received a message");
 		//if(model.getState() == STATE.WAITING && message.hasReconnected() == true)
 		//{

@@ -21,6 +21,7 @@ public class Board {
 	}
 
 	public Board(String board) {
+		System.out.println(board);
 		for (int y = 0; y < 8; y++)
 			for (int x = 0; x < 8; x++) {
 				switch (board.substring(0, 1)) {
@@ -79,6 +80,7 @@ public class Board {
 							new Coordinate(x, y));
 					break;
 				}
+				board = board.substring(1);
 			}
 	}
 

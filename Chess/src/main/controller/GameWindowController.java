@@ -60,12 +60,16 @@ public class GameWindowController implements Observer{
 			updateBoardUI(model.getBoard());
 			System.out.println("INGAME");
 			view.update();
+			
+			if(model.isPlayerTurn())
+				view.unlockBoard();
 		}
 	}
 	
 	@Override
 	public void update(Object message)
 	{
+		System.out.println("Received a message");
 		Message mes = (Message) message;
 		if(mes.isStalemate())
 		{
@@ -73,6 +77,7 @@ public class GameWindowController implements Observer{
 		}
 		else if(mes.hasBoardUpdate())
 		{
+			System.out.println("You are updating a message");
 			updateBoard(message);
 		}
 		else if(mes.hasChat())
@@ -152,7 +157,7 @@ public class GameWindowController implements Observer{
 			}
 		}
 	}
-	
+	//Need to add a check for checkmate
 	class BoardPieceListener implements ActionListener
 	{
 		private boolean attempt, check;
@@ -180,20 +185,18 @@ public class GameWindowController implements Observer{
 				recordPutDown(location);
 				if(!isSamePosition())
 				{
-					model.lockBoard();
-					Color playerColor = model.getPiece(start).getColor();
 					attempt = model.tryPlayerMove(start, end);
-					check = model.isInCheck(playerColor);
-					if(attempt && !check)
+					if(attempt)
 					{
 						System.out.println("good move");
 						updateBoardUI(model.getBoard());
+						sendBoardMessage();
 						view.update();
 					}
 					else
 					{
 						System.out.println("How did you get here?");
-						//view.unlockBoard();
+						view.unlockBoard();
 					}
 				}
 				start = null;
@@ -215,6 +218,17 @@ public class GameWindowController implements Observer{
 		private boolean isSamePosition()
 		{
 			return ((start.getX() == end.getX()) && (start.getY() == end.getY()));
+		}
+		
+		private void sendBoardMessage()
+		{
+			Connection connection = model.getConnection();
+			if(connection != null)
+			{
+				Message message = new Message();
+				message.setBoard(model.getBoard().toString());
+				connection.send(message);
+			}
 		}
 	}	
 }

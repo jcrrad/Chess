@@ -3,6 +3,10 @@ package core.server;
 import java.io.IOException;
 import java.io.OutputStream;
 
+import com.google.gson.Gson;
+
+import core.client.Message;
+
 public class GameServer{
 
 	private Pair pair;
@@ -19,8 +23,17 @@ public class GameServer{
 	private void handShake() 
 	{
 		System.out.println("Handshakes");
-		((ServerClient) this.pair.client1).send("HandShake: Welcome to a game server. You decide who goes first.");
-		((ServerClient) this.pair.client2).send("HandShake: Welcome to a game Server.");
+		Gson gson = new Gson();
+		Message message = new Message();
+		
+		message.setClientsTurn(true);
+		message.setChatText("Welcome to the game, enjoy. You First.");
+		 
+		((ServerClient) this.pair.client1).send(gson.toJson(message));
+		
+		message.setClientsTurn(false);
+		message.setChatText("Welcome to the game, enjoy.");
+		((ServerClient) this.pair.client2).send(gson.toJson(message));
 	}
 
 
@@ -41,3 +54,7 @@ public class GameServer{
 		new Thread(c2).start();
 	}
 }
+
+
+
+

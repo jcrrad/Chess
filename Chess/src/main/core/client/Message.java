@@ -65,6 +65,7 @@ public class Message {
 	{
 		this.boardUpdate = true;
 		this.board = board;
+		System.out.println(board);
 	}
 	
 	public String getBoard()
