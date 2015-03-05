@@ -60,12 +60,16 @@ public class GameWindowController implements Observer{
 			updateBoardUI(model.getBoard());
 			System.out.println("INGAME");
 			view.update();
+			
+			if(model.isPlayerTurn())
+				view.unlockBoard();
 		}
 	}
 	
 	@Override
 	public void update(Object message)
 	{
+		System.out.println("Received a message");
 		Message mes = (Message) message;
 		if(mes.isStalemate())
 		{
@@ -73,6 +77,7 @@ public class GameWindowController implements Observer{
 		}
 		else if(mes.hasBoardUpdate())
 		{
+			System.out.println("You are updating a message");
 			updateBoard(message);
 		}
 		else if(mes.hasChat())
@@ -92,11 +97,10 @@ public class GameWindowController implements Observer{
 	public void updateBoard(Object message)
 	{
 		Message mes = (Message) message;
-		//Board boardRep = (Board) mes.getBoard();
-		//String boardRep = mes.getBoard();
-		//Board board = new Board(boardRep);
-		//updateBoardUI(board);
-		//model.setBoard(board);
+		String boardRep = mes.getBoard();
+		Board board = new Board(boardRep);
+		updateBoardUI(board);
+		model.setBoard(board);
 		view.unlockBoard();
 		view.update();
 	}
@@ -153,7 +157,7 @@ public class GameWindowController implements Observer{
 			}
 		}
 	}
-	
+	//Need to add a check for checkmate
 	class BoardPieceListener implements ActionListener
 	{
 		private boolean attempt, check;
@@ -162,37 +166,36 @@ public class GameWindowController implements Observer{
 		@Override
 		public void actionPerformed(ActionEvent e) 
 		{
-			System.out.println("Handling piece move");
-			Coordinate location = new Coordinate();
 			Square square = (Square) e.getSource();
+			
+			if(square.getText().equals("") && start == null)
+				return;
+			
+			Coordinate location = new Coordinate();
 			location.setX(square.getColumn());
 			location.setY(square.getRow());
-			view.lockBoard();
+			
 			if(start == null)
 			{
-
-				if (model.getPiece(location).getName().equals(""))
-					return;
-				else
-					recordPickUp(location);
+				recordPickUp(location);
 			}
 			else
 			{
+				view.lockBoard();
 				recordPutDown(location);
 				if(!isSamePosition())
 				{
-					model.lockBoard();
-					Color playerColor = model.getPiece(start).getColor();
 					attempt = model.tryPlayerMove(start, end);
-					check = model.isInCheck(playerColor);
-					if(attempt && !check)
+					if(attempt)
 					{
 						System.out.println("good move");
 						updateBoardUI(model.getBoard());
+						sendBoardMessage();
 						view.update();
 					}
 					else
 					{
+						System.out.println("How did you get here?");
 						view.unlockBoard();
 					}
 				}
@@ -215,6 +218,17 @@ public class GameWindowController implements Observer{
 		private boolean isSamePosition()
 		{
 			return ((start.getX() == end.getX()) && (start.getY() == end.getY()));
+		}
+		
+		private void sendBoardMessage()
+		{
+			Connection connection = model.getConnection();
+			if(connection != null)
+			{
+				Message message = new Message();
+				message.setBoard(model.getBoard().toString());
+				connection.send(message);
+			}
 		}
 	}	
 }
