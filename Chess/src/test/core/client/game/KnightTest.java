@@ -7,6 +7,7 @@ import java.awt.Color;
 import org.junit.Test;
 
 import core.client.Coordinate;
+import core.client.game.Knight;
 
 /**
  * Base test class for {@link Knight}
