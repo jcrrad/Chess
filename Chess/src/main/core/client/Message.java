@@ -5,6 +5,7 @@ public class Message {
 	private boolean boardUpdate = false;
 	private boolean hasChat = false;
 	private String chatText;
+	private String board;
 	private boolean clientsTurn = false;
 	private boolean disconnected = false;
 	private boolean stalemate = false;
@@ -40,11 +41,6 @@ public class Message {
 		return this.chatText;
 	}
 
-	public Object getBoard() 
-	{
-		return null;
-	}
-
 	public boolean hasReconnected() {
 		return !disconnected;
 	}
@@ -63,6 +59,17 @@ public class Message {
 
 	public void setStalemate(boolean stalemate) {
 		this.stalemate = stalemate;
+	}
+	
+	public void setBoard(String board)
+	{
+		this.boardUpdate = true;
+		this.board = board;
+	}
+	
+	public String getBoard()
+	{
+		return this.board;
 	}
 
 }

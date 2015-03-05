@@ -92,11 +92,10 @@ public class GameWindowController implements Observer{
 	public void updateBoard(Object message)
 	{
 		Message mes = (Message) message;
-		//Board boardRep = (Board) mes.getBoard();
-		//String boardRep = mes.getBoard();
-		//Board board = new Board(boardRep);
-		//updateBoardUI(board);
-		//model.setBoard(board);
+		String boardRep = mes.getBoard();
+		Board board = new Board(boardRep);
+		updateBoardUI(board);
+		model.setBoard(board);
 		view.unlockBoard();
 		view.update();
 	}
@@ -162,22 +161,22 @@ public class GameWindowController implements Observer{
 		@Override
 		public void actionPerformed(ActionEvent e) 
 		{
-			System.out.println("Handling piece move");
-			Coordinate location = new Coordinate();
 			Square square = (Square) e.getSource();
+			
+			if(square.getText().equals("") && start == null)
+				return;
+			
+			Coordinate location = new Coordinate();
 			location.setX(square.getColumn());
 			location.setY(square.getRow());
-			view.lockBoard();
+			
 			if(start == null)
 			{
-
-				if (model.getPiece(location).getName().equals(""))
-					return;
-				else
-					recordPickUp(location);
+				recordPickUp(location);
 			}
 			else
 			{
+				view.lockBoard();
 				recordPutDown(location);
 				if(!isSamePosition())
 				{
@@ -193,7 +192,8 @@ public class GameWindowController implements Observer{
 					}
 					else
 					{
-						view.unlockBoard();
+						System.out.println("How did you get here?");
+						//view.unlockBoard();
 					}
 				}
 				start = null;
