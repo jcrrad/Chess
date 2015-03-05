@@ -199,6 +199,10 @@ public class GameWindowController implements Observer{
 						view.unlockBoard();
 					}
 				}
+				else
+				{
+					view.unlockBoard();
+				}
 				start = null;
 				end = null;
 			}
