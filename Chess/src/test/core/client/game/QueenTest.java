@@ -1,4 +1,4 @@
-package controller.piece;
+package core.client.game;
 
 import core.client.game.Queen;
 
