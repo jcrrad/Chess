@@ -188,6 +188,7 @@ public class GameWindowController implements Observer{
 					if(attempt && !check)
 					{
 						System.out.println("good move");
+						updateBoardUI(model.getBoard());
 						view.update();
 					}
 					else
