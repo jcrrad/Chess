@@ -25,6 +25,7 @@ public class Model implements Observable {
 	private ProductInfo pinfo = new ProductInfo("filename");
 	private String username;
 	private Board board = new Board();
+	private boolean boardOwner = false;
 	
 	public Connection getConnection()
 	{
@@ -127,5 +128,25 @@ public class Model implements Observable {
 	public String getUsername()
 	{
 		return this.username;
+	}
+
+	public void setBoardOwner(boolean b) 
+	{
+		this.boardOwner = b;
+	}
+
+	public void setConnection(Connection serverConnection) 
+	{
+		this.connection = serverConnection;
+	}
+
+	public String getServerHostname() 
+	{
+		return this.hostname;
+	}
+
+	public int getServerPort() 
+	{
+		return this.port;
 	}
 }
