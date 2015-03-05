@@ -163,19 +163,28 @@ public class GameWindowController implements Observer{
 		public void actionPerformed(ActionEvent e) 
 		{
 			System.out.println("Handling piece move");
+			Coordinate location = new Coordinate();
+			Square square = (Square) e.getSource();
+			location.setX(square.getColumn());
+			location.setY(square.getRow());
 			view.lockBoard();
 			if(start == null)
 			{
-				recordPickUp(e);
+
+				if (model.getPiece(location).getName().equals(""))
+					return;
+				else
+					recordPickUp(location);
 			}
 			else
 			{
-				recordPutDown(e);
+				recordPutDown(location);
 				if(!isSamePosition())
 				{
 					model.lockBoard();
+					Color playerColor = model.getPiece(start).getColor();
 					attempt = model.tryPlayerMove(start, end);
-					check = model.isInCheckmate(Color.RED);
+					check = model.isInCheck(playerColor);
 					if(attempt && !check)
 					{
 						System.out.println("good move");
@@ -189,22 +198,17 @@ public class GameWindowController implements Observer{
 				start = null;
 				end = null;
 			}
+			System.out.println("Action performed ended");
 		}
 		
-		private void recordPickUp(ActionEvent e)
+		private void recordPickUp(Coordinate location)
 		{
-			start = new Coordinate();
-			Square square = (Square) e.getSource();
-			start.setX(square.getColumn());
-			start.setY(square.getRow());
+			start = location;
 		}
 		
-		private void recordPutDown(ActionEvent e) 
+		private void recordPutDown(Coordinate location) 
 		{
-			end = new Coordinate();
-			Square square = (Square) e.getSource();
-			end.setX(square.getColumn());
-			end.setY(square.getRow());
+			end = location;
 		}
 		
 		private boolean isSamePosition()
