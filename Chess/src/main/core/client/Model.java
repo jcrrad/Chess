@@ -20,7 +20,7 @@ public class Model implements Observable {
 	STATE state = STATE.LOGIN;
 	private ArrayList<Observer> observers = new ArrayList<Observer>();
 	Connection connection;
-	private final String hostname = "localhost";
+	private final String hostname = "192.168.1.127";
 	private final int port = 8000;
 	private ProductInfo pinfo = new ProductInfo("filename");
 	private String username;
