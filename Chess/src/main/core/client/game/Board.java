@@ -83,6 +83,10 @@ public class Board {
 				board = board.substring(1);
 			}
 	}
+	
+	public Board copy() {
+		return new Board(this.toString());
+	}
 
 	private void initPawns() {
 		for (int x = 0; x < 8; x++) {
@@ -140,22 +144,29 @@ public class Board {
 
 	public boolean movePiece(Coordinate location1, Coordinate location2) {
 		System.out.println("TryMove1:"+location1.getX()+","+location1.getY()+"->"+location2.getX()+","+location2.getY());
-		Piece piece1, piece2;
+		Piece piece1, piece2, tmpPiece;
+		Board tmpBoard;
 		piece1 = this.getPiece(location1);
 		System.out.println("Piece1: "+piece1.getName());
 		piece2 = this.getPiece(location2);
 		System.out.println("Piece2: "+piece2.getName());
 
+		// If Legal Move
 		if ((piece2.getName().equals("") || !(piece1.getColor().equals(piece2
 				.getColor()))) && (piece1.moveable(location2))) {
-			System.out.println("Placeing piece");
-			// Set Piece in new location
-			this.setPiece(piece1, location2);
-			piece1.setMoved();
-			// Clear Piece in old location
-			this.removePiece(location1);
-			System.out.println("Piece Placed");
-			return true;
+			tmpBoard = this.copy();
+			tmpPiece = tmpBoard.getPiece(location1);
+			tmpBoard.setPiece(tmpPiece, location2);
+			tmpBoard.removePiece(location1);
+			// If Move doesn't result in Check
+			if (!tmpBoard.isInCheck(tmpPiece.getColor())) {
+				// Set Piece in new location
+				this.setPiece(piece1, location2);
+				piece1.setMoved();
+				// Clear Piece in old location
+				this.removePiece(location1);
+				return true;
+			}
 		}
 		return false;
 	}
@@ -178,14 +189,16 @@ public class Board {
 			}
 		}
 		for (int z = 0; z < opponentPieces.size(); z++) {
-			if (opponentPieces.get(z).moveable(king.getLocation()))
+			if (opponentPieces.get(z).moveable(king.getLocation())){
+				System.out.println(playerColor.toString() + " is in check!");
 				return true;
+			}
 		}
 		return false;
 	}
 
 	public boolean isInCheckmate(Color playerColor) {
-		Board tmpBoard = new Board();
+		Board tmpBoard;
 		ArrayList<Piece> friendlyPieces = new ArrayList<Piece>();
 		ArrayList<Piece> opponentPieces = new ArrayList<Piece>();
 		Piece king = null, tmpPiece, friend, opponent;
@@ -223,8 +236,8 @@ public class Board {
 				continue;
 			}
 			if (king.moveable(opponentLocation)) {
-				tmpBoard.pieces = this.pieces.clone();
-				tmpPiece = tmpBoard.getPiece(friendLocation); // Get tmp King
+				tmpBoard = this.copy();
+				tmpPiece = tmpBoard.getPiece(friendLocation);
 				tmpBoard.setPiece(tmpPiece, opponentLocation);
 				tmpBoard.removePiece(friendLocation);
 				if (!tmpBoard.isInCheck(king.getColor())) {
@@ -242,10 +255,8 @@ public class Board {
 				opponent = opponentPieces.get(y);
 				opponentLocation = opponent.getLocation();
 				if (friend.moveable(opponent.getLocation())) {
-					tmpBoard.pieces = this.pieces.clone();
-					tmpPiece = tmpBoard.getPiece(friendLocation); // Get tmp
-																	// Friendly
-																	// Piece
+					tmpBoard = this.copy();
+					tmpPiece = tmpBoard.getPiece(friendLocation);
 					tmpBoard.setPiece(tmpPiece, opponentLocation);
 					tmpBoard.removePiece(friendLocation);
 					if (!tmpBoard.isInCheck(friend.getColor())) {
@@ -265,7 +276,7 @@ public class Board {
 					opponentLocation = new Coordinate(x, y);
 					if (this.getPiece(opponentLocation) == null) {
 						if (friend.moveable(opponentLocation)) {
-							tmpBoard.pieces = this.pieces.clone();
+							tmpBoard = this.copy();
 							tmpPiece = tmpBoard.getPiece(friendLocation);
 							tmpBoard.setPiece(tmpPiece, opponentLocation);
 							tmpBoard.removePiece(friendLocation);
