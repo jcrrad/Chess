@@ -4,8 +4,8 @@ import javax.swing.UnsupportedLookAndFeelException;
 
 import gui.AboutView;
 import gui.ChessFrame;
-import gui.ConnectionView;
 import gui.GameView;
+import gui.LoadingView;
 import gui.LoginView;
 import controller.AboutController;
 import controller.ConnectionController;
@@ -19,7 +19,7 @@ public class Runner {
 		ChessFrame chessFrame = new ChessFrame();
 		
 		LoginView loginView = new LoginView(chessFrame);
-		ConnectionView connectView = new ConnectionView(chessFrame);
+		LoadingView connectView = new LoadingView(chessFrame);
 		GameView gameView = new GameView(chessFrame);
 		AboutView aboutView = new AboutView(chessFrame);
 		
