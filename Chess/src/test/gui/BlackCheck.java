@@ -57,7 +57,7 @@ public class BlackCheck {
 		// move queen into place to kill
 		old = new Coordinate(3, 0);
 		newer = new Coordinate(3, 6);
-		// king kill queen
+		// king can kill queen
 		board.movePiece(old, newer);
 
 		assertTrue(board.isInCheck(Color.BLACK));

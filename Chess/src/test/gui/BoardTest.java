@@ -26,12 +26,31 @@ public class BoardTest {
 	}
 
 	@Test
-	public void testMoveBlacnk() {
-
+	public void testCopy() {
 		Board old = new Board();
 		System.out.println(old.toString());
 		Board board = new Board(old.toString());
 		assertEquals(old.toString(), board.toString());
+	}
+
+	@Test
+	public void testAttack() {
+		Board board = new Board();
+		Coordinate c1, c2;
+
+		// move knight
+		c1 = new Coordinate(1, 0);
+		c2 = new Coordinate(2, 2);
+		board.movePiece(c1, c2);
+
+		c1 = new Coordinate(2, 2);
+		c2 = new Coordinate(3, 4);
+		board.movePiece(c1, c2);
+
+		c1 = new Coordinate(3, 4);
+		c2 = new Coordinate(4, 6);
+
+		assertTrue(board.movePiece(c1, c2));
 	}
 
 }

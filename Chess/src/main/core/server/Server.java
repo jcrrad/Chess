@@ -23,9 +23,7 @@ public class Server {
 		
 		while(true)
 		{
-			System.out.println("Waiting for next client");
 			Socket clientSocket = listener.accept();
-			System.out.println("Someone has connected!");
 			executor.execute(new ClientWorker(pairingAgent, clientSocket));
 		}
 	}

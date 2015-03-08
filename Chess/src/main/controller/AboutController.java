@@ -1,13 +1,13 @@
 package controller;
 
+import gui.AboutView;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import gui.AboutView;
-import core.client.Message;
 import core.client.Model;
-import core.client.ProductInfo;
 import core.client.Model.STATE;
+import core.client.ProductInfo;
 
 public class AboutController implements Observer{
 
@@ -27,7 +27,6 @@ public class AboutController implements Observer{
 	{
 		if(this.model.getState() == STATE.ABOUT)
 		{
-			System.out.println("About Update");
 			ProductInfo info = model.getProductInformation();
 			
 			view.setTitle(info.getTitle());

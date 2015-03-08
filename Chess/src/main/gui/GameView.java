@@ -1,14 +1,10 @@
 package gui;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import javax.swing.JPanel;
-
-import controller.GameWindowController;
 
 public class GameView extends View{
 	private static final long serialVersionUID = 1L;
@@ -28,6 +24,8 @@ public class GameView extends View{
 		initBoard();
 		initChat();
 		initButtonPanel();
+		
+		lockBoard();
 	}
 	
 	private void initBoard()
@@ -99,12 +97,20 @@ public class GameView extends View{
 	
 	public void lockBoard()
 	{
-		board.setEnabled(false);
+		Component[] comps = board.getComponents();
+		for(Component c : comps)
+		{
+			c.setEnabled(false);
+		}
 	}
 	
 	public void unlockBoard()
 	{
-		board.setEnabled(true);
+		Component[] comps = board.getComponents();
+		for(Component c : comps)
+		{
+			c.setEnabled(true);
+		}
 	}
 	
 }

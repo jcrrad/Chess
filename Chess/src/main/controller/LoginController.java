@@ -1,11 +1,10 @@
 package controller;
 
+import gui.LoginView;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import gui.LoginView;
-import gui.View;
-import core.client.Message;
 import core.client.Model;
 import core.client.Model.STATE;
 

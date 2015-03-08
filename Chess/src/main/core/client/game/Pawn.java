@@ -12,42 +12,44 @@ public class Pawn extends Piece {
 	}
 
 	public boolean canAttack(Coordinate location) {
+		int x1 = this.location.getX(), y1 = this.location.getY();
+		int x2 = location.getX(), y2 = location.getY();
+		int xdiff = Math.abs(x1 - x2);
+		int ydiff = Math.abs(y1 - y2);
+
 		// Diagonal Attack
-		if ((Math.abs(this.location.getY() - location.getY()) == 1)
-				&& (Math.abs(this.location.getX() - location.getX()) == 1)
-				&& (this.board.getPiece(location) != null)) {
-			if (((this.color.equals(Color.BLACK)) && (this.location.getY() > location
-					.getY()))
-					|| ((this.color.equals(Color.WHITE)) && (this.location
-							.getY() < location.getY())))
+		if (xdiff == 1 && ydiff == 1
+				&& !this.board.getPiece(location).getName().equals("")
+				&& !this.board.getPiece(location).getColor().equals(this.color)) {
+			if ((this.color.equals(Color.BLACK) && y1 > y2)
+					|| (this.color.equals(Color.WHITE) && y1 < y2)) {
 				return true;
+			}
 		}
 		return false;
 	}
 
 	public boolean canMove(Coordinate location) {
-		// Single Move
-		if ((Math.abs(this.location.getY() - location.getY()) == 1)
-				&& (this.board.getPiece(location) == null)) {
-			if (((this.color.equals(Color.BLACK)) && (this.location.getY() > location
-					.getY()))
-					|| ((this.color.equals(Color.WHITE)) && (this.location
-							.getY() < location.getY())))
-				return true;
-		}
+		int x1 = this.location.getX(), y1 = this.location.getY();
+		int x2 = location.getX(), y2 = location.getY();
+		int xdiff = Math.abs(x1 - x2);
+		int ydiff = Math.abs(y1 - y2);
 
-		// Double Move
-		if ((Math.abs(this.location.getY() - location.getY()) == 2)
-				&& (this.board.getPiece(location) == null)) {
-			if (((this.color.equals(Color.BLACK)) && (this.location.getY() == 6))
-					|| ((this.color.equals(Color.WHITE)) && (this.location
-							.getY() == 1)))
+		if (xdiff == 0 && this.board.getPiece(location).getName().equals("")) {
+			// Double Move
+			if (ydiff == 2
+					&& ((this.color.equals(Color.BLACK) && y1 == 6) || (this.color
+							.equals(Color.WHITE) && y1 == 1))) {
 				return true;
-		}
-		if (Math.abs(this.location.getY() - location.getY()) > 1)
-			return false;
+			}
+			// Single Move
+			if (ydiff == 1
+					&& ((this.color.equals(Color.BLACK) && y1 > y2) || (this.color
+							.equals(Color.WHITE) && y1 < y2))) {
+				return true;
+			}
 
-		// otherwise
+		}
 		return canAttack(location);
 	}
 

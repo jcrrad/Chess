@@ -79,11 +79,13 @@ public class Board {
 					pieces[x][y] = new Bishop(this, Color.WHITE,
 							new Coordinate(x, y));
 					break;
-				default:
-					break;
 				}
 				board = board.substring(1);
 			}
+	}
+
+	public Board copy() {
+		return new Board(this.toString());
 	}
 
 	private void initPawns() {
@@ -141,18 +143,27 @@ public class Board {
 	}
 
 	public boolean movePiece(Coordinate location1, Coordinate location2) {
-		Piece piece1, piece2;
+		Piece piece1, piece2, tmpPiece;
+		Board tmpBoard;
 		piece1 = this.getPiece(location1);
 		piece2 = this.getPiece(location2);
 
+		// If Legal Move
 		if ((piece2.getName().equals("") || !(piece1.getColor().equals(piece2
 				.getColor()))) && (piece1.moveable(location2))) {
-			// Set Piece in new location
-			this.setPiece(piece1, location2);
-			piece1.setMoved();
-			// Clear Piece in old location
-			this.removePiece(location1);
-			return true;
+			tmpBoard = this.copy();
+			tmpPiece = tmpBoard.getPiece(location1);
+			tmpBoard.setPiece(tmpPiece, location2);
+			tmpBoard.removePiece(location1);
+			// If Move doesn't result in Check
+			if (!tmpBoard.isInCheck(tmpPiece.getColor())) {
+				// Set Piece in new location
+				this.setPiece(piece1, location2);
+				piece1.setMoved();
+				// Clear Piece in old location
+				this.removePiece(location1);
+				return true;
+			}
 		}
 		return false;
 	}
@@ -175,14 +186,15 @@ public class Board {
 			}
 		}
 		for (int z = 0; z < opponentPieces.size(); z++) {
-			if (opponentPieces.get(z).moveable(king.getLocation()))
+			if (opponentPieces.get(z).moveable(king.getLocation())) {
 				return true;
+			}
 		}
 		return false;
 	}
 
 	public boolean isInCheckmate(Color playerColor) {
-		Board tmpBoard = new Board();
+		Board tmpBoard;
 		ArrayList<Piece> friendlyPieces = new ArrayList<Piece>();
 		ArrayList<Piece> opponentPieces = new ArrayList<Piece>();
 		Piece king = null, tmpPiece, friend, opponent;
@@ -220,11 +232,10 @@ public class Board {
 				continue;
 			}
 			if (king.moveable(opponentLocation)) {
-				tmpBoard.pieces = this.pieces.clone();
-				tmpPiece = tmpBoard.getPiece(friendLocation); // Get tmp King
+				tmpBoard = this.copy();
+				tmpPiece = tmpBoard.getPiece(friendLocation);
 				tmpBoard.setPiece(tmpPiece, opponentLocation);
 				tmpBoard.removePiece(friendLocation);
-
 				if (!tmpBoard.isInCheck(king.getColor())) {
 					return false;
 				}
@@ -240,14 +251,14 @@ public class Board {
 				opponent = opponentPieces.get(y);
 				opponentLocation = opponent.getLocation();
 				if (friend.moveable(opponent.getLocation())) {
-					tmpBoard.pieces = this.pieces.clone();
+					tmpBoard = this.copy();
 					tmpPiece = tmpBoard.getPiece(friendLocation);
-					// Get tmp Friendly Piece
 					tmpBoard.setPiece(tmpPiece, opponentLocation);
 					tmpBoard.removePiece(friendLocation);
 					if (!tmpBoard.isInCheck(friend.getColor())) {
 						return false;
 					}
+
 				}
 			}
 		}
@@ -261,7 +272,7 @@ public class Board {
 					opponentLocation = new Coordinate(x, y);
 					if (this.getPiece(opponentLocation) == null) {
 						if (friend.moveable(opponentLocation)) {
-							tmpBoard.pieces = this.pieces.clone();
+							tmpBoard = this.copy();
 							tmpPiece = tmpBoard.getPiece(friendLocation);
 							tmpBoard.setPiece(tmpPiece, opponentLocation);
 							tmpBoard.removePiece(friendLocation);
@@ -285,41 +296,37 @@ public class Board {
 		int xDirection, yDirection;
 		if (y1 == y2) {
 			yDirection = 0;
-			// not changing in y direction
 		} else {
 			if (y1 > y2)
 				yDirection = -1;
-			// going down
 			else
 				yDirection = 1;
-			// going up
 		}
 		if (x1 == x2) {
 			xDirection = 0;
-			// no change in x direction
 		} else {
 			if (x1 > x2)
 				xDirection = -1;
-			// going left
 			else
 				xDirection = 1;
-			// going right
 		}
+
 		int xDiff = Math.abs(x1 - x2);
 		int yDiff = Math.abs(y1 - y2);
 
 		int diff;
-		if (xDiff > yDiff) {// find larger of 2
+		if (xDiff > yDiff) {
 			diff = xDiff;
 		} else {
 			diff = yDiff;
 		}
+
 		int x = x1;
 		int y = y1;
 		for (int z = 1; z < diff; z++) {
-			int X = x + (z * xDirection);// go in x direction if needed
-			int Y = y + (z * yDirection);// go in y direction if needed
-			if (!this.pieces[X][Y].getName().equals("")) {
+			int X = x + (z * xDirection);
+			int Y = y + (z * yDirection);
+			if (!this.getPiece(new Coordinate(X, Y)).getName().equals("")) {
 				return false;
 			}
 		}
