@@ -53,13 +53,50 @@ public class PieceTest {
 		Coordinate coord = new Coordinate();
 		coord.setX(3);
 		coord.setY(3);
-		Queen queen = new Queen(null, Color.BLACK, coord);
+		Board board = new Board();
+		Queen queen = new Queen(board, Color.BLACK, coord);
 		Coordinate moveTo = new Coordinate();
 		moveTo.setX(4);
 		moveTo.setY(3);
-		queen.setLocation(moveTo);
-		assertEquals(queen.getLocation(), moveTo);
+		board.movePiece(coord, moveTo);
 		assertTrue(queen.hasMoved());
+	}
+
+	@Test
+	public void testSetMoved() {
+		Coordinate coord = new Coordinate();
+		coord.setX(3);
+		coord.setY(3);
+		Board board = new Board();
+		Queen queen = new Queen(board, Color.BLACK, coord);
+		Coordinate moveTo = new Coordinate();
+		moveTo.setX(4);
+		moveTo.setY(3);
+		board.movePiece(coord, moveTo);
+		queen.setMoved();
+		assertTrue(queen.hasMoved());
+	}
+
+	@Test
+	public void testSetName() {
+		Coordinate coord = new Coordinate();
+		coord.setX(3);
+		coord.setY(3);
+		Board board = new Board();
+		Queen queen = new Queen(board, Color.BLACK, coord);
+		queen.setName("NEW NAME");
+		assertEquals(queen.getName(), "NEW NAME");
+	}
+
+	@Test
+	public void testToString() {
+		Coordinate coord = new Coordinate();
+		coord.setX(3);
+		coord.setY(3);
+		Board board = new Board();
+		Queen queen = new Queen(board, Color.BLACK, coord);
+		assertEquals(queen.toString(), "QUEEN\t" + Color.BLACK.toString()
+				+ "\t" + coord.getX() + "," + coord.getY());
 	}
 
 	@Test
