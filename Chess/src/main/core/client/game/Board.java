@@ -137,12 +137,14 @@ public class Board {
 	}
 
 	public boolean movePiece(Coordinate location1, Coordinate location2) {
-		System.out.println("TryMove1:"+location1.getX()+","+location1.getY()+"->"+location2.getX()+","+location2.getY());
+		System.out.println("TryMove1:" + location1.getX() + ","
+				+ location1.getY() + "->" + location2.getX() + ","
+				+ location2.getY());
 		Piece piece1, piece2;
 		piece1 = this.getPiece(location1);
-		System.out.println("Piece1: "+piece1.getName());
+		System.out.println("Piece1: " + piece1.getName());
 		piece2 = this.getPiece(location2);
-		System.out.println("Piece2: "+piece2.getName());
+		System.out.println("Piece2: " + piece2.getName());
 
 		if ((piece2.getName().equals("") || !(piece1.getColor().equals(piece2
 				.getColor()))) && (piece1.moveable(location2))) {
@@ -168,7 +170,7 @@ public class Board {
 				if (!temp.getName().equals("")) {
 					if (!(temp.getColor().equals(playerColor))) {
 						opponentPieces.add(temp);
-					}else{
+					} else {
 						if (temp.getName().equals("KING"))
 							king = (King) temp;
 					}
@@ -283,43 +285,48 @@ public class Board {
 	public boolean walk(Coordinate location1, Coordinate location2) {
 		int x1 = location1.getX(), y1 = location1.getY();
 		int x2 = location2.getX(), y2 = location2.getY();
-		
+
 		System.out.println("walk: " + x1 + "," + y1 + " -> " + x2 + "," + y2);
 
 		int xDirection, yDirection;
 		if (y1 == y2) {
 			yDirection = 0;
+			// not changing in y direction
 		} else {
 			if (y1 > y2)
 				yDirection = -1;
+			// going down
 			else
 				yDirection = 1;
+			// going up
 		}
 		if (x1 == x2) {
 			xDirection = 0;
+			// no change in x direction
 		} else {
 			if (x1 > x2)
 				xDirection = -1;
+			// going left
 			else
 				xDirection = 1;
+			// going right
 		}
-
 		int xDiff = Math.abs(x1 - x2);
 		int yDiff = Math.abs(y1 - y2);
 
 		int diff;
-		if (xDiff > yDiff) {
+		if (xDiff > yDiff) {// find larger of 2
 			diff = xDiff;
 		} else {
 			diff = yDiff;
 		}
-
 		int x = x1;
 		int y = y1;
-		for (int z = 0; z < diff; z++) {
-			int X = x + (z * xDirection);
-			int Y = y + (z * yDirection);
-			if (!this.getPiece(new Coordinate(X, Y)).getName().equals("")) {
+		for (int z = 1; z < diff; z++) {
+			int X = x + (z * xDirection);// go in x direction if needed
+			int Y = y + (z * yDirection);// go in y direction if needed
+			System.out.println("location is:\t" + X + "," + Y);
+			if (!this.pieces[X][Y].getName().equals("")) {
 				System.out.println(X + "," + Y + "\tFailed");
 				return false;
 			}

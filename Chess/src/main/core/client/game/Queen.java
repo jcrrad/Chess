@@ -19,7 +19,7 @@ public class Queen extends Piece {
 		int yDiff = Math.abs(this.location.getY() - location.getY());
 		if (xDiff == yDiff)
 			return true;
-		
+
 		// same row (rook movement)
 		if (this.location.getX() == location.getX())
 			return true;

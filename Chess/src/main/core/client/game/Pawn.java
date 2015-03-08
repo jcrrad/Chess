@@ -26,8 +26,15 @@ public class Pawn extends Piece {
 	}
 
 	public boolean canMove(Coordinate location) {
-		if (Math.abs(this.location.getX() - location.getX()) > 0)
-			return false;
+		// Single Move
+		if ((Math.abs(this.location.getY() - location.getY()) == 1)
+				&& (this.board.getPiece(location) == null)) {
+			if (((this.color.equals(Color.BLACK)) && (this.location.getY() > location
+					.getY()))
+					|| ((this.color.equals(Color.WHITE)) && (this.location
+							.getY() < location.getY())))
+				return true;
+		}
 
 		// Double Move
 		if ((Math.abs(this.location.getY() - location.getY()) == 2)
@@ -39,16 +46,6 @@ public class Pawn extends Piece {
 		}
 		if (Math.abs(this.location.getY() - location.getY()) > 1)
 			return false;
-
-		// Single Move
-		if ((Math.abs(this.location.getY() - location.getY()) == 1)
-				&& (this.board.getPiece(location) == null)) {
-			if (((this.color.equals(Color.BLACK)) && (this.location.getY() > location
-					.getY()))
-					|| ((this.color.equals(Color.WHITE)) && (this.location
-							.getY() < location.getY())))
-				return true;
-		}
 
 		// otherwise
 		return canAttack(location);
