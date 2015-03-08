@@ -35,7 +35,6 @@ public class ConnectionController implements Observer{
 		if(model.getState() == STATE.CONNECTING)
 		{
 			view.update();
-			System.out.println("Connecting");
 			try {
 				createConnection();
 			} catch (UnknownHostException e) {
@@ -69,41 +68,6 @@ public class ConnectionController implements Observer{
 		}
 		
 		model.setMessage(message);
-		//System.out.println("received a message");
-		//if(model.getState() == STATE.WAITING && message.hasReconnected() == true)
-		//{
-		//	System.out.println("Received reconnection notice");
-		//	Message response = new Message();
-		//	response.setClientsTurn(!model.getBoardOwner());
-		//	serverConnection.send(response);
-		//	model.setState(STATE.INGAME);
-		//	//send the board state over
-		//}else if(model.getState() == STATE.INGAME && message.isDisconnected() == true)
-		//{
-		//	System.out.println("Received disconnection notice");
-		//	model.setState(STATE.WAITING);
-		//}
-		//else
-		//{
-		//	System.out.println("processing");
-		//	if(message.hasChat())
-		//	{
-		//		System.out.println("Has chat stuff");
-		//		model.setCurrentChat(message.getChatText());
-		//	}
-		//	if(message.hasBoardUpdate())
-		//	{
-		//		model.updateBoard(message.getBoard());
-		//		model.setBoardOwner(true);
-		//	}
-		//	// this is too odd.
-		//	if(model.getState() == STATE.CONNECTING && message.isClientsTurn())
-		//	{
-		//		model.setBoardOwner(true);
-		//		model.setState(STATE.INGAME);
-		//	}
-		//	model.setState(STATE.INGAME);
-		//}
 	}
 	
 	public class InputHandler implements Runnable{
@@ -122,7 +86,6 @@ public class ConnectionController implements Observer{
 		{
 			Message message;
 			while ((message = connection.receive()) != null) {
-				System.out.println("sending to process");
 				this.controller.processInput(message);
 		    }
 		}

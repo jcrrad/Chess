@@ -9,6 +9,7 @@ public class Message {
 	private boolean clientsTurn = false;
 	private boolean disconnected = false;
 	private boolean stalemate = false;
+	private String username;
 
 	public boolean isClientsTurn() 
 	{
@@ -65,12 +66,20 @@ public class Message {
 	{
 		this.boardUpdate = true;
 		this.board = board;
-		System.out.println(board);
 	}
 	
 	public String getBoard()
 	{
 		return this.board;
 	}
-
+	
+	public void setUsername(String username)
+	{
+		this.username = username;
+	}
+	
+	public String getUsername()
+	{
+		return this.username;
+	}
 }

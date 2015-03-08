@@ -1,28 +1,24 @@
 package core.server;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.concurrent.locks.ReentrantLock;
-import java.util.Date;
 
 public class Sommelier implements Runnable {
 	
 	private Pool pool;
-	private java.util.Date date;
 	private ArrayList<ServerClient> waitList;
 	private ArrayList<GameServer> games;
 
 	public Sommelier(Pool pool)
 	{
 		this.pool = pool;
-		date= new java.util.Date();
+		new java.util.Date();
 		waitList = new ArrayList<ServerClient>();
 		games = new ArrayList<GameServer>();
 	}
 	
 	@Override
 	public void run() { 
-		Pair pair = null;
+		Pair<?, ?> pair = null;
 		GameServer game = null;
 		while(true)
 		{
@@ -46,14 +42,11 @@ public class Sommelier implements Runnable {
 		// client registering after we check size but not got to this method
 		if(this.waitList.size() > 1 )
 		{
-			//System.out.println("Consoladating waitList");
 			flushWaitList();
 		}
 		else
 		{
-			System.out.println("waiting for work.");
 			try {
-				System.out.println("Server: waiting for work");
 				wait();
 			} catch (InterruptedException e) {
 				e.printStackTrace();
@@ -65,7 +58,6 @@ public class Sommelier implements Runnable {
 	{
 		for(ServerClient c : this.waitList)
 		{
-			//System.out.println("Adding to pool");
 			// Inspect if this client was already in a previous game.
 			this.pool.add(c);
 		}
@@ -79,11 +71,10 @@ public class Sommelier implements Runnable {
 	public synchronized void register(ServerClient client) 
 	{
 		//adds a client to the ready list
-		System.out.println("Adding client to the readylist. (IP: " + client.getIPAddress() + ")");
+		//System.out.println("Adding client to the readylist. (IP: " + client.getIPAddress() + ")");
 		this.waitList.add(client);
 		if( this.waitList.size() > 1)
 		{
-			//System.out.println("Notifying");
 			notifyAll();
 		}
 	}

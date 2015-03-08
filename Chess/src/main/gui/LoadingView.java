@@ -1,7 +1,6 @@
 package gui;
 
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 
 public class LoadingView extends View {
 

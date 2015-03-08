@@ -1,14 +1,11 @@
 package core.client;
 
 import java.awt.Color;
-import java.io.Console;
-import java.io.IOException;
 import java.util.ArrayList;
 
 import controller.Observable;
 import controller.Observer;
 import core.client.game.Board;
-import core.client.game.Piece;
 
 
 public class Model implements Observable {
@@ -24,6 +21,7 @@ public class Model implements Observable {
 	private final int port = 8000;
 	private ProductInfo pinfo = new ProductInfo("filename");
 	private String username;
+	private String opponentName;
 	private Board board = new Board();
 	private boolean playerTurn = false;
 	
@@ -132,5 +130,17 @@ public class Model implements Observable {
 	public void setPlayerTurn(boolean b) 
 	{
 		this.playerTurn = b;
+	}
+
+	public String getOpponentName()
+	{
+		return opponentName;
+	}
+
+	public void setOpponentName(String opponentName) 
+	{
+		if(opponentName.equals(""))
+			opponentName = "guest";
+		this.opponentName = opponentName;
 	}
 }

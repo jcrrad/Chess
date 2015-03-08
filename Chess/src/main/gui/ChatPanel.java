@@ -3,14 +3,11 @@ package gui;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
-
-import controller.GameWindowController;
 
 public class ChatPanel extends JPanel {
 
@@ -19,7 +16,7 @@ public class ChatPanel extends JPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 	JTextField inputField;
-	JTextField conversationField;
+	JTextArea conversationField;
 	JButton submitButton;
 
 	// TODO: JEFF - make scrollable
@@ -38,14 +35,14 @@ public class ChatPanel extends JPanel {
 	
 	private void initChatField()
 	{
-		conversationField = new JTextField();
+		conversationField = new JTextArea();
 		GridBagConstraints conv_gbc = new GridBagConstraints();
 		conv_gbc.fill = GridBagConstraints.BOTH;
 		conv_gbc.gridwidth = GridBagConstraints.REMAINDER;
 		conv_gbc.weighty = 25.0;
 		this.add(conversationField, conv_gbc);
 		conversationField.setEnabled(false);
-		conversationField.setScrollOffset(HEIGHT);
+		//conversationField.setScrollOffset(HEIGHT);
 	}
 	
 	private void initInputField()

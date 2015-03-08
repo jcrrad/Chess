@@ -6,8 +6,6 @@ import java.awt.GridLayout;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
-import controller.GameWindowController;
-
 public class TabbedPanel extends JPanel {
 	private final JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 	ChatPanel chatSection;
