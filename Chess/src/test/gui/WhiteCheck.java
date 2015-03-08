@@ -98,4 +98,10 @@ public class WhiteCheck {
 		assertFalse(board.isInCheckmate(Color.WHITE));
 	}
 
+	@Test
+	public void testCheckmateWhite() {
+		Board board = new Board(
+				"kxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxRRRRRRRR");
+		assertTrue(board.isInCheckmate(Color.WHITE));
+	}
 }

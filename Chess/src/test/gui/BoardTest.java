@@ -15,7 +15,7 @@ import core.client.game.Board;
  * @author Brisbin
  *
  */
-public class BoardCheck {
+public class BoardTest {
 	@Test
 	public void testMoveBlank() {
 

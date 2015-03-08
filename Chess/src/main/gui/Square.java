@@ -89,14 +89,14 @@ public class Square extends JButton {
 	// }
 	// this.updateSquare();
 	// }
-//
-//	// public void updateSquare() {
-//	// if (piece == null) {
-//	// this.setText("");
-//	// } else {
-//	// this.setText(piece.getName());
-//	// this.setForeground(piece.getColor());
-//	// invalidate();
-//	// }
-//	// };
+	//
+	// // public void updateSquare() {
+	// // if (piece == null) {
+	// // this.setText("");
+	// // } else {
+	// // this.setText(piece.getName());
+	// // this.setForeground(piece.getColor());
+	// // invalidate();
+	// // }
+	// // };
 }

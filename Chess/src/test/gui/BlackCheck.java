@@ -89,4 +89,10 @@ public class BlackCheck {
 		assertFalse(board.isInCheckmate(Color.WHITE));
 	}
 
+	@Test
+	public void testCheckmateBlack() {
+		Board board = new Board(
+				"rrrrrrrrxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxKxxxx");
+		assertTrue(board.isInCheckmate(Color.BLACK));
+	}
 }
