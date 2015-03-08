@@ -31,7 +31,6 @@ public class BoardCheck {
 		Board old = new Board();
 		System.out.println(old.toString());
 		Board board = new Board(old.toString());
-		System.out.println(board.toString());
 		assertEquals(old.toString(), board.toString());
 	}
 
