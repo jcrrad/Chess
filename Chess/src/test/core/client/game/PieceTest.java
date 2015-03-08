@@ -59,6 +59,7 @@ public class PieceTest {
 		moveTo.setX(4);
 		moveTo.setY(3);
 		board.movePiece(coord, moveTo);
+		queen.setMoved();
 		assertTrue(queen.hasMoved());
 	}
 

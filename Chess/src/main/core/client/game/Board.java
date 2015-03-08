@@ -21,6 +21,7 @@ public class Board {
 	}
 
 	public Board(String board) {
+		board = board.replaceAll("\n", "");
 		for (int y = 0; y < 8; y++)
 			for (int x = 0; x < 8; x++) {
 				switch (board.substring(0, 1)) {
@@ -78,7 +79,10 @@ public class Board {
 					pieces[x][y] = new Bishop(this, Color.WHITE,
 							new Coordinate(x, y));
 					break;
+				default:
+					break;
 				}
+				board = board.substring(1);
 			}
 	}
 
@@ -137,24 +141,17 @@ public class Board {
 	}
 
 	public boolean movePiece(Coordinate location1, Coordinate location2) {
-		System.out.println("TryMove1:" + location1.getX() + ","
-				+ location1.getY() + "->" + location2.getX() + ","
-				+ location2.getY());
 		Piece piece1, piece2;
 		piece1 = this.getPiece(location1);
-		System.out.println("Piece1: " + piece1.getName());
 		piece2 = this.getPiece(location2);
-		System.out.println("Piece2: " + piece2.getName());
 
 		if ((piece2.getName().equals("") || !(piece1.getColor().equals(piece2
 				.getColor()))) && (piece1.moveable(location2))) {
-			System.out.println("Placeing piece");
 			// Set Piece in new location
 			this.setPiece(piece1, location2);
 			piece1.setMoved();
 			// Clear Piece in old location
 			this.removePiece(location1);
-			System.out.println("Piece Placed");
 			return true;
 		}
 		return false;
@@ -227,6 +224,7 @@ public class Board {
 				tmpPiece = tmpBoard.getPiece(friendLocation); // Get tmp King
 				tmpBoard.setPiece(tmpPiece, opponentLocation);
 				tmpBoard.removePiece(friendLocation);
+
 				if (!tmpBoard.isInCheck(king.getColor())) {
 					return false;
 				}
@@ -243,15 +241,13 @@ public class Board {
 				opponentLocation = opponent.getLocation();
 				if (friend.moveable(opponent.getLocation())) {
 					tmpBoard.pieces = this.pieces.clone();
-					tmpPiece = tmpBoard.getPiece(friendLocation); // Get tmp
-																	// Friendly
-																	// Piece
+					tmpPiece = tmpBoard.getPiece(friendLocation);
+					// Get tmp Friendly Piece
 					tmpBoard.setPiece(tmpPiece, opponentLocation);
 					tmpBoard.removePiece(friendLocation);
 					if (!tmpBoard.isInCheck(friend.getColor())) {
 						return false;
 					}
-
 				}
 			}
 		}
@@ -285,8 +281,6 @@ public class Board {
 	public boolean walk(Coordinate location1, Coordinate location2) {
 		int x1 = location1.getX(), y1 = location1.getY();
 		int x2 = location2.getX(), y2 = location2.getY();
-
-		System.out.println("walk: " + x1 + "," + y1 + " -> " + x2 + "," + y2);
 
 		int xDirection, yDirection;
 		if (y1 == y2) {
@@ -325,9 +319,7 @@ public class Board {
 		for (int z = 1; z < diff; z++) {
 			int X = x + (z * xDirection);// go in x direction if needed
 			int Y = y + (z * yDirection);// go in y direction if needed
-			System.out.println("location is:\t" + X + "," + Y);
 			if (!this.pieces[X][Y].getName().equals("")) {
-				System.out.println(X + "," + Y + "\tFailed");
 				return false;
 			}
 		}
@@ -336,10 +328,12 @@ public class Board {
 
 	public String toString() {
 		String ans = "";
-		for (int y = 0; y < 8; y++)
+		for (int y = 0; y < 8; y++) {
 			for (int x = 0; x < 8; x++) {
 				ans += pieces[x][y].getSymbol();
 			}
+			ans += "\n";
+		}
 		return ans;
 	}
 }
