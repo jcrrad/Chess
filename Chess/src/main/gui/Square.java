@@ -40,4 +40,9 @@ public class Square extends JButton {
 	{
 		this.colIndex = column;
 	}
+
+	public Color getColor() 
+	{
+		return this.color;
+	}
 }
