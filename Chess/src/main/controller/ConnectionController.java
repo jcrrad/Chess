@@ -59,7 +59,7 @@ public class ConnectionController implements Observer{
 	{
 		if(model.getState() == STATE.CONNECTING && message.isClientsTurn())
 		{
-			model.setPlayerTurn(true);
+			model.setStartingPlayer(true);
 			model.setState(STATE.INGAME);
 		}
 		else

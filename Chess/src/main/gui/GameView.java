@@ -93,6 +93,7 @@ public class GameView extends View{
 	{
 		board.squares[x][y].setText(name);
 		board.squares[x][y].setForeground(color);
+		board.squares[x][y].color = color;
 	}
 	
 	public void lockBoard()

@@ -56,7 +56,7 @@ public class GameWindowController implements Observer{
 			updateBoardUI(model.getBoard());
 			view.update();
 			
-			if(model.isPlayerTurn())
+			if(model.isStartingPlayer())
 				view.unlockBoard();
 		}
 	}
@@ -173,7 +173,6 @@ public class GameWindowController implements Observer{
 			location.setX(square.getColumn());
 			location.setY(square.getRow());
 			
-			System.out.println(model.getColor().equals(square.getColor()));
 			// if not your piece
 			if(!model.getColor().equals(square.getColor()) && start == null)
 			{
