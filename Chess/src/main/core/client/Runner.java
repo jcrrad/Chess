@@ -39,11 +39,13 @@ public class Runner {
 		LoginView loginView = new LoginView(chessFrame);
 		GameView gameView = new GameView(chessFrame);
 		AboutView aboutView = new AboutView(chessFrame);
+		LoadingView loadingView = new LoadingView(chessFrame);
 
 		new LoginController(model, loginView);
 		new AboutController(model, aboutView);
 		new GameWindowController(model, gameView);
-
+		new ConnectionController(model, loadingView);
+		
 		model.setState(STATE.LOGIN);
 		
 	}

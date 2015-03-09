@@ -3,7 +3,6 @@ package controller;
 import gui.GameView;
 import gui.Square;
 
-import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
