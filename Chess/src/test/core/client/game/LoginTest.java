@@ -1,6 +1,7 @@
-package gui;
+package core.client.game;
 
 import static org.junit.Assert.assertEquals;
+import gui.ChessFrame;
 
 import javax.swing.UnsupportedLookAndFeelException;
 

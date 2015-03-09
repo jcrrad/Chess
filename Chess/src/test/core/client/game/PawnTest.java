@@ -27,115 +27,87 @@ public class PawnTest {
 
 	@Test
 	public void testCanMove_validWhiteDoubleJump() {
-		Coordinate coord = new Coordinate();
-		coord.setX(3);
-		coord.setY(1);
-		;
-		Pawn pawn = new Pawn(null, Color.WHITE, coord);
-		Coordinate moveTo = new Coordinate();
-		moveTo.setX(3);
-		moveTo.setY(3);
+		Board board = new Board();
+		Coordinate coord = new Coordinate(3,1);
+		Coordinate moveTo = new Coordinate(3,3);
+		Pawn pawn = (Pawn) board.getPiece(coord);
 		assertTrue(pawn.canMove(moveTo));
 	}
 
 	@Test
 	public void testCanMove_invalidWhiteDoubleJump() {
-		Coordinate coord = new Coordinate();
-		coord.setX(3);
-		coord.setY(2);
-		;
-		Pawn pawn = new Pawn(null, Color.WHITE, coord);
-		Coordinate moveTo = new Coordinate();
-		moveTo.setX(3);
-		moveTo.setY(4);
+		Board board = new Board();
+		Coordinate coord = new Coordinate(3,2);
+		Coordinate moveTo = new Coordinate(3,4);
+		Pawn pawn = new Pawn(board, Color.WHITE, coord);
+		board.setPiece(pawn, coord);
 		assertFalse(pawn.canMove(moveTo));
 	}
 
 	@Test
 	public void testCanMove_validBlackDoubleJump() {
-		Coordinate coord = new Coordinate();
-		coord.setX(3);
-		coord.setY(6);
-		;
-		Pawn pawn = new Pawn(null, Color.BLACK, coord);
-		Coordinate moveTo = new Coordinate();
-		moveTo.setX(3);
-		moveTo.setY(4);
+		Board board = new Board();
+		Coordinate coord = new Coordinate(3,6);
+		Coordinate moveTo = new Coordinate(3,4);
+		Pawn pawn = (Pawn) board.getPiece(coord);
 		assertTrue(pawn.canMove(moveTo));
 	}
 
 	@Test
 	public void testCanMove_invalidBlackDoubleJump() {
-		Coordinate coord = new Coordinate();
-		coord.setX(3);
-		coord.setY(5);
-		;
-		Pawn pawn = new Pawn(null, Color.BLACK, coord);
-		Coordinate moveTo = new Coordinate();
-		moveTo.setX(3);
-		moveTo.setY(3);
+		Board board = new Board();
+		Coordinate coord = new Coordinate(3,5);
+		Coordinate moveTo = new Coordinate(3,3);
+		Pawn pawn = new Pawn(board, Color.BLACK, coord);
+		board.setPiece(pawn, coord);
 		assertFalse(pawn.canMove(moveTo));
 	}
 
 	@Test
 	public void testCanMove_validWhiteJump() {
-		Coordinate coord = new Coordinate();
-		coord.setX(3);
-		coord.setY(1);
-		Pawn pawn = new Pawn(null, Color.WHITE, coord);
-		Coordinate moveTo = new Coordinate();
-		moveTo.setX(3);
-		moveTo.setY(2);
+		Board board = new Board();
+		Coordinate coord = new Coordinate(3,1);
+		Coordinate moveTo = new Coordinate(3,2);
+		Pawn pawn = (Pawn) board.getPiece(coord);
 		assertTrue(pawn.canMove(moveTo));
 	}
 
 	@Test
 	public void testCanMove_invalidWhiteJump() {
-		Coordinate coord = new Coordinate();
-		coord.setX(3);
-		coord.setY(1);
-		Pawn pawn = new Pawn(null, Color.WHITE, coord);
-		Coordinate moveTo = new Coordinate();
-		moveTo.setX(3);
-		moveTo.setY(0);
+		Board board = new Board();
+		Coordinate coord = new Coordinate(3,3);
+		Coordinate moveTo = new Coordinate(3,2);
+		Pawn pawn = new Pawn(board, Color.WHITE, coord);
+		board.setPiece(pawn, coord);
 		assertFalse(pawn.canMove(moveTo));
 	}
 
 	@Test
 	public void testCanMove_validBlackJump() {
-		Coordinate coord = new Coordinate();
-		coord.setX(3);
-		coord.setY(6);
-		Pawn pawn = new Pawn(null, Color.BLACK, coord);
-		Coordinate moveTo = new Coordinate();
-		moveTo.setX(3);
-		moveTo.setY(5);
+		Board board = new Board();
+		Coordinate coord = new Coordinate(3,6);
+		Coordinate moveTo = new Coordinate(3,5);
+		Pawn pawn = (Pawn) board.getPiece(coord);
 		assertTrue(pawn.canMove(moveTo));
 	}
 
 	@Test
 	public void testCanMove_invalidBlackJump() {
-		Coordinate coord = new Coordinate();
-		coord.setX(3);
-		coord.setY(7);
-		Pawn pawn = new Pawn(null, Color.BLACK, coord);
-		Coordinate moveTo = new Coordinate();
-		moveTo.setX(3);
-		moveTo.setY(6);
+		Board board = new Board();
+		Coordinate coord = new Coordinate(3,4);
+		Coordinate moveTo = new Coordinate(3,5);
+		Pawn pawn = new Pawn(board, Color.BLACK, coord);
+		board.setPiece(pawn, coord);
 		assertFalse(pawn.canMove(moveTo));
 	}
 
 	@Test
 	public void testCanAttack_validWhite() {
 		Board board = new Board();
-		Coordinate coord1 = new Coordinate();
-		coord1.setX(3);
-		coord1.setY(3);
+		Coordinate coord1 = new Coordinate(3,3);
+		Coordinate coord2 = new Coordinate(2,4);
 		Pawn pawn = new Pawn(board, Color.WHITE, coord1);
 		board.setPiece(pawn, coord1);
-		Coordinate coord2 = new Coordinate();
-		coord2.setX(2);
-		coord2.setY(4);
 		Pawn enemy = new Pawn(board, Color.BLACK, coord2);
 		board.setPiece(enemy, coord2);
 		assertTrue(pawn.canAttack(coord2));
@@ -144,30 +116,32 @@ public class PawnTest {
 	@Test
 	public void testCanAttack_invalidWhite() {
 		Board board = new Board();
-		Coordinate coord1 = new Coordinate();
-		coord1.setX(3);
-		coord1.setY(3);
+		Coordinate coord1 = new Coordinate(3,3);
+		Coordinate coord2 = new Coordinate(3,4);
+		Coordinate coord3 = new Coordinate(2,4);
+		Coordinate coord4 = new Coordinate(2,2);
+		Coordinate coord5 = new Coordinate(4,4);
 		Pawn pawn = new Pawn(board, Color.WHITE, coord1);
 		board.setPiece(pawn, coord1);
-		Coordinate coord2 = new Coordinate();
-		coord2.setX(3);
-		coord2.setY(4);
 		Pawn enemy = new Pawn(board, Color.BLACK, coord2);
 		board.setPiece(enemy, coord2);
+		Pawn friend = new Pawn(board, Color.WHITE, coord3);
+		board.setPiece(friend, coord3);
+		Pawn enemy2 = new Pawn(board, Color.BLACK, coord4);
+		board.setPiece(enemy2, coord4);
 		assertFalse(pawn.canAttack(coord2));
+		assertFalse(pawn.canAttack(coord3));
+		assertFalse(pawn.canAttack(coord4));
+		assertFalse(pawn.canAttack(coord5));
 	}
 
 	@Test
 	public void testCanAttack_validBlack() {
 		Board board = new Board();
-		Coordinate coord1 = new Coordinate();
-		coord1.setX(3);
-		coord1.setY(4);
+		Coordinate coord1 = new Coordinate(3,4);
+		Coordinate coord2 = new Coordinate(2,3);
 		Pawn pawn = new Pawn(board, Color.BLACK, coord1);
 		board.setPiece(pawn, coord1);
-		Coordinate coord2 = new Coordinate();
-		coord2.setX(2);
-		coord2.setY(3);
 		Pawn enemy = new Pawn(board, Color.WHITE, coord2);
 		board.setPiece(enemy, coord2);
 		assertTrue(pawn.canAttack(coord2));
@@ -176,17 +150,23 @@ public class PawnTest {
 	@Test
 	public void testCanAttack_invalidBlack() {
 		Board board = new Board();
-		Coordinate coord1 = new Coordinate();
-		coord1.setX(3);
-		coord1.setY(4);
+		Coordinate coord1 = new Coordinate(3,4);
+		Coordinate coord2 = new Coordinate(3,3);
+		Coordinate coord3 = new Coordinate(2,3);
+		Coordinate coord4 = new Coordinate(4,5);
+		Coordinate coord5 = new Coordinate(4,3);
 		Pawn pawn = new Pawn(board, Color.BLACK, coord1);
 		board.setPiece(pawn, coord1);
-		Coordinate coord2 = new Coordinate();
-		coord2.setX(3);
-		coord2.setY(3);
 		Pawn enemy = new Pawn(board, Color.WHITE, coord2);
 		board.setPiece(enemy, coord2);
+		Pawn friend = new Pawn(board, Color.BLACK, coord3);
+		board.setPiece(friend, coord3);
+		Pawn enemy2 = new Pawn(board, Color.WHITE, coord4);
+		board.setPiece(enemy2, coord4);
 		assertFalse(pawn.canAttack(coord2));
+		assertFalse(pawn.canAttack(coord3));
+		assertFalse(pawn.canAttack(coord4));
+		assertFalse(pawn.canAttack(coord5));
 	}
 
 }
