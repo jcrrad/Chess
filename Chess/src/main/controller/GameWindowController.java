@@ -159,27 +159,19 @@ public class GameWindowController implements Observer{
 	class BoardPieceListener implements ActionListener
 	{
 		private boolean attempt;
-		private Coordinate start, end;
+		private Coordinate start;
 		
 		@Override
 		public void actionPerformed(ActionEvent e) 
 		{
 			Square square = (Square) e.getSource();
 			
-			if(square.getText().equals("") && start == null)
+			if(isBlankOrOpponentPiece(square) && start == null)
 				return;
 			
 			Coordinate location = new Coordinate();
 			location.setX(square.getColumn());
 			location.setY(square.getRow());
-			
-			// if not your piece
-			if(!model.getColor().equals(square.getColor()) && start == null)
-			{
-				System.out.println("IN");
-				view.unlockBoard();
-				return;
-			}
 			
 			if(start == null)
 			{
@@ -187,40 +179,36 @@ public class GameWindowController implements Observer{
 			}
 			else
 			{
-				view.lockBoard();
-				recordPutDown(location);
-				if(!isSamePosition())
-				{
-					attempt = model.tryPlayerMove(start, end);
-					if(attempt)
-					{
-						updateBoardUI(model.getBoard());
-						sendBoardMessage();
-						view.update();
-						start = null;
-						end = null;
-						return;
-					}
-				}
-				view.unlockBoard();
+				processMove(start, location);
 				start = null;
-				end = null;
+				view.update();
 			}
 		}
 		
+		private boolean isBlankOrOpponentPiece(Square s) 
+		{				
+			return (s.getText().equals("") || !model.getColor().equals(s.getColor()));
+		}
+
 		private void recordPickUp(Coordinate location)
 		{
 			start = location;
 		}
 		
-		private void recordPutDown(Coordinate location) 
+		private void processMove(Coordinate start, Coordinate end) 
 		{
-			end = location;
-		}
-		
-		private boolean isSamePosition()
-		{
-			return ((start.getX() == end.getX()) && (start.getY() == end.getY()));
+			view.lockBoard();
+
+			attempt = model.tryPlayerMove(start, end);
+			System.out.println(attempt);
+			if(attempt)
+			{
+				updateBoardUI(model.getBoard());
+				sendBoardMessage();
+				return;
+			}
+			view.unlockBoard();
+			return;
 		}
 		
 		private void sendBoardMessage()
