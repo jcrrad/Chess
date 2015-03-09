@@ -30,7 +30,6 @@ public class GameWindowController implements Observer{
 		
 		view.setButtonPanelQuitListener(new ButtonPanelQuitListener());
 		view.setChatPanelSubmitListener(new ChatPanelSubmitListener());
-		view.setButtonPanelStalemateListener(new ButtonPanelStalemateListener());
 		view.setBoardPieceListener(new BoardPieceListener());
 	}
 	
@@ -65,11 +64,7 @@ public class GameWindowController implements Observer{
 	public void update(Object message)
 	{
 		Message mes = (Message) message;
-		if(mes.isStalemate())
-		{
-			updateStalemate(message);
-		}
-		else if(mes.hasBoardUpdate())
+		if(mes.hasBoardUpdate())
 		{
 			updateBoard(message);
 		}
@@ -77,14 +72,6 @@ public class GameWindowController implements Observer{
 		{
 			updateChat(message);
 		}
-	}
-	
-	public void updateStalemate(Object message)
-	{
-		view.lockBoard();
-		//Lock the board and offer a stalemate on the gui
-		view.update();
-		view.unlockBoard();
 	}
 	
 	public void updateBoard(Object message)
@@ -141,20 +128,6 @@ public class GameWindowController implements Observer{
 		}
 	}
 	
-	class ButtonPanelStalemateListener implements ActionListener
-	{
-		@Override
-		public void actionPerformed(ActionEvent e) 
-		{
-			Connection connection = model.getConnection();
-			if(connection != null)
-			{
-				Message message = new Message();
-				message.setStalemate(true);
-				connection.send(message);
-			}
-		}
-	}
 	//Need to add a check for checkmate
 	class BoardPieceListener implements ActionListener
 	{
