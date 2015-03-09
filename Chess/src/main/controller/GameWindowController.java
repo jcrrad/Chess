@@ -107,7 +107,7 @@ public class GameWindowController implements Observer{
 	
 	public void updateChat(Object message)
 	{
-		String username = "opponent";
+		String username = "Opponent";
 		Message chatMessage = (Message) message;
 		time = new Date();
 		String timeString = new SimpleDateFormat("HH:mm:ss").format(time);

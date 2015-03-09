@@ -17,14 +17,19 @@ public class Model implements Observable {
 	STATE state = STATE.LOGIN;
 	private ArrayList<Observer> observers = new ArrayList<Observer>();
 	Connection connection;
-	private final String hostname = "localhost";
-	private final int port = 8000;
 	private ProductInfo pinfo = new ProductInfo("filename");
 	private String username;
-	private String opponentName;
 	private Board board = new Board();
 	private Color color = Color.WHITE;
+	private String hostname;
+	private int port;
 	
+	
+	public Model(String hostname, int port)
+	{
+		this.port = port;
+		this.hostname = hostname;
+	}
 	public Connection getConnection()
 	{
 		return connection;
@@ -131,18 +136,6 @@ public class Model implements Observable {
 	{
 		if(b)
 			this.color=Color.BLACK;
-	}
-
-	public String getOpponentName()
-	{
-		return opponentName;
-	}
-
-	public void setOpponentName(String opponentName) 
-	{
-		if(opponentName.equals(""))
-			opponentName = "guest";
-		this.opponentName = opponentName;
 	}
 
 	public Color getColor() 

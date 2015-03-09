@@ -21,7 +21,6 @@ public class LoginController implements Observer {
 		view.setAboutListener(new AboutButtonListener());
 		view.setConnectListener(new ConnectButtonListener());
 		view.setQuitListener(new QuitButtonListener());
-		view.update();
 	}
 
 	@Override
