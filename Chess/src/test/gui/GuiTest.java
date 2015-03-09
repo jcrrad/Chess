@@ -16,7 +16,7 @@ public class GuiTest {
 	@Test
 	public void TestFrame() {
 		try {
-			Model model = new Model();
+			Model model = new Model("localhost", 8000);
 			ChessFrame chessFrame = new ChessFrame();
 
 			LoginView loginView = new LoginView(chessFrame);
