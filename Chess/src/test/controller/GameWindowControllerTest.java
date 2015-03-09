@@ -32,5 +32,7 @@ public class GameWindowControllerTest
 	public void update()
 	{
 		when(model.getState()).thenReturn(STATE.INGAME);
+		when(model.getBoard()).thenReturn(board);
+		when(model.isStartingPlayer()).thenReturn(false);
 	}
 }
