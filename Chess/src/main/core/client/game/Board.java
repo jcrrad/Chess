@@ -21,6 +21,7 @@ public class Board {
 	}
 
 	public Board(String board) {
+		board = board.replaceAll("\n", "");
 		for (int y = 0; y < 8; y++)
 			for (int x = 0; x < 8; x++) {
 				switch (board.substring(0, 1)) {
@@ -82,7 +83,7 @@ public class Board {
 				board = board.substring(1);
 			}
 	}
-	
+
 	public Board copy() {
 		return new Board(this.toString());
 	}
@@ -146,7 +147,7 @@ public class Board {
 		Board tmpBoard;
 		piece1 = this.getPiece(location1);
 		piece2 = this.getPiece(location2);
-		
+
 		// If Legal Move
 		if ((piece2.getName().equals("") || !(piece1.getColor().equals(piece2
 				.getColor()))) && (piece1.moveable(location2))) {
@@ -177,7 +178,7 @@ public class Board {
 				if (!temp.getName().equals("")) {
 					if (!(temp.getColor().equals(playerColor))) {
 						opponentPieces.add(temp);
-					}else{
+					} else {
 						if (temp.getName().equals("KING"))
 							king = (King) temp;
 					}
@@ -185,7 +186,7 @@ public class Board {
 			}
 		}
 		for (int z = 0; z < opponentPieces.size(); z++) {
-			if (opponentPieces.get(z).moveable(king.getLocation())){
+			if (opponentPieces.get(z).moveable(king.getLocation())) {
 				return true;
 			}
 		}
@@ -334,10 +335,12 @@ public class Board {
 
 	public String toString() {
 		String ans = "";
-		for (int y = 0; y < 8; y++)
+		for (int y = 0; y < 8; y++) {
 			for (int x = 0; x < 8; x++) {
 				ans += pieces[x][y].getSymbol();
 			}
+			ans += "\n";
+		}
 		return ans;
 	}
 }

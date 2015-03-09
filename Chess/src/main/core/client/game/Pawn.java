@@ -16,10 +16,13 @@ public class Pawn extends Piece {
 		int x2 = location.getX(), y2 = location.getY();
 		int xdiff = Math.abs(x1 - x2);
 		int ydiff = Math.abs(y1 - y2);
-		
+
 		// Diagonal Attack
-		if (xdiff == 1 && ydiff == 1 && !this.board.getPiece(location).getName().equals("") && !this.board.getPiece(location).getColor().equals(this.color)){
-			if ((this.color.equals(Color.BLACK) && y1 > y2) || (this.color.equals(Color.WHITE) && y1 < y2)){
+		if (xdiff == 1 && ydiff == 1
+				&& !this.board.getPiece(location).getName().equals("")
+				&& !this.board.getPiece(location).getColor().equals(this.color)) {
+			if ((this.color.equals(Color.BLACK) && y1 > y2)
+					|| (this.color.equals(Color.WHITE) && y1 < y2)) {
 				return true;
 			}
 		}
@@ -31,20 +34,21 @@ public class Pawn extends Piece {
 		int x2 = location.getX(), y2 = location.getY();
 		int xdiff = Math.abs(x1 - x2);
 		int ydiff = Math.abs(y1 - y2);
-		
-		
-		if (xdiff == 0 && this.board.getPiece(location).getName().equals("")){
+
+		if (xdiff == 0 && this.board.getPiece(location).getName().equals("")) {
 			// Double Move
-			if (ydiff == 2 
-					&& ((this.color.equals(Color.BLACK) && y1 == 6) || (this.color.equals(Color.WHITE) && y1 == 1))){
+			if (ydiff == 2
+					&& ((this.color.equals(Color.BLACK) && y1 == 6) || (this.color
+							.equals(Color.WHITE) && y1 == 1))) {
 				return true;
 			}
 			// Single Move
 			if (ydiff == 1
-					&& ((this.color.equals(Color.BLACK) && y1 > y2) || (this.color.equals(Color.WHITE) && y1 < y2))){
+					&& ((this.color.equals(Color.BLACK) && y1 > y2) || (this.color
+							.equals(Color.WHITE) && y1 < y2))) {
 				return true;
 			}
-			
+
 		}
 		return canAttack(location);
 	}
