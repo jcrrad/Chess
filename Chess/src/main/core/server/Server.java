@@ -9,20 +9,18 @@ import java.util.concurrent.Executors;
 // Defines a server that when the run method is called, listens for incoming
 // clients. Accepting connections to hand off to ClientWorker threads.
 public class Server {
-	  
-	public static void main( String[] args) throws IOException
-	{
+
+	public static void main(String[] args) throws IOException {
 		final int MAXTHREADS = 4;
 		final int PORT = 8000;
-		
+
 		Sommelier pairingAgent = new Sommelier(new RandomPool(30));
-		Executor executor = Executors.newFixedThreadPool(MAXTHREADS);;
+		Executor executor = Executors.newFixedThreadPool(MAXTHREADS);
 		ServerSocket listener = new ServerSocket(PORT);
-		
+
 		new Thread(pairingAgent).start();
-		
-		while(true)
-		{
+
+		while (true) {
 			Socket clientSocket = listener.accept();
 			executor.execute(new ClientWorker(pairingAgent, clientSocket));
 		}

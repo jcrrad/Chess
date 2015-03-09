@@ -16,18 +16,6 @@ public class ChessFrame extends JFrame {
 	JPanel current;
 	CardLayout cardLayout;
 
-	private static void macSetup(String appName) {
-		String os = System.getProperty("os.name").toLowerCase();
-		boolean isMac = os.startsWith("mac os x");
-
-		if (!isMac)
-			return;
-
-		System.setProperty("apple.laf.useScreenMenuBar", "true");
-		System.setProperty("com.apple.mrj.application.apple.menu.about.name",
-				appName);
-	}
-
 	public ChessFrame() throws ClassNotFoundException, InstantiationException,
 			IllegalAccessException, UnsupportedLookAndFeelException {
 		super("Chess");
@@ -38,6 +26,18 @@ public class ChessFrame extends JFrame {
 		UIManager.setLookAndFeel(UIManager
 				.getCrossPlatformLookAndFeelClassName());
 		setScreenSize();
+	}
+
+	private static void macSetup(String appName) {
+		String os = System.getProperty("os.name").toLowerCase();
+		boolean isMac = os.startsWith("mac os x");
+
+		if (!isMac)
+			return;
+
+		System.setProperty("apple.laf.useScreenMenuBar", "true");
+		System.setProperty("com.apple.mrj.application.apple.menu.about.name",
+				appName);
 	}
 
 	private void setScreenSize() {

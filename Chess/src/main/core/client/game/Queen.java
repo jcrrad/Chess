@@ -20,6 +20,13 @@ public class Queen extends Piece {
 		if (xDiff == yDiff)
 			return true;
 
+		// same row (rook movement)
+		if (this.location.getX() == location.getX())
+			return true;
+		// same column (rook movement)
+		if (this.location.getY() == location.getY())
+			return true;
+
 		return false;
 	}
 

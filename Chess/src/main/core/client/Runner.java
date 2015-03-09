@@ -15,7 +15,9 @@ import core.client.Model.STATE;
 
 public class Runner {
 
-	public static void main(String[] args) throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException {
+	public static void main(String[] args) throws ClassNotFoundException,
+			InstantiationException, IllegalAccessException,
+			UnsupportedLookAndFeelException {
 		String hostname = "localhost";
 		int port = 8000;
 		
@@ -33,17 +35,15 @@ public class Runner {
 		
 		Model model = new Model(hostname,port);
 		ChessFrame chessFrame = new ChessFrame();
-		
+
 		LoginView loginView = new LoginView(chessFrame);
-		LoadingView connectView = new LoadingView(chessFrame);
 		GameView gameView = new GameView(chessFrame);
 		AboutView aboutView = new AboutView(chessFrame);
-		
+
 		new LoginController(model, loginView);
 		new AboutController(model, aboutView);
 		new GameWindowController(model, gameView);
-		new ConnectionController(model, connectView);
-		
+
 		model.setState(STATE.LOGIN);
 		
 	}
