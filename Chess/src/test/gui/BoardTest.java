@@ -28,7 +28,6 @@ public class BoardTest {
 	@Test
 	public void testCopy() {
 		Board old = new Board();
-		System.out.println(old.toString());
 		Board board = new Board(old.toString());
 		assertEquals(old.toString(), board.toString());
 	}
