@@ -4,12 +4,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import javax.swing.JPanel;
-
-import controller.GameWindowController;
 
 public class GameView extends View{
 	private static final long serialVersionUID = 1L;
@@ -98,6 +93,7 @@ public class GameView extends View{
 	{
 		board.squares[x][y].setText(name);
 		board.squares[x][y].setForeground(color);
+		board.squares[x][y].color = color;
 	}
 	
 	public void lockBoard()

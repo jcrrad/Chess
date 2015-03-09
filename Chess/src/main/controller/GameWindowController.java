@@ -1,23 +1,21 @@
 package controller;
 
-import java.awt.Color;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
-
 import gui.GameView;
 import gui.Square;
 
+import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import core.client.game.Board;
-import core.client.game.Piece;
 import core.client.Connection;
 import core.client.Coordinate;
 import core.client.Message;
 import core.client.Model;
 import core.client.Model.STATE;
+import core.client.game.Board;
+import core.client.game.Piece;
 
 public class GameWindowController implements Observer{
 
@@ -46,7 +44,6 @@ public class GameWindowController implements Observer{
 				coords.setY(i);
 				
 				Piece p = board.getPiece(coords);
-				System.out.println(p.getName());
 				view.setPiece(p.getName(), j, i, p.getColor());
 			}
 	}
@@ -54,14 +51,12 @@ public class GameWindowController implements Observer{
 	@Override
 	public void update() 
 	{
-		System.out.println("Checking ingame");
 		if(model.getState() == STATE.INGAME)
 		{
 			updateBoardUI(model.getBoard());
-			System.out.println("INGAME");
 			view.update();
 			
-			if(model.isPlayerTurn())
+			if(model.isStartingPlayer())
 				view.unlockBoard();
 		}
 	}
@@ -69,7 +64,6 @@ public class GameWindowController implements Observer{
 	@Override
 	public void update(Object message)
 	{
-		System.out.println("Received a message");
 		Message mes = (Message) message;
 		if(mes.isStalemate())
 		{
@@ -77,7 +71,6 @@ public class GameWindowController implements Observer{
 		}
 		else if(mes.hasBoardUpdate())
 		{
-			System.out.println("You are updating a message");
 			updateBoard(message);
 		}
 		else if(mes.hasChat())
@@ -107,10 +100,15 @@ public class GameWindowController implements Observer{
 	
 	public void updateChat(Object message)
 	{
+		String username = "opponent";
 		Message chatMessage = (Message) message;
 		time = new Date();
 		String timeString = new SimpleDateFormat("HH:mm:ss").format(time);
-		String chat = timeString+" "+model.getUsername()+": "+chatMessage.getChatText(); 
+		
+		if(!chatMessage.getUsername().equals("") && chatMessage.getUsername() != null)
+			username = chatMessage.getUsername();
+		
+		String chat = timeString+" "+ username + ": "+chatMessage.getChatText(); 
 		view.updateChat(chat);
 	}
 
@@ -130,14 +128,15 @@ public class GameWindowController implements Observer{
 		@Override
 		public void actionPerformed(ActionEvent e) 
 		{
-			System.out.println("Sending Text");
 			Connection connection = model.getConnection();
 			if(connection != null)
 			{
 				Message message = new Message();
+				String timeString = new SimpleDateFormat("HH:mm:ss").format(time);
 				message.setChatText(view.getChatPanelInputField());
+				message.setUsername(model.getUsername());
 				connection.send(message);
-				view.updateChat(message.getChatText());
+				view.updateChat(timeString+" You: " + message.getChatText());
 			}
 		}
 	}
@@ -147,7 +146,6 @@ public class GameWindowController implements Observer{
 		@Override
 		public void actionPerformed(ActionEvent e) 
 		{
-			System.out.println("Offering Stalemate");
 			Connection connection = model.getConnection();
 			if(connection != null)
 			{
@@ -160,15 +158,15 @@ public class GameWindowController implements Observer{
 	//Need to add a check for checkmate
 	class BoardPieceListener implements ActionListener
 	{
-		private boolean attempt, check;
-		private Coordinate start, end;
+		private boolean attempt;
+		private Coordinate start;
 		
 		@Override
 		public void actionPerformed(ActionEvent e) 
 		{
 			Square square = (Square) e.getSource();
 			
-			if(square.getText().equals("") && start == null)
+			if(isBlankOrOpponentPiece(square) && start == null)
 				return;
 			
 			Coordinate location = new Coordinate();
@@ -181,47 +179,36 @@ public class GameWindowController implements Observer{
 			}
 			else
 			{
-				view.lockBoard();
-				recordPutDown(location);
-				if(!isSamePosition())
-				{
-					attempt = model.tryPlayerMove(start, end);
-					if(attempt)
-					{
-						System.out.println("good move");
-						updateBoardUI(model.getBoard());
-						sendBoardMessage();
-						view.update();
-					}
-					else
-					{
-						System.out.println("How did you get here?");
-						view.unlockBoard();
-					}
-				}
-				else
-				{
-					view.unlockBoard();
-				}
+				processMove(start, location);
 				start = null;
-				end = null;
+				view.update();
 			}
-			System.out.println("Action performed ended");
 		}
 		
+		private boolean isBlankOrOpponentPiece(Square s) 
+		{				
+			return (s.getText().equals("") || !model.getColor().equals(s.getColor()));
+		}
+
 		private void recordPickUp(Coordinate location)
 		{
 			start = location;
 		}
 		
-		private void recordPutDown(Coordinate location) 
+		private void processMove(Coordinate start, Coordinate end) 
 		{
-			end = location;
-		}
-		
-		private boolean isSamePosition()
-		{
-			return ((start.getX() == end.getX()) && (start.getY() == end.getY()));
+			view.lockBoard();
+
+			attempt = model.tryPlayerMove(start, end);
+			System.out.println(attempt);
+			if(attempt)
+			{
+				updateBoardUI(model.getBoard());
+				sendBoardMessage();
+				return;
+			}
+			view.unlockBoard();
+			return;
 		}
 		
 		private void sendBoardMessage()

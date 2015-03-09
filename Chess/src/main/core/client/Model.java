@@ -1,14 +1,11 @@
 package core.client;
 
 import java.awt.Color;
-import java.io.Console;
-import java.io.IOException;
 import java.util.ArrayList;
 
 import controller.Observable;
 import controller.Observer;
 import core.client.game.Board;
-import core.client.game.Piece;
 
 
 public class Model implements Observable {
@@ -20,12 +17,14 @@ public class Model implements Observable {
 	STATE state = STATE.LOGIN;
 	private ArrayList<Observer> observers = new ArrayList<Observer>();
 	Connection connection;
-	private final String hostname = "192.168.1.127";
+	private final String hostname = "localhost";
 	private final int port = 8000;
 	private ProductInfo pinfo = new ProductInfo("filename");
 	private String username;
+	private String opponentName;
 	private Board board = new Board();
 	private boolean playerTurn = false;
+	private Color color = Color.WHITE;
 	
 	public Connection getConnection()
 	{
@@ -124,13 +123,31 @@ public class Model implements Observable {
 		return board.movePiece(start, end);
 	}
 	
-	public boolean isPlayerTurn()
+	public boolean isStartingPlayer()
 	{
-		return this.playerTurn;
+		return Color.BLACK.equals(this.color);
 	}
 	
-	public void setPlayerTurn(boolean b) 
+	public void setStartingPlayer(boolean b) 
 	{
-		this.playerTurn = b;
+		if(b)
+			this.color=Color.BLACK;
+	}
+
+	public String getOpponentName()
+	{
+		return opponentName;
+	}
+
+	public void setOpponentName(String opponentName) 
+	{
+		if(opponentName.equals(""))
+			opponentName = "guest";
+		this.opponentName = opponentName;
+	}
+
+	public Color getColor() 
+	{
+		return this.color;
 	}
 }
