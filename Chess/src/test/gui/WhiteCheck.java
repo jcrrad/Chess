@@ -1,6 +1,7 @@
 package gui;
 
 import static org.junit.Assert.*;
+import gui.BoardPanel;
 
 import java.awt.Color;
 
@@ -20,6 +21,9 @@ public class WhiteCheck {
 	public void testCheckFalse() {
 
 		Board board = new Board();
+
+		
+		
 		assertFalse(board.isInCheck(Color.BLACK));
 		assertFalse(board.isInCheck(Color.WHITE));
 	}

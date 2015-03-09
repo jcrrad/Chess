@@ -1,4 +1,4 @@
-package gui;
+package core.client.game;
 
 import java.awt.Color;
 

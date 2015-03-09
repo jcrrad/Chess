@@ -1,6 +1,7 @@
 package gui;
 
 import static org.junit.Assert.*;
+import gui.BoardPanel;
 
 import java.awt.Color;
 
