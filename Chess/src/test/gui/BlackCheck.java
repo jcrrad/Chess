@@ -28,15 +28,13 @@ public class BlackCheck {
 	@Test
 	public void testCheckBlackIntercept() {
 		Board board = new Board();
-		// move pawn
+		// Remove pawn
 		Coordinate old = new Coordinate(3, 1);
-		Coordinate newer = new Coordinate(4, 2);
-		board.movePiece(old, newer);
-		// move pawn
+		board.removePiece(old);
+		// Remove pawn
 		old = new Coordinate(3, 6);
-		newer = new Coordinate(4, 5);
-		board.movePiece(old, newer);
-
+		board.removePiece(old);
+		
 		assertTrue(board.isInCheck(Color.BLACK));
 		assertFalse(board.isInCheck(Color.WHITE));
 		assertFalse(board.isInCheckmate(Color.BLACK));
@@ -46,19 +44,18 @@ public class BlackCheck {
 	@Test
 	public void testCheckBlackKingMoves() {
 		Board board = new Board();
-		// move pawn
-		Coordinate old = new Coordinate(3, 1);
-		Coordinate newer = new Coordinate(4, 2);
-		board.movePiece(old, newer);
-		// move pawn
-		old = new Coordinate(3, 6);
-		newer = new Coordinate(4, 5);
-		board.movePiece(old, newer);
+		// Remove first pawn
+		Coordinate loc = new Coordinate(3, 1);
+		board.removePiece(loc);
+
+		// Remove second pawn
+		loc = new Coordinate(3, 6);
+		board.removePiece(loc);
 
 		// move queen into place to kill
-		old = new Coordinate(3, 0);
-		newer = new Coordinate(3, 6);
-		board.movePiece(old, newer);
+		loc = new Coordinate(3, 0);
+		Coordinate loc2 = new Coordinate(3, 6);
+		board.movePiece(loc, loc2);
 		// king can kill queen
 
 		System.out.println(board.toString());
@@ -72,18 +69,16 @@ public class BlackCheck {
 	@Test
 	public void testCheckBlackKillAssassin() {
 		Board board = new Board();
-		// move pawn
+		// Remove pawn
 		Coordinate old = new Coordinate(3, 1);
-		Coordinate newer = new Coordinate(4, 2);
-		board.movePiece(old, newer);
+		board.removePiece(old);
 		// move pawn
 		old = new Coordinate(3, 6);
-		newer = new Coordinate(4, 5);
-		board.movePiece(old, newer);
+		board.removePiece(old);
 
 		// move queen into place to kill
 		old = new Coordinate(3, 0);
-		newer = new Coordinate(3, 5);
+		Coordinate newer = new Coordinate(3, 5);
 		// pawn can kill queen
 		board.movePiece(old, newer);
 		assertTrue(board.isInCheck(Color.BLACK));

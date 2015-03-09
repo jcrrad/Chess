@@ -34,16 +34,12 @@ public class WhiteCheck {
 
 		// move pawn
 		Coordinate old = new Coordinate(4, 1);
-		Coordinate newer = new Coordinate(5, 2);
-		board.movePiece(old, newer);
-
+		board.removePiece(old);
+		
 		// move pawn
 		old = new Coordinate(4, 6);
-		newer = new Coordinate(5, 5);
-		board.movePiece(old, newer);
-
-		board.movePiece(old, newer);
-
+		board.removePiece(old);
+		
 		assertFalse(board.isInCheck(Color.BLACK));
 		assertTrue(board.isInCheck(Color.WHITE));
 		assertFalse(board.isInCheckmate(Color.BLACK));
@@ -56,17 +52,15 @@ public class WhiteCheck {
 
 		// move pawn
 		Coordinate old = new Coordinate(4, 1);
-		Coordinate newer = new Coordinate(5, 2);
-		board.movePiece(old, newer);
+		board.removePiece(old);
 
 		// move pawn
 		old = new Coordinate(4, 6);
-		newer = new Coordinate(5, 5);
-		board.movePiece(old, newer);
+		board.removePiece(old);
 
 		// move queen into place to kill
 		old = new Coordinate(4, 7);
-		newer = new Coordinate(4, 1);
+		Coordinate newer = new Coordinate(4, 1);
 		// king kill queen
 		board.movePiece(old, newer);
 
@@ -82,17 +76,15 @@ public class WhiteCheck {
 
 		// move pawn
 		Coordinate old = new Coordinate(4, 1);
-		Coordinate newer = new Coordinate(5, 2);
-		board.movePiece(old, newer);
+		board.removePiece(old);
 
 		// move pawn
 		old = new Coordinate(4, 6);
-		newer = new Coordinate(5, 5);
-		board.movePiece(old, newer);
-
+		board.removePiece(old);
+		
 		// move queen into place to kill
 		old = new Coordinate(4, 7);
-		newer = new Coordinate(4, 2);
+		Coordinate newer = new Coordinate(4, 2);
 		// pawn kill queen
 		board.movePiece(old, newer);
 
