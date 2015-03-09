@@ -10,6 +10,7 @@ public class Message {
 	private boolean disconnected = false;
 	private boolean stalemate = false;
 	private String username;
+	private boolean winner = false;
 
 	public boolean isClientsTurn() 
 	{
@@ -81,5 +82,15 @@ public class Message {
 	public String getUsername()
 	{
 		return this.username;
+	}
+
+	public void setWinner(boolean b) 
+	{
+		this.winner  = b;
+	}
+
+	public boolean isWinner() 
+	{
+		return this.winner;
 	}
 }

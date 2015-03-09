@@ -30,7 +30,6 @@ public class GameWindowController implements Observer{
 		
 		view.setButtonPanelQuitListener(new ButtonPanelQuitListener());
 		view.setChatPanelSubmitListener(new ChatPanelSubmitListener());
-		view.setButtonPanelStalemateListener(new ButtonPanelStalemateListener());
 		view.setBoardPieceListener(new BoardPieceListener());
 	}
 	
@@ -70,9 +69,9 @@ public class GameWindowController implements Observer{
 	public void update(Object message)
 	{
 		Message mes = (Message) message;
-		if(mes.isStalemate())
+		if(mes.isWinner())
 		{
-			updateStalemate(message);
+			//add pop up, you won
 		}
 		else if(mes.hasBoardUpdate())
 		{ 
@@ -162,7 +161,7 @@ public class GameWindowController implements Observer{
 			}
 		}
 	}
-	//Need to add a check for checkmate
+
 	class BoardPieceListener implements ActionListener
 	{
 		private boolean attempt;
@@ -214,8 +213,25 @@ public class GameWindowController implements Observer{
 				sendBoardMessage();
 				return;
 			}
+			else if(model.isInCheckmate(model.getColor()))
+			{
+				gameOver();
+				//add pop up you lost
+			}
 			view.unlockBoard();
 			return;
+		}
+		
+		private void gameOver()
+		{
+			Connection connection = model.getConnection();
+			if(connection != null)
+			{
+				Message message = new Message();
+				// opponent is winner
+				message.setWinner(true);
+				connection.send(message);
+			}
 		}
 		
 		private void sendBoardMessage()
