@@ -113,5 +113,10 @@ public class GameView extends View{
 			c.setEnabled(true);
 		}
 	}
+
+	public void clearChat() 
+	{
+		chat.chatSection.conversationField.setText("");
+	}
 	
 }

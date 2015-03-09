@@ -1,17 +1,24 @@
 package core.server;
 
 import java.io.IOException;
-
-import com.google.gson.Gson;
-
 import core.client.Message;
+
+enum STATE {
+	INGAME, GAMEOVER
+}
 
 public class GameServer{
 
-	private Pair<?, ?> pair;
+	private ServerClient client1;
+	private ServerClient client2;
+	STATE state = STATE.INGAME;
+	
 	public GameServer(Pair<?, ?> pair) 
 	{
-		this.pair = pair;
+		client1 = (ServerClient)pair.client1;
+		client2 = (ServerClient)pair.client2;
+		client1.setGame(this);
+		client2.setGame(this);
 		connectUsers();
 		handShake();
 	}
@@ -19,34 +26,45 @@ public class GameServer{
 
 	private void handShake() 
 	{
-		Gson gson = new Gson();
 		Message message = new Message();
 		
 		message.setUsername("Server");
 		message.setClientsTurn(true);
 		message.setChatText("Welcome to the game, enjoy. You First.");
 		 
-		((ServerClient) this.pair.client1).send(gson.toJson(message));
+		client1.send(message);
 		
 		message.setClientsTurn(false);
 		message.setChatText("Welcome to the game, enjoy.");
-		((ServerClient) this.pair.client2).send(gson.toJson(message));
+		client2.send(message);
 	}
 
 
 	private void connectUsers() 
 	{
 		
-		ServerClient c1 = (ServerClient)pair.client1;
-		ServerClient c2 = (ServerClient)pair.client2;
 		try {
-			c1.connect(c2);
-			c2.connect(c1);
+			client1.connect(client2);
+			client2.connect(client1);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		new Thread(c1).start();
-		new Thread(c2).start();
+		new Thread(client1).start();
+		new Thread(client2).start();
+	}
+
+
+	public void disconnection() 
+	{		
+		if(this.state == STATE.GAMEOVER)
+			return;
+		
+		this.state = STATE.GAMEOVER;
+	}
+	
+	public STATE getState()
+	{
+		return this.state;
 	}
 }
 

@@ -23,7 +23,6 @@ public class Model implements Observable {
 	private String username;
 	private String opponentName;
 	private Board board = new Board();
-	private boolean playerTurn = false;
 	private Color color = Color.WHITE;
 	
 	public Connection getConnection()
@@ -149,5 +148,10 @@ public class Model implements Observable {
 	public Color getColor() 
 	{
 		return this.color;
+	}
+
+	public void clearBoard() 
+	{
+		this.board = new Board();	
 	}
 }

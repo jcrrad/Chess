@@ -59,6 +59,11 @@ public class GameWindowController implements Observer{
 			if(model.isStartingPlayer())
 				view.unlockBoard();
 		}
+		else if(model.getState() == STATE.LOGIN)
+		{
+			model.clearBoard();
+			view.clearChat();
+		}
 	}
 	
 	@Override
@@ -70,7 +75,7 @@ public class GameWindowController implements Observer{
 			updateStalemate(message);
 		}
 		else if(mes.hasBoardUpdate())
-		{
+		{ 
 			updateBoard(message);
 		}
 		else if(mes.hasChat())
@@ -83,6 +88,8 @@ public class GameWindowController implements Observer{
 	{
 		view.lockBoard();
 		//Lock the board and offer a stalemate on the gui
+		// lock board
+		// 
 		view.update();
 		view.unlockBoard();
 	}
