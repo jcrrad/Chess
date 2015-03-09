@@ -3,6 +3,7 @@ package controller;
 import gui.GameView;
 import gui.Square;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
@@ -55,7 +56,7 @@ public class GameWindowController implements Observer{
 			updateBoardUI(model.getBoard());
 			view.update();
 			
-			if(model.isPlayerTurn())
+			if(model.isStartingPlayer())
 				view.unlockBoard();
 		}
 	}
@@ -172,6 +173,14 @@ public class GameWindowController implements Observer{
 			location.setX(square.getColumn());
 			location.setY(square.getRow());
 			
+			// if not your piece
+			if(!model.getColor().equals(square.getColor()) && start == null)
+			{
+				System.out.println("IN");
+				view.unlockBoard();
+				return;
+			}
+			
 			if(start == null)
 			{
 				recordPickUp(location);
@@ -188,16 +197,12 @@ public class GameWindowController implements Observer{
 						updateBoardUI(model.getBoard());
 						sendBoardMessage();
 						view.update();
-					}
-					else
-					{
-						view.unlockBoard();
+						start = null;
+						end = null;
+						return;
 					}
 				}
-				else
-				{
-					view.unlockBoard();
-				}
+				view.unlockBoard();
 				start = null;
 				end = null;
 			}
