@@ -8,11 +8,16 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
 
+import com.google.gson.Gson;
+
+import core.client.Message;
+
 public class ServerClient implements Runnable {
 
 	private Socket socket;
 	private PrintWriter out = null;
 	private BufferedReader in;
+	private GameServer game;
 	
 	public ServerClient(Socket clientSocket) throws IOException {
 		this.socket = clientSocket;
@@ -41,14 +46,27 @@ public class ServerClient implements Runnable {
 		this.out.flush();
 	}
 	
+	public void send(Message msg)
+	{
+		Gson gson = new Gson();
+		this.send(gson.toJson(msg));
+	}
+	
 	public void connect(ServerClient opponent) throws IOException
 	{
 		this.out = new PrintWriter(opponent.getOutputStream());
 	}
 
-	public void disconnect() throws IOException 
+	public void disconnect()
 	{
-		this.socket.close();
+		Message msg = new Message();
+		msg.setDisconnected(true);
+		this.send(msg);
+		try {
+			this.socket.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -57,10 +75,16 @@ public class ServerClient implements Runnable {
 		try {
 			communicate();
 		} catch (IOException e) {
-			e.printStackTrace();
+			this.game.disconnection();
+			this.disconnect();
 		}
 	}
 
+	public void setGame(GameServer game)
+	{
+		this.game = game;
+	}
+	
 	private void communicate() throws IOException 
 	{
 		String inputLine;

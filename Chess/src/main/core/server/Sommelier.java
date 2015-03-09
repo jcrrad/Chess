@@ -27,7 +27,7 @@ public class Sommelier implements Runnable {
 				pair = this.pool.getPair();
 				game = new GameServer(pair);
 				games.add(game);
-				//new Thread(game).start();
+				checkGamesStatus();
 			}
 			else
 			{
@@ -35,6 +35,17 @@ public class Sommelier implements Runnable {
 			}
 		}
 	}
+	private void checkGamesStatus() 
+	{
+		for(GameServer g : this.games)
+		{
+			if(g.getState() == STATE.GAMEOVER)
+			{
+				this.games.remove(g);
+			}
+		}
+	}
+
 	private synchronized void waitForWork()
 	{
 		// Putting this check here makes sure that a client can't register

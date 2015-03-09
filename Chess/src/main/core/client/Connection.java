@@ -36,6 +36,7 @@ public class Connection {
 			Message message = gson.fromJson(in.readLine(), Message.class);
 			return message;
 		} catch (IOException e) {
+			System.out.println("Client: Lost connection to server");
 			e.printStackTrace();
 		}
 		return null;

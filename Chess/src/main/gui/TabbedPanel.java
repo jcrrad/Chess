@@ -9,7 +9,7 @@ import javax.swing.JTabbedPane;
 public class TabbedPanel extends JPanel {
 	private final JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 	ChatPanel chatSection;
-	RecordPanel recordSection = new RecordPanel();
+	//RecordPanel recordSection = new RecordPanel();
 	/**
 	 * 
 	 */
@@ -20,7 +20,7 @@ public class TabbedPanel extends JPanel {
 
 		this.add(tabbedPane);
 		tabbedPane.add("Chat", chatSection = new ChatPanel());
-		tabbedPane.add("Record", recordSection);
+		//tabbedPane.add("Record", recordSection);
 		this.setMaximumSize(new Dimension(25, 1000));
 	}
 

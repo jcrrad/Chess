@@ -34,6 +34,7 @@ public class ConnectionController implements Observer{
 	{
 		if(model.getState() == STATE.CONNECTING)
 		{
+			view.setStatus("Trying to connect to server.");
 			view.update();
 			try {
 				createConnection();
@@ -57,7 +58,19 @@ public class ConnectionController implements Observer{
 	
 	public void processInput(Message message)
 	{
-		if(model.getState() == STATE.CONNECTING && message.isClientsTurn())
+		if(message.isDisconnected())
+		{
+			view.setStatus("The Opponent disconnected");
+			view.update();
+			//Post a button
+			try {
+				Thread.sleep(5000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			model.setState(STATE.LOGIN);
+		}
+		else if(model.getState() == STATE.CONNECTING && message.isClientsTurn())
 		{
 			model.setStartingPlayer(true);
 			model.setState(STATE.INGAME);
