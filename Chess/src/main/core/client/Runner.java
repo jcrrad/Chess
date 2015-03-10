@@ -20,20 +20,19 @@ public class Runner {
 			UnsupportedLookAndFeelException {
 		String hostname = "localhost";
 		int port = 8000;
-		
-		if(args.length > 1)
-		{
+
+		if (args.length > 1) {
 			args = args[0].split(":");
-			if(args.length != 2)
-			{
-				System.out.println("Please enter the location of server. ex: localhost:8000");
+			if (args.length != 2) {
+				System.out
+						.println("Please enter the location of server. ex: localhost:8000");
 				return;
 			}
-				hostname = args[0];
-				port = Integer.parseInt(args[1]);
+			hostname = args[0];
+			port = Integer.parseInt(args[1]);
 		}
-		
-		Model model = new Model(hostname,port);
+
+		Model model = new Model(hostname, port);
 		ChessFrame chessFrame = new ChessFrame();
 
 		LoginView loginView = new LoginView(chessFrame);
@@ -45,8 +44,8 @@ public class Runner {
 		new AboutController(model, aboutView);
 		new GameWindowController(model, gameView);
 		new ConnectionController(model, loadingView);
-		
+
 		model.setState(STATE.LOGIN);
-		
+
 	}
 }
