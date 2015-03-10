@@ -1,8 +1,8 @@
 package controller;
 
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static org.mockito.Mockito.never;
 import gui.AboutView;
 
 import javax.swing.JButton;
@@ -13,6 +13,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import controller.AboutController.GoBackButtonListener;
 import core.client.Model;
 import core.client.Model.STATE;
 import core.client.ProductInfo;
@@ -51,5 +52,13 @@ public class AboutControllerTest
 		controller.update();
 		
 		verify(view, never()).update();
+	}
+	
+	@Test
+	public void testGoBackListener()
+	{
+		GoBackButtonListener l = controller.new GoBackButtonListener();
+		l.actionPerformed(null);
+		verify(model).setState(STATE.LOGIN);
 	}
 }

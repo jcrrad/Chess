@@ -82,16 +82,6 @@ public class GameWindowController implements Observer{
 		}
 	}
 	
-	public void updateStalemate(Object message)
-	{
-		view.lockBoard();
-		//Lock the board and offer a stalemate on the gui
-		// lock board
-		// 
-		view.update();
-		view.unlockBoard();
-	}
-	
 	public void updateBoard(Object message)
 	{
 		Message mes = (Message) message;
@@ -142,21 +132,6 @@ public class GameWindowController implements Observer{
 				message.setUsername(model.getUsername());
 				connection.send(message);
 				view.updateChat(timeString+" You: " + message.getChatText());
-			}
-		}
-	}
-	
-	class ButtonPanelStalemateListener implements ActionListener
-	{
-		@Override
-		public void actionPerformed(ActionEvent e) 
-		{
-			Connection connection = model.getConnection();
-			if(connection != null)
-			{
-				Message message = new Message();
-				message.setStalemate(true);
-				connection.send(message);
 			}
 		}
 	}
