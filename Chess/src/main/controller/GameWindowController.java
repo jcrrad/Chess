@@ -118,6 +118,7 @@ public class GameWindowController implements Observer {
 		public void actionPerformed(ActionEvent e) {
 			Connection connection = model.getConnection();
 			if (connection != null) {
+				time = new Date();
 				Message message = new Message();
 				String timeString = new SimpleDateFormat("HH:mm:ss")
 						.format(time);
@@ -126,18 +127,6 @@ public class GameWindowController implements Observer {
 				connection.send(message);
 
 				view.updateChat(timeString + " You: " + message.getChatText());
-			}
-		}
-	}
-
-	class ButtonPanelStalemateListener implements ActionListener {
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			Connection connection = model.getConnection();
-			if (connection != null) {
-				Message message = new Message();
-				message.setStalemate(true);
-				connection.send(message);
 			}
 		}
 	}

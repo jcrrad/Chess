@@ -20,6 +20,8 @@ import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import controller.GameWindowController.ButtonPanelQuitListener;
+import controller.GameWindowController.ChatPanelSubmitListener;
+import core.client.Connection;
 import core.client.Message;
 import core.client.Model;
 import core.client.Model.STATE;
@@ -37,6 +39,7 @@ public class GameWindowControllerTest
 	@Mock private Model model;
 	@Mock private GameView view;
 	@Mock private Message msg;
+	@Mock private Connection conn;
 	@InjectMocks private GameWindowController controller;
 	
 	
@@ -181,4 +184,21 @@ public class GameWindowControllerTest
 		verify(model).setState(STATE.QUIT);
 		verify(view).quit();
 	}
+	
+	@Test
+	public void testChatPanelSubmit()
+	{
+		String chatMsg = "this is chat";
+		when(view.getChatPanelInputField()).thenReturn(chatMsg);
+		when(model.getConnection()).thenReturn(conn);
+		
+		ChatPanelSubmitListener l = controller.new ChatPanelSubmitListener();
+		l.actionPerformed(null);
+		
+		verify(view).updateChat(captor.capture());
+		String chatSent = captor.getValue().toString().toLowerCase();
+		assertTrue(chatSent.contains(chatMsg));
+	}
+	
+	
 }
