@@ -67,8 +67,7 @@ public class GameWindowController implements Observer {
 
 		if (mes.isWinner()) {
 			view.lockBoard();
-			JOptionPane.showInputDialog(view, "You have Won.", "GameOver",
-					JOptionPane.INFORMATION_MESSAGE);
+			gameOver(true);// winner
 			return;
 		} else if (mes.hasBoardUpdate()) {
 			updateBoard(message);
@@ -76,22 +75,30 @@ public class GameWindowController implements Observer {
 			updateChat(message);
 		}
 		if (model.isInCheckmate(model.getColor())) {
-			view.lockBoard();
-			gameOver();
-			JOptionPane.showMessageDialog(view, "You have Lost.", "GameOver",
-					JOptionPane.INFORMATION_MESSAGE);
+			gameOver(false);// loser
 			return;
 		}
 	}
 
-	private void gameOver() {
+	private void gameOver(boolean isWinner) {
 		Connection connection = model.getConnection();
 		if (connection != null) {
 			Message message = new Message();
-			// opponent is winner
+			if (isWinner)
+				JOptionPane.showMessageDialog(view, "You have won.",
+						"GameOver", JOptionPane.INFORMATION_MESSAGE);
+			else
+				JOptionPane.showMessageDialog(view, "You have Lost.",
+						"GameOver", JOptionPane.INFORMATION_MESSAGE);
+
 			message.setWinner(true);
 			connection.send(message);
 		}
+		view.clearChat();
+		model.clearBoard();
+		model.getConnection().disconnect();
+		model.setState(STATE.LOGIN);
+
 	}
 
 	public void updateBoard(Object message) {
@@ -186,7 +193,7 @@ public class GameWindowController implements Observer {
 				return;
 			} else if (model.isInCheckmate(model.getColor())) {
 				view.lockBoard();
-				gameOver();
+				gameOver(false);
 				return;
 			}
 			view.unlockBoard();
