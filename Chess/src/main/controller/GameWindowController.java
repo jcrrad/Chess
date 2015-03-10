@@ -151,8 +151,8 @@ public class GameWindowController implements Observer {
 	}
 
 	class BoardPieceListener implements ActionListener {
-		private boolean attempt;
-		private Coordinate start;
+		protected boolean attempt;
+		protected Coordinate start;
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -174,16 +174,16 @@ public class GameWindowController implements Observer {
 			}
 		}
 
-		private boolean isBlankOrOpponentPiece(Square s) {
+		protected boolean isBlankOrOpponentPiece(Square s) {
 			return (s.getText().equals("") || !model.getColor().equals(
 					s.getColor()));
 		}
 
-		private void recordPickUp(Coordinate location) {
+		protected void recordPickUp(Coordinate location) {
 			start = location;
 		}
 
-		private void processMove(Coordinate start, Coordinate end) {
+		protected void processMove(Coordinate start, Coordinate end) {
 			view.lockBoard();
 			attempt = model.tryPlayerMove(start, end);
 			if (attempt) {
@@ -199,7 +199,7 @@ public class GameWindowController implements Observer {
 			return;
 		}
 
-		private void sendBoardMessage() {
+		protected void sendBoardMessage() {
 			Connection connection = model.getConnection();
 			if (connection != null) {
 				Message message = new Message();

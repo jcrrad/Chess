@@ -10,6 +10,8 @@ import gui.GameView;
 
 import java.awt.Color;
 
+import javax.swing.JOptionPane;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
@@ -19,6 +21,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import controller.GameWindowController.BoardPieceListener;
 import controller.GameWindowController.ButtonPanelQuitListener;
 import controller.GameWindowController.ChatPanelSubmitListener;
 import core.client.Connection;
@@ -40,6 +43,7 @@ public class GameWindowControllerTest
 	@Mock private GameView view;
 	@Mock private Message msg;
 	@Mock private Connection conn;
+	@Mock private JOptionPane pane;
 	@InjectMocks private GameWindowController controller;
 	
 	
@@ -120,17 +124,6 @@ public class GameWindowControllerTest
 	}
 	
 	@Test
-	public void testUpdateMessage_isWinner()
-	{
-		Message msg = new Message();
-		msg.setWinner(true);
-		
-		controller.update(msg);
-		
-		//TODO: Need to fix test when pop up is added
-	}
-	
-	@Test
 	public void testUpdateMessage_updateBoard()
 	{
 		Message msg = new Message();
@@ -200,5 +193,19 @@ public class GameWindowControllerTest
 		assertTrue(chatSent.contains(chatMsg));
 	}
 	
+	@Test
+	public void testSendBoardMessage()
+	{
+		BoardPieceListener l = controller.new BoardPieceListener();
+		when(board.toString()).thenReturn(emptyBoard);
+		when(model.getConnection()).thenReturn(conn);
+		when(model.getBoard()).thenReturn(board);
+		Mockito.doNothing().when(conn).send(any(Message.class));
+		
+		l.sendBoardMessage();
+		
+		verify(model).getBoard();
+		verify(conn).send(any(Message.class));
+	}
 	
 }
