@@ -12,11 +12,15 @@ public class Server {
 
 	public static void main(String[] args) throws IOException {
 		final int MAXTHREADS = 4;
-		final int PORT = 8000;
+		int port = 8000;
 
+		if (args.length == 1) {
+			port = Integer.parseInt(args[0]);
+		}
+		
 		Sommelier pairingAgent = new Sommelier(new RandomPool(30));
 		Executor executor = Executors.newFixedThreadPool(MAXTHREADS);
-		ServerSocket listener = new ServerSocket(PORT);
+		ServerSocket listener = new ServerSocket(port);
 
 		new Thread(pairingAgent).start();
 
