@@ -49,6 +49,14 @@ public class ConnectionController implements Observer{
 			handler = new InputHandler(serverConnection, this);
 			new Thread(handler).start();
 		}
+		else if(model.getState() == STATE.QUIT)
+		{
+			Message m = new Message();
+			m.setDisconnected(true);
+			
+			this.serverConnection.send(m);
+			this.serverConnection.disconnect();
+		}
 	}
 	
 	private void createConnection() throws UnknownHostException, IOException

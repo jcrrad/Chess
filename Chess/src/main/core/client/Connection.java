@@ -36,8 +36,9 @@ public class Connection {
 			Message message = gson.fromJson(in.readLine(), Message.class);
 			return message;
 		} catch (IOException e) {
-			System.out.println("Client: Lost connection to server");
-			e.printStackTrace();
+			//eating an exception!
+			//System.out.println("Client: Lost connection to server");
+			//e.printStackTrace();
 		}
 		return null;
 	}
@@ -45,8 +46,8 @@ public class Connection {
 	public void disconnect()
 	{
 		try {
-			this.socket.getInputStream().close();
-			this.socket.getOutputStream().close();
+			//this.socket.getInputStream().close();
+			//this.socket.getOutputStream().close();
 			this.socket.close();
 		} catch (IOException e) {
 			e.printStackTrace();

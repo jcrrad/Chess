@@ -99,7 +99,6 @@ public class GameWindowController implements Observer {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			model.setState(STATE.QUIT);
-			// TODO: Add forfeit message to send
 			view.quit();
 		}
 	}
