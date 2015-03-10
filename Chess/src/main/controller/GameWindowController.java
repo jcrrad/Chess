@@ -82,17 +82,16 @@ public class GameWindowController implements Observer {
 
 	private void gameOver(boolean isWinner) {
 		Connection connection = model.getConnection();
+		Message message = new Message();
+		message.setWinner(true);
+		connection.send(message);
 		if (connection != null) {
-			Message message = new Message();
 			if (isWinner)
 				JOptionPane.showMessageDialog(view, "You have won.",
 						"GameOver", JOptionPane.INFORMATION_MESSAGE);
 			else
 				JOptionPane.showMessageDialog(view, "You have Lost.",
 						"GameOver", JOptionPane.INFORMATION_MESSAGE);
-
-			message.setWinner(true);
-			connection.send(message);
 		}
 		view.clearChat();
 		model.clearBoard();
