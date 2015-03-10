@@ -30,12 +30,12 @@ public class GameServer{
 		
 		message.setUsername("Server");
 		message.setClientsTurn(true);
-		message.setChatText("Welcome to the game, enjoy. You First.");
+		message.setChatText("Welcome to the game, enjoy. You are first player, and your current piece color is black.");
 		 
 		client1.send(message);
 		
 		message.setClientsTurn(false);
-		message.setChatText("Welcome to the game, enjoy.");
+		message.setChatText("Welcome to the game, enjoy. Your piece color is white.");
 		client2.send(message);
 	}
 
