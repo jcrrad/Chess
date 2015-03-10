@@ -58,8 +58,6 @@ public class BlackCheck {
 		board.movePiece(loc, loc2);
 		// king can kill queen
 
-		System.out.println(board.toString());
-
 		assertTrue(board.isInCheck(Color.BLACK));
 		assertFalse(board.isInCheck(Color.WHITE));
 		assertFalse(board.isInCheckmate(Color.BLACK));
@@ -81,6 +79,8 @@ public class BlackCheck {
 		Coordinate newer = new Coordinate(3, 5);
 		// pawn can kill queen
 		board.movePiece(old, newer);
+		
+		
 		assertTrue(board.isInCheck(Color.BLACK));
 		assertFalse(board.isInCheck(Color.WHITE));
 		assertFalse(board.isInCheckmate(Color.BLACK));

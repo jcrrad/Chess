@@ -197,7 +197,7 @@ public class Board {
 		Board tmpBoard;
 		ArrayList<Piece> friendlyPieces = new ArrayList<Piece>();
 		ArrayList<Piece> opponentPieces = new ArrayList<Piece>();
-		Piece king = null, tmpPiece, friend, opponent;
+		Piece king = null, tmpPiece;
 		Coordinate friendLocation, opponentLocation = new Coordinate(0, 0);
 		int x, y, z;
 
@@ -227,59 +227,35 @@ public class Board {
 			if (!((0 <= opponentLocation.getX())
 					&& (opponentLocation.getX() <= 7)
 					&& (0 <= opponentLocation.getY()) && (opponentLocation
-					.getY() <= 7))) {
-				// Move out of bounds
+					.getY() <= 7)))
 				continue;
-			}
-			if (king.moveable(opponentLocation)) {
-				tmpBoard = this.copy();
-				tmpPiece = tmpBoard.getPiece(friendLocation);
-				tmpBoard.setPiece(tmpPiece, opponentLocation);
-				tmpBoard.removePiece(friendLocation);
-				if (!tmpBoard.isInCheck(king.getColor())) {
-					return false;
-				}
-			}
+			tmpBoard = this.copy();
+			if (tmpBoard.movePiece(friendLocation, opponentLocation))
+				return false;
 		}
 
 		// Can anyone kill the Assassin
 
 		for (x = 0; x < friendlyPieces.size(); x++) {
-			friend = friendlyPieces.get(x);
-			friendLocation = friend.getLocation();
+			friendLocation = friendlyPieces.get(x).getLocation();
 			for (y = 0; y < opponentPieces.size(); y++) {
-				opponent = opponentPieces.get(y);
-				opponentLocation = opponent.getLocation();
-				if (friend.moveable(opponent.getLocation())) {
-					tmpBoard = this.copy();
-					tmpPiece = tmpBoard.getPiece(friendLocation);
-					tmpBoard.setPiece(tmpPiece, opponentLocation);
-					tmpBoard.removePiece(friendLocation);
-					if (!tmpBoard.isInCheck(friend.getColor())) {
-						return false;
-					}
-
-				}
+				opponentLocation = opponentPieces.get(y).getLocation();
+				tmpBoard = this.copy();
+				if(tmpBoard.movePiece(friendLocation, opponentLocation))
+					return false;
 			}
 		}
 
 		// Can anyone intercept the Assassin
 		for (z = 0; z < friendlyPieces.size(); z++) {
-			friend = friendlyPieces.get(z);
-			friendLocation = friend.getLocation();
+			friendLocation = friendlyPieces.get(z).getLocation();
 			for (y = 0; y < 8; y++) {
 				for (x = 0; x < 8; x++) {
 					opponentLocation = new Coordinate(x, y);
-					if (this.getPiece(opponentLocation) == null) {
-						if (friend.moveable(opponentLocation)) {
-							tmpBoard = this.copy();
-							tmpPiece = tmpBoard.getPiece(friendLocation);
-							tmpBoard.setPiece(tmpPiece, opponentLocation);
-							tmpBoard.removePiece(friendLocation);
-							if (!tmpBoard.isInCheck(friend.getColor())) {
-								return false;
-							}
-						}
+					if (this.getPiece(opponentLocation).getName().equals("")) {
+						tmpBoard = this.copy();
+						if (tmpBoard.movePiece(friendLocation, opponentLocation))
+							return false;
 					}
 				}
 			}
