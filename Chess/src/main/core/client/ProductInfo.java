@@ -6,24 +6,22 @@ public class ProductInfo {
 	private String copywrite = "NO COPYWRITE";
 	private String description = " A description";
 	private String title = "Chess Online!";
-	private String releaseDate = "Now";
+	private String releaseDate = "3/10/2014";
 	private String version = "Version 1.0a";
-	
-	public ProductInfo(String fileName)
-	{
-		//open file and pass object to extract
+
+	public ProductInfo(String fileName) {
+		// open file and pass object to extract
 		extractInfo();
 	}
 
-	private void extractInfo() 
-	{
+	private void extractInfo() {
 
 	}
 
 	public String getAuthors() {
 		return authors;
 	}
-	
+
 	public String getCopywrite() {
 		return copywrite;
 	}
@@ -39,7 +37,7 @@ public class ProductInfo {
 	public String getReleaseDate() {
 		return releaseDate;
 	}
-	
+
 	public String getVersion() {
 		return version;
 	}
