@@ -21,9 +21,6 @@ public class WhiteCheck {
 	public void testCheckFalse() {
 
 		Board board = new Board();
-
-		
-		
 		assertFalse(board.isInCheck(Color.BLACK));
 		assertFalse(board.isInCheck(Color.WHITE));
 	}
@@ -31,14 +28,18 @@ public class WhiteCheck {
 	@Test
 	public void testCheckWhiteIntercept() {
 		Board board = new Board();
+		Coordinate coord1, coord2;
 
-		// move pawn
-		Coordinate old = new Coordinate(4, 1);
-		board.removePiece(old);
+		// Remove pawns
+		coord1 = new Coordinate(3,1);
+		board.removePiece(coord1);
+		coord1 = new Coordinate(3,6);
+		board.removePiece(coord1);
 		
-		// move pawn
-		old = new Coordinate(4, 6);
-		board.removePiece(old);
+		// Move Black Queen
+		coord1 = new Coordinate(4,7);
+		coord2 = new Coordinate(3,6);
+		board.movePiece(coord1, coord2);
 		
 		assertFalse(board.isInCheck(Color.BLACK));
 		assertTrue(board.isInCheck(Color.WHITE));
@@ -49,20 +50,22 @@ public class WhiteCheck {
 	@Test
 	public void testCheckWhiteKingMoves() {
 		Board board = new Board();
+		Coordinate coord1, coord2;
+		
+		// Remove pawns
+		coord1 = new Coordinate(3,1);
+		board.removePiece(coord1);
+		coord1 = new Coordinate(3,6);
+		board.removePiece(coord1);
+		
+		// Remove White Queen
+		coord1 = new Coordinate(4,0);
+		board.removePiece(coord1);
 
-		// move pawn
-		Coordinate old = new Coordinate(4, 1);
-		board.removePiece(old);
-
-		// move pawn
-		old = new Coordinate(4, 6);
-		board.removePiece(old);
-
-		// move queen into place to kill
-		old = new Coordinate(4, 7);
-		Coordinate newer = new Coordinate(4, 1);
-		// king kill queen
-		board.movePiece(old, newer);
+		// Move Black Queen
+		coord1 = new Coordinate(4,7);
+		coord2 = new Coordinate(3,6);
+		board.movePiece(coord1, coord2);
 
 		assertFalse(board.isInCheck(Color.BLACK));
 		assertTrue(board.isInCheck(Color.WHITE));
@@ -73,20 +76,20 @@ public class WhiteCheck {
 	@Test
 	public void testCheckWhiteKillAssassin() {
 		Board board = new Board();
+		Coordinate coord1, coord2;
 
-		// move pawn
-		Coordinate old = new Coordinate(4, 1);
-		board.removePiece(old);
-
-		// move pawn
-		old = new Coordinate(4, 6);
-		board.removePiece(old);
+		// Remove pawns
+		coord1 = new Coordinate(3,1);
+		board.removePiece(coord1);
+		coord1 = new Coordinate(3,6);
+		board.removePiece(coord1);
 		
-		// move queen into place to kill
-		old = new Coordinate(4, 7);
-		Coordinate newer = new Coordinate(4, 2);
-		// pawn kill queen
-		board.movePiece(old, newer);
+		// Move Black Queen
+		coord1 = new Coordinate(4,7);
+		coord2 = new Coordinate(3,6);
+		board.movePiece(coord1, coord2);
+		coord1 = new Coordinate(3,2);
+		board.movePiece(coord2, coord1);
 
 		assertFalse(board.isInCheck(Color.BLACK));
 		assertTrue(board.isInCheck(Color.WHITE));
