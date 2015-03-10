@@ -124,6 +124,7 @@ public class GameWindowController implements Observer {
 				message.setChatText(view.getChatPanelInputField());
 				message.setUsername(model.getUsername());
 				connection.send(message);
+
 				view.updateChat(timeString + " You: " + message.getChatText());
 			}
 		}

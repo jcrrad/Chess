@@ -121,4 +121,5 @@ public class GameView extends View {
 	public void clearChat() {
 		this.chat.conversationField.setText("");
 	}
+
 }
