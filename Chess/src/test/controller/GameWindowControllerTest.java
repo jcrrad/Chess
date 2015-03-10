@@ -1,14 +1,19 @@
 package controller;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import gui.GameView;
+import gui.Square;
 
 import java.awt.Color;
+import java.awt.event.ActionEvent;
 
 import javax.swing.JOptionPane;
 
@@ -25,6 +30,7 @@ import controller.GameWindowController.BoardPieceListener;
 import controller.GameWindowController.ButtonPanelQuitListener;
 import controller.GameWindowController.ChatPanelSubmitListener;
 import core.client.Connection;
+import core.client.Coordinate;
 import core.client.Message;
 import core.client.Model;
 import core.client.Model.STATE;
@@ -44,6 +50,8 @@ public class GameWindowControllerTest
 	@Mock private Message msg;
 	@Mock private Connection conn;
 	@Mock private JOptionPane pane;
+	@Mock private Square s;
+	@Mock private ActionEvent e;
 	@InjectMocks private GameWindowController controller;
 	
 	
@@ -207,5 +215,156 @@ public class GameWindowControllerTest
 		verify(model).getBoard();
 		verify(conn).send(any(Message.class));
 	}
+	
+	@Test
+	public void testIsBlankOrOppPiece_diffColors()
+	{
+		BoardPieceListener l = controller.new BoardPieceListener();
+		when(s.getText()).thenReturn("K");
+		when(s.getColor()).thenReturn(Color.BLACK);
+		when(model.getColor()).thenReturn(Color.WHITE);
+		
+		assertTrue(l.isBlankOrOpponentPiece(s));
+	}
+	
+	@Test
+	public void testIsBlankOrOppPiece_blankSquare()
+	{
+		BoardPieceListener l = controller.new BoardPieceListener();
+		when(s.getText()).thenReturn("");
+		
+		assertTrue(l.isBlankOrOpponentPiece(s));
+	}
+	
+	@Test
+	public void testIsBlankOrOppPiece_sameColor()
+	{
+		BoardPieceListener l = controller.new BoardPieceListener();
+		when(s.getText()).thenReturn("K");
+		when(s.getColor()).thenReturn(Color.BLACK);
+		when(model.getColor()).thenReturn(Color.BLACK);
+		
+		assertFalse(l.isBlankOrOpponentPiece(s));
+	}
+	
+	@Test
+	public void testRecordPickup()
+	{
+		BoardPieceListener l = controller.new BoardPieceListener();
+		Coordinate c = new Coordinate();
+		c.setX(1);
+		c.setY(1);
+		l.recordPickUp(c);
+		
+		Coordinate start = l.start;
+		assertEquals(start, c);
+	}
+	
+	@Test
+	public void testProcessMove_validMove()
+	{
+		BoardPieceListener l = controller.new BoardPieceListener();
+		Board b = new Board(emptyBoard);
+		Coordinate c1, c2;
+		c1 = new Coordinate();
+		c2 = new Coordinate();
+		
+		when(model.tryPlayerMove(c1, c2)).thenReturn(true);
+		when(model.getBoard()).thenReturn(b);
+		when(model.getConnection()).thenReturn(null);
+		Mockito.doNothing().when(view).setPiece(any(String.class), any(Integer.class),
+				any(Integer.class), any(Color.class));
+		
+		l.processMove(c1, c2);
+		
+		verify(view, times(64)).setPiece(any(String.class), any(Integer.class),
+				any(Integer.class), any(Color.class));
+		verify(view).lockBoard();
+		
+	}
+	
+	@Test
+	public void testProcessMove_oppMove()
+	{
+		BoardPieceListener l = controller.new BoardPieceListener();
+		Coordinate c1, c2;
+		c1 = new Coordinate();
+		c2 = new Coordinate();
+		
+		when(model.tryPlayerMove(c1, c2)).thenReturn(false);
+		when(model.getColor()).thenReturn(Color.BLACK);
+		when(model.isInCheckmate(Color.BLACK)).thenReturn(false);
+		
+		l.processMove(c1, c2);
+		
+		verify(view).lockBoard();
+		verify(view).unlockBoard();
+		verify(model).tryPlayerMove(c1, c2);
+	}
+	
+	@Test
+	public void testActionPerformed_blankAndNoStart()
+	{
+		BoardPieceListener l = controller.new BoardPieceListener();
+		when(e.getSource()).thenReturn(s);
+		when(s.getText()).thenReturn("");
+		l.start = null;
+		
+		l.actionPerformed(e);
+		
+		verify(view, never()).update();
+		verify(model, never()).getColor();
+	}
+	
+	@Test
+	public void testActionPerformed_recordPickUp()
+	{
+		BoardPieceListener l = controller.new BoardPieceListener();
+		when(e.getSource()).thenReturn(s);
+		
+		when(s.getText()).thenReturn("K");
+		when(s.getColumn()).thenReturn(1);
+		when(s.getRow()).thenReturn(1);
+		when(s.getColor()).thenReturn(Color.BLACK);
+		
+		when(model.getColor()).thenReturn(Color.BLACK);
+		
+		l.actionPerformed(e);
+		
+		assertEquals(1, l.start.getX());
+		assertEquals(1, l.start.getY());
+	}
+	
+	@Test
+	public void testActionPerformed_processMove()
+	{
+		Board b = new Board(emptyBoard);
+		BoardPieceListener l = controller.new BoardPieceListener();
+		when(e.getSource()).thenReturn(s);
+		
+		when(s.getText()).thenReturn("K");
+		when(s.getColumn()).thenReturn(1);
+		when(s.getRow()).thenReturn(1);
+		when(s.getColor()).thenReturn(Color.BLACK);
+		
+		Coordinate c = new Coordinate();
+		c.setX(0);
+		c.setY(0);
+		l.start = c;
+		
+		when(model.tryPlayerMove(any(Coordinate.class), any(Coordinate.class))).thenReturn(true);
+		when(model.getConnection()).thenReturn(null);
+		when(model.getBoard()).thenReturn(b);
+		when(model.getColor()).thenReturn(Color.BLACK);
+		
+		l.actionPerformed(e);
+		
+		verify(view).update();
+		verify(view).lockBoard();
+		
+	}
+	
+	
+	
 	
 }
