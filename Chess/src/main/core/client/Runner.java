@@ -21,7 +21,7 @@ public class Runner {
 		String hostname = "localhost";
 		int port = 8000;
 
-		if (args.length > 1) {
+		if (args.length == 1) {
 			args = args[0].split(":");
 			if (args.length != 2) {
 				System.out

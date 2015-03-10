@@ -35,7 +35,6 @@ public class PieceTest {
 		coord.setX(3);
 		coord.setY(3);
 		Queen queen = new Queen(null, Color.BLACK, coord);
-		Coordinate moveTo = new Coordinate();
 		assertEquals(queen.getLocation(), coord);
 	}
 

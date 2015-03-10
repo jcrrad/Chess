@@ -84,8 +84,8 @@ public class GameWindowController implements Observer {
 		Connection connection = model.getConnection();
 		Message message = new Message();
 		message.setWinner(true);
-		connection.send(message);
 		if (connection != null) {
+			connection.send(message);
 			if (isWinner)
 				JOptionPane.showMessageDialog(view, "You have won.",
 						"GameOver", JOptionPane.INFORMATION_MESSAGE);
