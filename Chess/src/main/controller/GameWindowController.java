@@ -8,6 +8,8 @@ import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javax.swing.JOptionPane;
+
 import core.client.Connection;
 import core.client.Coordinate;
 import core.client.Message;
@@ -61,12 +63,34 @@ public class GameWindowController implements Observer {
 	@Override
 	public void update(Object message) {
 		Message mes = (Message) message;
+		Connection connection = model.getConnection();
+
 		if (mes.isWinner()) {
-			// add pop up, you won
+			view.lockBoard();
+			JOptionPane.showInputDialog(view, "You have Won.", "GameOver",
+					JOptionPane.INFORMATION_MESSAGE);
+			return;
 		} else if (mes.hasBoardUpdate()) {
 			updateBoard(message);
 		} else if (mes.hasChat()) {
 			updateChat(message);
+		}
+		if (model.isInCheckmate(model.getColor())) {
+			view.lockBoard();
+			gameOver();
+			JOptionPane.showMessageDialog(view, "You have Lost.", "GameOver",
+					JOptionPane.INFORMATION_MESSAGE);
+			return;
+		}
+	}
+
+	private void gameOver() {
+		Connection connection = model.getConnection();
+		if (connection != null) {
+			Message message = new Message();
+			// opponent is winner
+			message.setWinner(true);
+			connection.send(message);
 		}
 	}
 
@@ -115,7 +139,6 @@ public class GameWindowController implements Observer {
 				message.setChatText(view.getChatPanelInputField());
 				message.setUsername(model.getUsername());
 				connection.send(message);
-
 				view.updateChat(timeString + " You: " + message.getChatText());
 			}
 		}
@@ -156,29 +179,18 @@ public class GameWindowController implements Observer {
 
 		private void processMove(Coordinate start, Coordinate end) {
 			view.lockBoard();
-
 			attempt = model.tryPlayerMove(start, end);
-			System.out.println(attempt);
 			if (attempt) {
 				updateBoardUI(model.getBoard());
 				sendBoardMessage();
 				return;
 			} else if (model.isInCheckmate(model.getColor())) {
+				view.lockBoard();
 				gameOver();
-				// add pop up you lost
+				return;
 			}
 			view.unlockBoard();
 			return;
-		}
-
-		private void gameOver() {
-			Connection connection = model.getConnection();
-			if (connection != null) {
-				Message message = new Message();
-				// opponent is winner
-				message.setWinner(true);
-				connection.send(message);
-			}
 		}
 
 		private void sendBoardMessage() {

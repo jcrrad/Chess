@@ -100,8 +100,8 @@ public class Board {
 		pieces[0][0] = new Rook(this, Color.WHITE, new Coordinate(0, 0));
 		pieces[1][0] = new Knight(this, Color.WHITE, new Coordinate(1, 0));
 		pieces[2][0] = new Bishop(this, Color.WHITE, new Coordinate(2, 0));
-		pieces[3][0] = new Queen(this, Color.WHITE, new Coordinate(3, 0));
-		pieces[4][0] = new King(this, Color.WHITE, new Coordinate(4, 0));
+		pieces[3][0] = new King(this, Color.WHITE, new Coordinate(3, 0));
+		pieces[4][0] = new Queen(this, Color.WHITE, new Coordinate(4, 0));
 		pieces[5][0] = new Bishop(this, Color.WHITE, new Coordinate(5, 0));
 		pieces[6][0] = new Knight(this, Color.WHITE, new Coordinate(6, 0));
 		pieces[7][0] = new Rook(this, Color.WHITE, new Coordinate(7, 0));
