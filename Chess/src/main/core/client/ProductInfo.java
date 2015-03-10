@@ -4,7 +4,7 @@ public class ProductInfo {
 
 	private String authors = "Mike Brisbin, Jeffrey Radaszkiewicz, Mathew Higgins, Steve Cantwell";
 	private String copywrite = "NO COPYWRITE";
-	private String description = " A description";
+	private String description = "A simple chess game that allows you to play a game of chess with another player over the internet";
 	private String title = "Chess Online!";
 	private String releaseDate = "3/10/2014";
 	private String version = "Version 1.0a";
