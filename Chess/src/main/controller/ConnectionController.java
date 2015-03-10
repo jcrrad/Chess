@@ -54,9 +54,11 @@ public class ConnectionController implements Observer{
 		{
 			Message m = new Message();
 			m.setDisconnected(true);
-			
-			this.serverConnection.send(m);
-			this.serverConnection.disconnect();
+			if(this.serverConnection != null)
+			{
+				this.serverConnection.send(m);
+				this.serverConnection.disconnect();
+			}
 		}
 	}
 	
