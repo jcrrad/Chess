@@ -3,6 +3,8 @@ package controller;
 import java.io.IOException;
 import java.net.UnknownHostException;
 
+import javax.swing.JOptionPane;
+
 import gui.LoadingView;
 import core.client.Message;
 import core.client.Model;
@@ -38,11 +40,10 @@ public class ConnectionController implements Observer{
 			view.update();
 			try {
 				createConnection();
-			} catch (UnknownHostException e) {
-				//Print that host is bad
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
+			} catch (Exception e) {
+				JOptionPane.showMessageDialog(view, "Server connection cannot be established. Check to make sure that the server is running and try again.",
+						"ServerUnavailable", JOptionPane.INFORMATION_MESSAGE);
+				model.setState(STATE.LOGIN);
 			}
 			
 			model.setConnection(serverConnection);

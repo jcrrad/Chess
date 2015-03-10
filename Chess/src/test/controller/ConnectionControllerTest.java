@@ -26,16 +26,16 @@ public class ConnectionControllerTest
 	@Mock private InputHandler handler;
 	@InjectMocks private ConnectionController controller;
 	
-	@Test
-	public void testUpdate()
-	{
-		when(model.getState()).thenReturn(STATE.CONNECTING);
-		
-		controller.update();
-		
-		verify(model).setConnection(any(Connection.class));
-		verify(view).update();
-	}
+	//@Test
+	//public void testUpdate()
+	//{
+	//	when(model.getState()).thenReturn(STATE.CONNECTING);
+	//	
+	//	controller.update();
+	//	
+	//	verify(model).setConnection(any(Connection.class));
+	//	verify(view).update();
+	//}
 	
 	@Test
 	public void testNotUpdate()
