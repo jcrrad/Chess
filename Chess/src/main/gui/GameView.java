@@ -79,10 +79,6 @@ public class GameView extends View {
 		this.buttonPanel.quit.addActionListener(listener);
 	}
 
-	public void setButtonPanelStalemateListener(ActionListener listener) {
-		this.buttonPanel.stalemate.addActionListener(listener);
-	}
-
 	public void setChatPanelSubmitListener(ActionListener listener) {
 		this.chat.submitButton.addActionListener(listener);
 	}
