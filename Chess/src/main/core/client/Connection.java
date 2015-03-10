@@ -41,4 +41,15 @@ public class Connection {
 		}
 		return null;
 	}
+	
+	public void disconnect()
+	{
+		try {
+			this.socket.getInputStream().close();
+			this.socket.getOutputStream().close();
+			this.socket.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 }
