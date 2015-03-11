@@ -83,7 +83,6 @@ public class LoginView extends View {
 
 			@Override
 			public void keyTyped(KeyEvent arg0) {
-				System.out.println(usernameText.getText().length());
 				if (usernameText.getText().length() > 20) {
 					usernameText.setText(usernameText.getText()
 							.substring(0, 20));
