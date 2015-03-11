@@ -4,6 +4,8 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -16,7 +18,7 @@ public class LoginView extends View {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	JTextField usernameText = new JTextField();
+	JTextField usernameText = new JTextField(20);
 	JLabel usernameLabel = new JLabel("What is your username?");
 	JLabel welcomeLabel = new JLabel("Welcome to Chess");
 	JButton connectButton = new JButton("Connect");
@@ -68,6 +70,26 @@ public class LoginView extends View {
 		gbc_input.fill = GridBagConstraints.HORIZONTAL;
 		gbc_input.gridx = 1;
 		gbc_input.gridy = 2;
+		usernameText.addKeyListener(new KeyListener() {
+			@Override
+			public void keyPressed(KeyEvent arg0) {
+				// TODO Auto-generated method stub
+			}
+
+			@Override
+			public void keyReleased(KeyEvent arg0) {
+				// TODO Auto-generated method stub
+			}
+
+			@Override
+			public void keyTyped(KeyEvent arg0) {
+				System.out.println(usernameText.getText().length());
+				if (usernameText.getText().length() > 20) {
+					usernameText.setText(usernameText.getText()
+							.substring(0, 20));
+				}
+			}
+		});
 		this.add(usernameText, gbc_input);
 	}
 
