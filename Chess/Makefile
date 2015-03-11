@@ -12,6 +12,9 @@ TEST_FILES=$(shell find $(TESTS) -name "*.java" -type f)
 tfiles=$(subst /,., $(subst $(TESTS)/,,$(basename $(shell find $(TESTS) -name "*.java" -type f))))
 
 
+show:
+	echo $(tfiles)
+
 install: client server
 
 client: main
