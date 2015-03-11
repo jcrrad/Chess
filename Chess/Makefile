@@ -22,8 +22,13 @@ server: main
 	@echo "Main-Class: core.server.Server\n" > $(BIN)/server_manifest.txt
 	@cd $(BIN); jar cfm ../Server.jar server_manifest.txt .* 
 
-test: main tests
+ut: main tests
 	@java -cp src/:src/jars/*:src/main/:src/test/ org.junit.runner.JUnitCore $(tfiles)
+
+clean: clean_app clean_ut
+
+
+#HELPERS BELOW THIS POINT
 
 main: clean_app
 	@mkdir $(BIN)
@@ -32,8 +37,6 @@ main: clean_app
 tests: clean_ut
 	@mkdir $(UT)
 	@javac -d $(UT) -classpath .:$(SRC):$(TESTS):$(JARS) $(TEST_FILES)
-
-clean: clean_app clean_ut
 
 clean_app:
 	@rm -rf $(BIN)
