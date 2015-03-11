@@ -14,4 +14,4 @@ clean:
 	@find . -name "*.class" -exec rm -f {} \;
 
 test:
-	java -cp src/:src/jars/*:src/main/:src/test/ org.junit.runner.JUnitCore $(tfiles)
+	@java -cp src/:src/jars/*:src/main/:src/test/ org.junit.runner.JUnitCore $(tfiles)
